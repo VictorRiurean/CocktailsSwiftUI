@@ -32,6 +32,10 @@
 		57CC60CE297EBBE100C0D12A /* IngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60CD297EBBE100C0D12A /* IngredientView.swift */; };
 		57CC60D0297EBC7000C0D12A /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60CF297EBC7000C0D12A /* Ingredient.swift */; };
 		57CC60D2297EBDBA00C0D12A /* IngredientsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60D1297EBDBA00C0D12A /* IngredientsViewModel.swift */; };
+		57CC60D4297EC70A00C0D12A /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60D3297EC70A00C0D12A /* Tip.swift */; };
+		57CC60D7297ED20000C0D12A /* AssistantCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60D6297ED20000C0D12A /* AssistantCellView.swift */; };
+		57CC60D9297ED48800C0D12A /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60D8297ED48800C0D12A /* TipsView.swift */; };
+		57CC60DB297ED4E700C0D12A /* TipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60DA297ED4E700C0D12A /* TipView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +65,10 @@
 		57CC60CD297EBBE100C0D12A /* IngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientView.swift; sourceTree = "<group>"; };
 		57CC60CF297EBC7000C0D12A /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		57CC60D1297EBDBA00C0D12A /* IngredientsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsViewModel.swift; sourceTree = "<group>"; };
+		57CC60D3297EC70A00C0D12A /* Tip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
+		57CC60D6297ED20000C0D12A /* AssistantCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantCellView.swift; sourceTree = "<group>"; };
+		57CC60D8297ED48800C0D12A /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
+		57CC60DA297ED4E700C0D12A /* TipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +125,7 @@
 				57CC60B82979548C00C0D12A /* Drink.swift */,
 				57CC60CB297EB8BD00C0D12A /* Glass.swift */,
 				57CC60CF297EBC7000C0D12A /* Ingredient.swift */,
+				57CC60D3297EC70A00C0D12A /* Tip.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -151,6 +160,7 @@
 				57CC609E297836C800C0D12A /* Discover */,
 				57CC60A1297836ED00C0D12A /* Glasses */,
 				57CC60A0297836DE00C0D12A /* Ingredients */,
+				57CC60D5297ED1A500C0D12A /* Tips */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -202,11 +212,13 @@
 		57CC60AF2978562000C0D12A /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				57CC60D6297ED20000C0D12A /* AssistantCellView.swift */,
 				57CC60C029799FA000C0D12A /* CategoryView.swift */,
 				57CC60BA2979564800C0D12A /* CocktailCellView.swift */,
 				57CC60B229785B1F00C0D12A /* CocktailType.swift */,
 				57CC60B02978566400C0D12A /* IconicCocktail.swift */,
 				57CC60CD297EBBE100C0D12A /* IngredientView.swift */,
+				57CC60DA297ED4E700C0D12A /* TipView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -240,6 +252,14 @@
 				57CC60C5297E8A2800C0D12A /* WebService.swift */,
 			);
 			path = WebService;
+			sourceTree = "<group>";
+		};
+		57CC60D5297ED1A500C0D12A /* Tips */ = {
+			isa = PBXGroup;
+			children = (
+				57CC60D8297ED48800C0D12A /* TipsView.swift */,
+			);
+			path = Tips;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,15 +339,19 @@
 				57CC60BF2979935A00C0D12A /* DiscoverViewModel.swift in Sources */,
 				57CC60C6297E8A2800C0D12A /* WebService.swift in Sources */,
 				57CC60AC2978376C00C0D12A /* IngredientsView.swift in Sources */,
+				57CC60D7297ED20000C0D12A /* AssistantCellView.swift in Sources */,
 				57CC60B92979548C00C0D12A /* Drink.swift in Sources */,
 				57CC60CC297EB8BD00C0D12A /* Glass.swift in Sources */,
+				57CC60D4297EC70A00C0D12A /* Tip.swift in Sources */,
 				57CC60B729794EC900C0D12A /* AppColors.swift in Sources */,
 				57CC60D0297EBC7000C0D12A /* Ingredient.swift in Sources */,
 				57CC60D2297EBDBA00C0D12A /* IngredientsViewModel.swift in Sources */,
 				57CC60CE297EBBE100C0D12A /* IngredientView.swift in Sources */,
 				57CC60C32979A02C00C0D12A /* Category.swift in Sources */,
 				57CC608C2978005600C0D12A /* CocktailsSwiftUIApp.swift in Sources */,
+				57CC60DB297ED4E700C0D12A /* TipView.swift in Sources */,
 				57CC60AE2978377C00C0D12A /* CocktailsView.swift in Sources */,
+				57CC60D9297ED48800C0D12A /* TipsView.swift in Sources */,
 				57CC60AA2978376200C0D12A /* GlassesView.swift in Sources */,
 				57CC60A62978374700C0D12A /* DiscoverView.swift in Sources */,
 				57CC60B12978566400C0D12A /* IconicCocktail.swift in Sources */,

@@ -27,6 +27,8 @@
 		57CC60C32979A02C00C0D12A /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60C22979A02C00C0D12A /* Category.swift */; };
 		57CC60C6297E8A2800C0D12A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60C5297E8A2800C0D12A /* WebService.swift */; };
 		57CC60C8297E8A3100C0D12A /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60C7297E8A3100C0D12A /* Endpoints.swift */; };
+		57CC60CA297EB87E00C0D12A /* GlassesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60C9297EB87E00C0D12A /* GlassesViewModel.swift */; };
+		57CC60CC297EB8BD00C0D12A /* Glass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60CB297EB8BD00C0D12A /* Glass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		57CC60C22979A02C00C0D12A /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		57CC60C5297E8A2800C0D12A /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		57CC60C7297E8A3100C0D12A /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		57CC60C9297EB87E00C0D12A /* GlassesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassesViewModel.swift; sourceTree = "<group>"; };
+		57CC60CB297EB8BD00C0D12A /* Glass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glass.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +107,9 @@
 		57CC6099297800B400C0D12A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				57CC60B82979548C00C0D12A /* Drink.swift */,
 				57CC60C22979A02C00C0D12A /* Category.swift */,
+				57CC60B82979548C00C0D12A /* Drink.swift */,
+				57CC60CB297EB8BD00C0D12A /* Glass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -173,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				57CC60A92978376200C0D12A /* GlassesView.swift */,
+				57CC60C9297EB87E00C0D12A /* GlassesViewModel.swift */,
 			);
 			path = Glasses;
 			sourceTree = "<group>";
@@ -297,6 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57CC60CA297EB87E00C0D12A /* GlassesViewModel.swift in Sources */,
 				57CC60B329785B1F00C0D12A /* CocktailType.swift in Sources */,
 				57CC60BD29796F4E00C0D12A /* CocktailsViewModel.swift in Sources */,
 				57CC608E2978005700C0D12A /* ContentView.swift in Sources */,
@@ -304,6 +311,7 @@
 				57CC60C6297E8A2800C0D12A /* WebService.swift in Sources */,
 				57CC60AC2978376C00C0D12A /* IngredientsView.swift in Sources */,
 				57CC60B92979548C00C0D12A /* Drink.swift in Sources */,
+				57CC60CC297EB8BD00C0D12A /* Glass.swift in Sources */,
 				57CC60B729794EC900C0D12A /* AppColors.swift in Sources */,
 				57CC60C32979A02C00C0D12A /* Category.swift in Sources */,
 				57CC608C2978005600C0D12A /* CocktailsSwiftUIApp.swift in Sources */,

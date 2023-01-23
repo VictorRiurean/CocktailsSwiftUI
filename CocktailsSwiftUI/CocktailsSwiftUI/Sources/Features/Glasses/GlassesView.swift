@@ -8,8 +8,27 @@
 import SwiftUI
 
 struct GlassesView: View {
+    
+    private let viewModel = GlassesViewModel()
+    
+    @State private var glasses: [Glass] = []
+    @State private var searchText = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            List {
+                ForEach(glasses) { glass in
+                    Text(glass.strGlass)
+                }
+            }
+            .navigationTitle("Glasses")
+        }
+        .onAppear {
+            Task {
+                glasses = await viewModel.fetchGlasses()
+            }
+        }
+        .searchable(text: $searchText)
     }
 }
 

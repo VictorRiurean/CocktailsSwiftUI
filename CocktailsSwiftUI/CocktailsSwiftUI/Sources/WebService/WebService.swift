@@ -16,6 +16,21 @@ class WebService {
     
     //MARK: Public functions
     
+    /// Generic request
+    /// - Parameter url: endpoint
+    /// - Returns: T where T is Decodable
+    /// I wrote this just for kicks, we won't be able to actually use it because of the weird way the data is nested in our JSON responses
+    func request<T: Decodable>(from url: URL) async -> [T] {
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let list = try JSONDecoder().decode([T].self, from: data)
+            
+            return list
+        } catch {
+            return []
+        }
+    }
+    
     func fetchCategories() async -> [Category] {
         do {
             let url = try BaseEndpoint.categories.asURL()
@@ -47,6 +62,18 @@ class WebService {
             let drinks = try JSONDecoder().decode(Drinks.self, from: data)
             
             return drinks.drinks
+        } catch {
+            return []
+        }
+    }
+    
+    func fetchGlasses() async -> [Glass] {
+        do {
+            let url = try BaseEndpoint.glasses.asURL()
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let glasses = try JSONDecoder().decode(Glasses.self, from: data)
+            
+            return glasses.drinks
         } catch {
             return []
         }

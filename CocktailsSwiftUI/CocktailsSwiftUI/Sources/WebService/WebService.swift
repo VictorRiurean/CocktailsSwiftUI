@@ -78,4 +78,16 @@ class WebService {
             return []
         }
     }
+    
+    func fetchIngredients() async -> [Ingredient] {
+        do {
+            let url = try BaseEndpoint.ingredients.asURL()
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let ingredients = try JSONDecoder().decode(Ingredients.self, from: data)
+            
+            return ingredients.drinks
+        } catch {
+            return []
+        }
+    }
 }

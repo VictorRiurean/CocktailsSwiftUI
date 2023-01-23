@@ -8,8 +8,33 @@
 import SwiftUI
 
 struct IngredientsView: View {
+    
+    private let viewModel = IngredientsViewModel()
+    
+    @State private var ingredients: [Ingredient] = []
+    @State private var searchText: String = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            List {
+                ForEach(ingredients) { ingredient in
+                    IngredientView(ingredient: ingredient)
+                }
+            }
+            .navigationTitle("Ingredients")
+        }
+        .onAppear {
+            Task {
+                ingredients = await viewModel.fetchIngredients()
+                ingredients.forEach {
+                    if $0.strIngredient1.contains("ejo rum") {
+                        // TODO:
+                        print("Debug this: \($0.urlString)")
+                    }
+                }
+            }
+        }
+        .searchable(text: $searchText)
     }
 }
 

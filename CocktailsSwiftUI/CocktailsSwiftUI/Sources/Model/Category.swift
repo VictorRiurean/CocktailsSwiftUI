@@ -15,3 +15,8 @@ struct Category: Codable, Identifiable {
 struct Categories: Codable {
     var drinks: [Category]
 }
+
+enum DrinkType: String {
+    case alcoholic = "Alcoholic"
+    case nonAlcoholic = "Non_Alcoholic"
+}

@@ -25,6 +25,8 @@
 		57CC60BF2979935A00C0D12A /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60BE2979935A00C0D12A /* DiscoverViewModel.swift */; };
 		57CC60C129799FA000C0D12A /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60C029799FA000C0D12A /* CategoryView.swift */; };
 		57CC60C32979A02C00C0D12A /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60C22979A02C00C0D12A /* Category.swift */; };
+		57CC60C6297E8A2800C0D12A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60C5297E8A2800C0D12A /* WebService.swift */; };
+		57CC60C8297E8A3100C0D12A /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60C7297E8A3100C0D12A /* Endpoints.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +49,8 @@
 		57CC60BE2979935A00C0D12A /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
 		57CC60C029799FA000C0D12A /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		57CC60C22979A02C00C0D12A /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		57CC60C5297E8A2800C0D12A /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		57CC60C7297E8A3100C0D12A /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +205,7 @@
 				57CC609A297800BD00C0D12A /* Managers */,
 				57CC6099297800B400C0D12A /* Model */,
 				57CC60B529794EAA00C0D12A /* Utilities */,
+				57CC60C4297E8A0E00C0D12A /* WebService */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -211,6 +216,15 @@
 				57CC60B629794EC900C0D12A /* AppColors.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		57CC60C4297E8A0E00C0D12A /* WebService */ = {
+			isa = PBXGroup;
+			children = (
+				57CC60C7297E8A3100C0D12A /* Endpoints.swift */,
+				57CC60C5297E8A2800C0D12A /* WebService.swift */,
+			);
+			path = WebService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,6 +301,7 @@
 				57CC60BD29796F4E00C0D12A /* CocktailsViewModel.swift in Sources */,
 				57CC608E2978005700C0D12A /* ContentView.swift in Sources */,
 				57CC60BF2979935A00C0D12A /* DiscoverViewModel.swift in Sources */,
+				57CC60C6297E8A2800C0D12A /* WebService.swift in Sources */,
 				57CC60AC2978376C00C0D12A /* IngredientsView.swift in Sources */,
 				57CC60B92979548C00C0D12A /* Drink.swift in Sources */,
 				57CC60B729794EC900C0D12A /* AppColors.swift in Sources */,
@@ -298,6 +313,7 @@
 				57CC60B12978566400C0D12A /* IconicCocktail.swift in Sources */,
 				57CC60BB2979564800C0D12A /* CocktailCellView.swift in Sources */,
 				57CC60A82978375800C0D12A /* AssistantView.swift in Sources */,
+				57CC60C8297E8A3100C0D12A /* Endpoints.swift in Sources */,
 				57CC60C129799FA000C0D12A /* CategoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

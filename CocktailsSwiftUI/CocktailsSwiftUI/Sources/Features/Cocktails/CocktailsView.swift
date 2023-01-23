@@ -28,7 +28,7 @@ struct CocktailsView: View {
         }
         .onAppear {
             Task {
-                drinks = await viewModel.fetchDrinks()
+                drinks = await viewModel.fetchDrinks(startingWith: "a")
             }
         }
     }

@@ -43,6 +43,18 @@ class WebService {
         }
     }
     
+    func fetchByCategory(name: String) async -> [Drnk] {
+        do {
+            let url = try BaseEndpoint.byCategory(name: name).asURL()
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let drinks = try JSONDecoder().decode(Drinkz.self, from: data)
+            
+            return drinks.drinks
+        } catch {
+            return []
+        }
+    }
+    
     func fetchRandomCocktail() async -> Drink {
         do {
             let url = try BaseEndpoint.random.asURL()
@@ -64,6 +76,32 @@ class WebService {
             return drinks.drinks
         } catch {
             return []
+        }
+    }
+    
+    func fetchDrinks(with type: DrinkType) async -> [Drnk] {
+        do {
+            let url = try BaseEndpoint.type(type: type).asURL()
+            print(url)
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let drinks = try JSONDecoder().decode(Drinkz.self, from: data)
+            
+            return drinks.drinks
+        } catch let error {
+            print("Error \(error)")
+            return []
+        }
+    }
+    
+    func fetchDrink(with name: String) async -> Drink {
+        do {
+            let url = try BaseEndpoint.search(forDrink: name).asURL()
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let drinks = try JSONDecoder().decode(Drinks.self, from: data)
+            
+            return drinks.drinks.first!
+        } catch {
+            return Drink(strDrink: "Wow", strCategory: "Wow", strAlcoholic: "Wow", strGlass: "Wow")
         }
     }
     

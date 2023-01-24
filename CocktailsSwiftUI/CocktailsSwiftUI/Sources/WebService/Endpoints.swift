@@ -20,6 +20,7 @@ struct BaseURL {
 enum BaseEndpoint {
     case random
     case categories
+    case byCategory(name: String)
     case alphabetically(letter: Character)
     case type(type: DrinkType)
     case search(forDrink: String)
@@ -36,7 +37,7 @@ enum BaseEndpoint {
             return "/list.php"
         case .alphabetically, .search:
             return "/search.php"
-        case .type, .byIngredient, .byGlass:
+        case .byCategory, .type, .byIngredient, .byGlass:
             return "/filter.php"
         }
     }
@@ -52,6 +53,10 @@ enum BaseEndpoint {
         case .categories:
             urlComponents.queryItems = [
                 URLQueryItem(name: "c", value: "list")
+            ]
+        case .byCategory(let name):
+            urlComponents.queryItems = [
+                URLQueryItem(name: "c", value: name)
             ]
         case .alphabetically(letter: let letter):
             urlComponents.queryItems = [

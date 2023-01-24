@@ -38,8 +38,6 @@ struct ContentView: View {
                     Label("Assistant", systemImage: "person.fill.badge.plus")
                 }
         }
-    
-        
     }
 }
 

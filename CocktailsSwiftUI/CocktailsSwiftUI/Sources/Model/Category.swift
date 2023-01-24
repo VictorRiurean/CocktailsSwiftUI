@@ -10,6 +10,10 @@ import Foundation
 struct Category: Codable, Identifiable {
     let id = UUID()
     var strCategory: String
+    
+    var urlString: String {
+        return strCategory.replacingOccurrences(of: " ", with: "%20")
+    }
 }
 
 struct Categories: Codable {

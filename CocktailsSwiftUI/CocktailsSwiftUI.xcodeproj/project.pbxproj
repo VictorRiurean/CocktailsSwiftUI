@@ -36,6 +36,14 @@
 		57CC60D7297ED20000C0D12A /* AssistantCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60D6297ED20000C0D12A /* AssistantCellView.swift */; };
 		57CC60D9297ED48800C0D12A /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60D8297ED48800C0D12A /* TipsView.swift */; };
 		57CC60DB297ED4E700C0D12A /* TipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60DA297ED4E700C0D12A /* TipView.swift */; };
+		57CC60DE2980193E00C0D12A /* CategoryDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60DD2980193E00C0D12A /* CategoryDetailsView.swift */; };
+		57CC60E1298019F900C0D12A /* CategoryDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60E0298019F900C0D12A /* CategoryDetailsViewModel.swift */; };
+		57CC60E329801BCF00C0D12A /* DrinkByCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60E229801BCF00C0D12A /* DrinkByCategoryView.swift */; };
+		57CC60E62980274100C0D12A /* CocktailDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60E52980274100C0D12A /* CocktailDetailsView.swift */; };
+		57CC60E829802BEA00C0D12A /* IngredientAndMeasure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60E729802BEA00C0D12A /* IngredientAndMeasure.swift */; };
+		57CC60EA2980313800C0D12A /* CocktailDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60E92980313800C0D12A /* CocktailDetailsViewModel.swift */; };
+		57CC60EC29803CD300C0D12A /* CocktailTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60EB29803CD300C0D12A /* CocktailTypeView.swift */; };
+		57CC60EE29803E5600C0D12A /* CocktailTypeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60ED29803E5600C0D12A /* CocktailTypeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +77,14 @@
 		57CC60D6297ED20000C0D12A /* AssistantCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantCellView.swift; sourceTree = "<group>"; };
 		57CC60D8297ED48800C0D12A /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
 		57CC60DA297ED4E700C0D12A /* TipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipView.swift; sourceTree = "<group>"; };
+		57CC60DD2980193E00C0D12A /* CategoryDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailsView.swift; sourceTree = "<group>"; };
+		57CC60E0298019F900C0D12A /* CategoryDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailsViewModel.swift; sourceTree = "<group>"; };
+		57CC60E229801BCF00C0D12A /* DrinkByCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkByCategoryView.swift; sourceTree = "<group>"; };
+		57CC60E52980274100C0D12A /* CocktailDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailDetailsView.swift; sourceTree = "<group>"; };
+		57CC60E729802BEA00C0D12A /* IngredientAndMeasure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAndMeasure.swift; sourceTree = "<group>"; };
+		57CC60E92980313800C0D12A /* CocktailDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailDetailsViewModel.swift; sourceTree = "<group>"; };
+		57CC60EB29803CD300C0D12A /* CocktailTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailTypeView.swift; sourceTree = "<group>"; };
+		57CC60ED29803E5600C0D12A /* CocktailTypeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailTypeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +141,7 @@
 				57CC60B82979548C00C0D12A /* Drink.swift */,
 				57CC60CB297EB8BD00C0D12A /* Glass.swift */,
 				57CC60CF297EBC7000C0D12A /* Ingredient.swift */,
+				57CC60E729802BEA00C0D12A /* IngredientAndMeasure.swift */,
 				57CC60D3297EC70A00C0D12A /* Tip.swift */,
 			);
 			path = Model;
@@ -156,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				57CC60A2297836F400C0D12A /* Assistant */,
+				57CC60E42980272300C0D12A /* CocktailDetails */,
 				57CC609F297836D200C0D12A /* Cocktails */,
 				57CC609E297836C800C0D12A /* Discover */,
 				57CC60A1297836ED00C0D12A /* Glasses */,
@@ -168,6 +186,7 @@
 		57CC609E297836C800C0D12A /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				57CC60DF298019E500C0D12A /* Details */,
 				57CC60A52978374700C0D12A /* DiscoverView.swift */,
 				57CC60BE2979935A00C0D12A /* DiscoverViewModel.swift */,
 			);
@@ -216,6 +235,7 @@
 				57CC60C029799FA000C0D12A /* CategoryView.swift */,
 				57CC60BA2979564800C0D12A /* CocktailCellView.swift */,
 				57CC60B229785B1F00C0D12A /* CocktailType.swift */,
+				57CC60E229801BCF00C0D12A /* DrinkByCategoryView.swift */,
 				57CC60B02978566400C0D12A /* IconicCocktail.swift */,
 				57CC60CD297EBBE100C0D12A /* IngredientView.swift */,
 				57CC60DA297ED4E700C0D12A /* TipView.swift */,
@@ -260,6 +280,26 @@
 				57CC60D8297ED48800C0D12A /* TipsView.swift */,
 			);
 			path = Tips;
+			sourceTree = "<group>";
+		};
+		57CC60DF298019E500C0D12A /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				57CC60DD2980193E00C0D12A /* CategoryDetailsView.swift */,
+				57CC60E0298019F900C0D12A /* CategoryDetailsViewModel.swift */,
+				57CC60EB29803CD300C0D12A /* CocktailTypeView.swift */,
+				57CC60ED29803E5600C0D12A /* CocktailTypeViewModel.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		57CC60E42980272300C0D12A /* CocktailDetails */ = {
+			isa = PBXGroup;
+			children = (
+				57CC60E52980274100C0D12A /* CocktailDetailsView.swift */,
+				57CC60E92980313800C0D12A /* CocktailDetailsViewModel.swift */,
+			);
+			path = CocktailDetails;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,6 +375,8 @@
 				57CC60CA297EB87E00C0D12A /* GlassesViewModel.swift in Sources */,
 				57CC60B329785B1F00C0D12A /* CocktailType.swift in Sources */,
 				57CC60BD29796F4E00C0D12A /* CocktailsViewModel.swift in Sources */,
+				57CC60E829802BEA00C0D12A /* IngredientAndMeasure.swift in Sources */,
+				57CC60DE2980193E00C0D12A /* CategoryDetailsView.swift in Sources */,
 				57CC608E2978005700C0D12A /* ContentView.swift in Sources */,
 				57CC60BF2979935A00C0D12A /* DiscoverViewModel.swift in Sources */,
 				57CC60C6297E8A2800C0D12A /* WebService.swift in Sources */,
@@ -342,6 +384,7 @@
 				57CC60D7297ED20000C0D12A /* AssistantCellView.swift in Sources */,
 				57CC60B92979548C00C0D12A /* Drink.swift in Sources */,
 				57CC60CC297EB8BD00C0D12A /* Glass.swift in Sources */,
+				57CC60EC29803CD300C0D12A /* CocktailTypeView.swift in Sources */,
 				57CC60D4297EC70A00C0D12A /* Tip.swift in Sources */,
 				57CC60B729794EC900C0D12A /* AppColors.swift in Sources */,
 				57CC60D0297EBC7000C0D12A /* Ingredient.swift in Sources */,
@@ -353,11 +396,16 @@
 				57CC60AE2978377C00C0D12A /* CocktailsView.swift in Sources */,
 				57CC60D9297ED48800C0D12A /* TipsView.swift in Sources */,
 				57CC60AA2978376200C0D12A /* GlassesView.swift in Sources */,
+				57CC60E329801BCF00C0D12A /* DrinkByCategoryView.swift in Sources */,
 				57CC60A62978374700C0D12A /* DiscoverView.swift in Sources */,
+				57CC60E1298019F900C0D12A /* CategoryDetailsViewModel.swift in Sources */,
 				57CC60B12978566400C0D12A /* IconicCocktail.swift in Sources */,
+				57CC60E62980274100C0D12A /* CocktailDetailsView.swift in Sources */,
+				57CC60EA2980313800C0D12A /* CocktailDetailsViewModel.swift in Sources */,
 				57CC60BB2979564800C0D12A /* CocktailCellView.swift in Sources */,
 				57CC60A82978375800C0D12A /* AssistantView.swift in Sources */,
 				57CC60C8297E8A3100C0D12A /* Endpoints.swift in Sources */,
+				57CC60EE29803E5600C0D12A /* CocktailTypeViewModel.swift in Sources */,
 				57CC60C129799FA000C0D12A /* CategoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

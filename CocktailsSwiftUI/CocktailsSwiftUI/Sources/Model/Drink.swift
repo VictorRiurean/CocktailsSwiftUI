@@ -11,6 +11,26 @@ struct Drinks: Codable {
     var drinks: [Drink]
 }
 
+struct Drinkz: Codable {
+    var drinks: [Drnk]
+}
+
+struct Drnk: Codable, Identifiable {
+    let id = UUID()
+    var strDrink: String?
+    var strDrinkThumb: String?
+    var idDrink: String?
+    
+    init(strDrink: String) {
+        self.strDrink = strDrink
+    }
+    
+    init(drink: Drink) {
+        strDrink = drink.strDrink
+        strDrinkThumb = drink.strDrinkThumb
+    }
+}
+
 struct Drink: Codable, Identifiable {
     let id = UUID()
     var strDrink: String
@@ -51,6 +71,7 @@ struct Drink: Codable, Identifiable {
     var strMeasure14: String?
     var strMeasure15: String?
     var isFavourite: Bool? = false
+    var idDrink: String?
     
     static let surprizeMe: Drink = Drink(strDrink: "Surprize me!", strCategory: "", strAlcoholic: "", strGlass: "")
     

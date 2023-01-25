@@ -15,10 +15,18 @@ struct IngredientsView: View {
     @State private var searchText: String = ""
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(ingredients) { ingredient in
-                    IngredientView(ingredient: ingredient)
+                    ZStack {
+                        NavigationLink(destination: IngredientsDetailsView(ingredient: ingredient.strIngredient1)) {
+                            EmptyView()
+                        }
+                        .opacity(0)
+                        
+                        IngredientView(ingredient: ingredient)
+                    }
+                    
                 }
             }
             .navigationTitle("Ingredients")

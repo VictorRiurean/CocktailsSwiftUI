@@ -44,6 +44,10 @@
 		57CC60EA2980313800C0D12A /* CocktailDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60E92980313800C0D12A /* CocktailDetailsViewModel.swift */; };
 		57CC60EC29803CD300C0D12A /* CocktailTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60EB29803CD300C0D12A /* CocktailTypeView.swift */; };
 		57CC60EE29803E5600C0D12A /* CocktailTypeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC60ED29803E5600C0D12A /* CocktailTypeViewModel.swift */; };
+		57EDFB56298165D60003F180 /* IngredientsDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EDFB55298165D60003F180 /* IngredientsDetailsView.swift */; };
+		57EDFB58298165E30003F180 /* IngredientsDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EDFB57298165E30003F180 /* IngredientsDetailsViewModel.swift */; };
+		57EDFB5B2981684C0003F180 /* GlassesDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EDFB5A2981684C0003F180 /* GlassesDetailsView.swift */; };
+		57EDFB5D298168590003F180 /* GlassesDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EDFB5C298168590003F180 /* GlassesDetailsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +89,10 @@
 		57CC60E92980313800C0D12A /* CocktailDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailDetailsViewModel.swift; sourceTree = "<group>"; };
 		57CC60EB29803CD300C0D12A /* CocktailTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailTypeView.swift; sourceTree = "<group>"; };
 		57CC60ED29803E5600C0D12A /* CocktailTypeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailTypeViewModel.swift; sourceTree = "<group>"; };
+		57EDFB55298165D60003F180 /* IngredientsDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsDetailsView.swift; sourceTree = "<group>"; };
+		57EDFB57298165E30003F180 /* IngredientsDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsDetailsViewModel.swift; sourceTree = "<group>"; };
+		57EDFB5A2981684C0003F180 /* GlassesDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassesDetailsView.swift; sourceTree = "<group>"; };
+		57EDFB5C298168590003F180 /* GlassesDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassesDetailsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +213,7 @@
 		57CC60A0297836DE00C0D12A /* Ingredients */ = {
 			isa = PBXGroup;
 			children = (
+				57EDFB54298165C10003F180 /* Details */,
 				57CC60AB2978376C00C0D12A /* IngredientsView.swift */,
 				57CC60D1297EBDBA00C0D12A /* IngredientsViewModel.swift */,
 			);
@@ -214,6 +223,7 @@
 		57CC60A1297836ED00C0D12A /* Glasses */ = {
 			isa = PBXGroup;
 			children = (
+				57EDFB59298168260003F180 /* Details */,
 				57CC60A92978376200C0D12A /* GlassesView.swift */,
 				57CC60C9297EB87E00C0D12A /* GlassesViewModel.swift */,
 			);
@@ -302,6 +312,24 @@
 			path = CocktailDetails;
 			sourceTree = "<group>";
 		};
+		57EDFB54298165C10003F180 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				57EDFB55298165D60003F180 /* IngredientsDetailsView.swift */,
+				57EDFB57298165E30003F180 /* IngredientsDetailsViewModel.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		57EDFB59298168260003F180 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				57EDFB5A2981684C0003F180 /* GlassesDetailsView.swift */,
+				57EDFB5C298168590003F180 /* GlassesDetailsViewModel.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -384,6 +412,7 @@
 				57CC60D7297ED20000C0D12A /* AssistantCellView.swift in Sources */,
 				57CC60B92979548C00C0D12A /* Drink.swift in Sources */,
 				57CC60CC297EB8BD00C0D12A /* Glass.swift in Sources */,
+				57EDFB5B2981684C0003F180 /* GlassesDetailsView.swift in Sources */,
 				57CC60EC29803CD300C0D12A /* CocktailTypeView.swift in Sources */,
 				57CC60D4297EC70A00C0D12A /* Tip.swift in Sources */,
 				57CC60B729794EC900C0D12A /* AppColors.swift in Sources */,
@@ -399,7 +428,10 @@
 				57CC60E329801BCF00C0D12A /* DrinkByCategoryView.swift in Sources */,
 				57CC60A62978374700C0D12A /* DiscoverView.swift in Sources */,
 				57CC60E1298019F900C0D12A /* CategoryDetailsViewModel.swift in Sources */,
+				57EDFB5D298168590003F180 /* GlassesDetailsViewModel.swift in Sources */,
 				57CC60B12978566400C0D12A /* IconicCocktail.swift in Sources */,
+				57EDFB56298165D60003F180 /* IngredientsDetailsView.swift in Sources */,
+				57EDFB58298165E30003F180 /* IngredientsDetailsViewModel.swift in Sources */,
 				57CC60E62980274100C0D12A /* CocktailDetailsView.swift in Sources */,
 				57CC60EA2980313800C0D12A /* CocktailDetailsViewModel.swift in Sources */,
 				57CC60BB2979564800C0D12A /* CocktailCellView.swift in Sources */,

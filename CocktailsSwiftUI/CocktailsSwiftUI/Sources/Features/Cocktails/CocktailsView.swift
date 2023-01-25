@@ -9,19 +9,20 @@ import SwiftUI
 
 struct CocktailsView: View {
     
-    @State private var drinks: [Drink] = [
-//        Drink(strDrink: "First", strCategory: "Category I", strAlcoholic: "yes", strGlass: "mug", isFavourite: true),
-//        Drink(strDrink: "Second", strCategory: "Category II", strAlcoholic: "no", strGlass: "cup"),
-//        Drink(strDrink: "Third", strCategory: "Category IX", strAlcoholic: "yes", strGlass: "cocktail glass")
-    ]
+    @State private var drinks: [Drink] = []
     
     private var viewModel = CocktailsViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(drinks) { drink in
-                    CocktailCellView(drink: drink)
+                    ZStack(alignment: .leading) {
+                        NavigationLink(destination: CocktailDetailsView(drink: drink)) {
+                            EmptyView()
+                        }
+                        CocktailCellView(drink: drink)
+                    }
                 }
             }
             .navigationTitle("Cocktails")

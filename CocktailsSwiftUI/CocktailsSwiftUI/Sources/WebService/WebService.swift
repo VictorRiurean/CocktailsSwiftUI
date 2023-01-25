@@ -55,6 +55,30 @@ class WebService {
         }
     }
     
+    func fetchByIngredient(name: String) async -> [Drink] {
+        do {
+            let url = try BaseEndpoint.byIngredient(name: name).asURL()
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let drinks = try JSONDecoder().decode(Drinks.self, from: data)
+            
+            return drinks.drinks
+        } catch {
+            return []
+        }
+    }
+    
+    func fetchByGlass(name: String) async -> [Drink] {
+        do {
+            let url = try BaseEndpoint.byGlass(name: name).asURL()
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let drinks = try JSONDecoder().decode(Drinks.self, from: data)
+            
+            return drinks.drinks
+        } catch {
+            return []
+        }
+    }
+    
     func fetchRandomCocktail() async -> Drink {
         do {
             let url = try BaseEndpoint.random.asURL()

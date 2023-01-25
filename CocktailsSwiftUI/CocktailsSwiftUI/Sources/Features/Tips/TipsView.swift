@@ -12,12 +12,21 @@ struct TipsView: View {
     private let tips = Tip.tips
     
     var body: some View {
-        List {
-            ForEach(tips) { tip in
-                TipView(tip: tip)
+        NavigationStack {
+            List {
+                ForEach(tips) { tip in
+                    ZStack {
+                        NavigationLink(destination: TipView(tip: tip)) {
+                            EmptyView()
+                        }
+                        .opacity(0)
+                        
+                        TipView(tip: tip)
+                    }
+                }
             }
+            .navigationTitle("Tips & Tricks")
         }
-        .navigationTitle("Tips & Tricks")
     }
 }
 

@@ -15,10 +15,17 @@ struct GlassesView: View {
     @State private var searchText = ""
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(glasses) { glass in
-                    Text(glass.strGlass)
+                    ZStack(alignment: .leading) {
+                        NavigationLink(destination: GlassesDetailsView(glass: glass.strGlass)) {
+                            EmptyView()
+                        }
+                        .opacity(0)
+                            
+                        Text(glass.strGlass)
+                    }
                 }
             }
             .navigationTitle("Glasses")

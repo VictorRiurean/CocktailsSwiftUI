@@ -96,6 +96,9 @@ struct DiscoverView: View {
                         Spacer()
                     }
                     
+                    Text("Cocktail types")
+                        .font(.title)
+                    
                     HStack(spacing: 10) {
                         NavigationLink(destination: CocktailTypeView(showAlcoholic: true)) {
                             CocktailType(type: .alcoholic)

@@ -27,7 +27,7 @@ struct CocktailDetailsView: View {
                     Text((drink.strCategory ?? "") + " | " + (drink.strAlcoholic ?? ""))
                         .font(.title)
                     
-                    Text("Served in:" + (drink.strGlass ?? ""))
+                    Text("Served in: " + (drink.strGlass ?? ""))
                         .font(.title3)
                     
                     Divider()
@@ -67,7 +67,8 @@ struct CocktailDetailsView: View {
                 
                 Spacer()
             }
-            .navigationBarTitle(drink.strDrink)
+            .navigationTitle(drink.strDrink)
+            .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear {
             Task {

@@ -71,7 +71,9 @@ struct CocktailDetailsView: View {
         }
         .onAppear {
             Task {
-                await drink = viewModel.fetchDrink(name: drink.strDrink)
+                if drink.strCategory == nil {
+                    await drink = viewModel.fetchDrink(name: drink.strDrink)
+                }
                 
                 ingredientsAndMeasures = drink.ingredientsAndMesaures
             }

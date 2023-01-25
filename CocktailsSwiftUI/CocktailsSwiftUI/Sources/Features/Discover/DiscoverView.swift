@@ -9,12 +9,16 @@ import SwiftUI
 
 struct DiscoverView: View {
     
+    @Binding var tabSelection: Int
+    
     private let viewModel = DiscoverViewModel()
     @State private var drinks: [Drink] = []
     @State private var categories: [Category] = []
+    @State private var isShowingRandomCocktail = false
+    @State private var drink: Drink = Drink.surprizeMe
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
                     Text("Cocktail Categories")
@@ -26,6 +30,7 @@ struct DiscoverView: View {
                                 NavigationLink(destination: CategoryDetailsView(categoryName: category.strCategory)) {
                                     CategoryView(category: category)
                                 }
+                                .buttonStyle(PlainButtonStyle())
                             }
                         }
                     }
@@ -38,7 +43,17 @@ struct DiscoverView: View {
                         
                         if drinks.count > 0 {
                             IconicCocktail(drink: .surprizeMe)
-                            IconicCocktail(drink: drinks[0])
+                                .onTapGesture {
+                                    Task {
+                                        drink = await viewModel.fetchRandomCocktail()
+                                        print(drink)
+                                        isShowingRandomCocktail = true
+                                    }
+                                }
+                            NavigationLink(destination: CocktailDetailsView(drink: drinks[0])) {
+                                IconicCocktail(drink: drinks[0])
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                         
                         Spacer()
@@ -48,8 +63,15 @@ struct DiscoverView: View {
                         Spacer()
                         
                         if drinks.count > 0 {
-                            IconicCocktail(drink: drinks[1])
-                            IconicCocktail(drink: drinks[2])
+                            NavigationLink(destination: CocktailDetailsView(drink: drinks[1])) {
+                                IconicCocktail(drink: drinks[1])
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            
+                            NavigationLink(destination: CocktailDetailsView(drink: drinks[2])) {
+                                IconicCocktail(drink: drinks[2])
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                         
                         Spacer()
@@ -59,7 +81,7 @@ struct DiscoverView: View {
                         Spacer()
                         
                         Button {
-                            
+                            tabSelection = 1
                         } label: {
                             Text("Show more")
                                 .padding()
@@ -78,10 +100,12 @@ struct DiscoverView: View {
                         NavigationLink(destination: CocktailTypeView(showAlcoholic: true)) {
                             CocktailType(type: .alcoholic)
                         }
+                        .buttonStyle(PlainButtonStyle())
                         
                         NavigationLink(destination: CocktailTypeView(showAlcoholic: false)) {
                             CocktailType(type: .nonalcoholic)
                         }
+                        .buttonStyle(PlainButtonStyle())
                     }
                     
                     Spacer()
@@ -104,6 +128,9 @@ struct DiscoverView: View {
                         categories = await viewModel.fetchCategories()
                     }
                 }
+                .navigationDestination(isPresented: $isShowingRandomCocktail) {
+                    CocktailDetailsView(drink: drink)
+                }
             }
         }
     }
@@ -111,6 +138,6 @@ struct DiscoverView: View {
 
 struct DiscoverView_Previews: PreviewProvider {
     static var previews: some View {
-        DiscoverView()
+        DiscoverView(tabSelection: .constant(0))
     }
 }

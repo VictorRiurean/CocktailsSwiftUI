@@ -11,32 +11,12 @@ struct Drinks: Codable {
     var drinks: [Drink]
 }
 
-struct Drinkz: Codable {
-    var drinks: [Drnk]
-}
-
-struct Drnk: Codable, Identifiable {
-    let id = UUID()
-    var strDrink: String?
-    var strDrinkThumb: String?
-    var idDrink: String?
-    
-    init(strDrink: String) {
-        self.strDrink = strDrink
-    }
-    
-    init(drink: Drink) {
-        strDrink = drink.strDrink
-        strDrinkThumb = drink.strDrinkThumb
-    }
-}
-
 struct Drink: Codable, Identifiable {
     let id = UUID()
     var strDrink: String
-    var strCategory: String
-    var strAlcoholic: String
-    var strGlass: String
+    var strCategory: String?
+    var strAlcoholic: String?
+    var strGlass: String?
     var strInstructions: String?
     var strDrinkThumb: String?
     var strImageSource: String?
@@ -72,6 +52,30 @@ struct Drink: Codable, Identifiable {
     var strMeasure15: String?
     var isFavourite: Bool? = false
     var idDrink: String?
+    
+    lazy var ingredients: [String] = {
+        [
+            strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
+            strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10,
+            strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15
+        ].compactMap { $0 }
+    }()
+    lazy var measures: [String] = {
+        [
+            strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5,
+            strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10,
+            strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15
+        ].compactMap { $0 }
+    }()
+    lazy var ingredientsAndMesaures: [IngredientAndMeasure] = {
+        var array: [IngredientAndMeasure] = []
+        
+        for i in 0..<ingredients.count {
+            array.append(IngredientAndMeasure(ingredient: ingredients[i], measure: i < measures.count ? measures[i] : ""))
+        }
+        
+        return array
+    }()
     
     static let surprizeMe: Drink = Drink(strDrink: "Surprize me!", strCategory: "", strAlcoholic: "", strGlass: "")
     

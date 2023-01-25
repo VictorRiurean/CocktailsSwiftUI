@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CategoryDetailsView: View {
     
-    @State private var drinks: [Drnk] = []
+    @State private var drinks: [Drink] = []
     private let categoryName: String
     private let viewModel = CategoryDetailsViewModel()
     
@@ -17,7 +17,7 @@ struct CategoryDetailsView: View {
         ScrollView(.vertical) {
             LazyVGrid(columns: [GridItem(), GridItem()]) {
                 ForEach(drinks) { drink in
-                    NavigationLink(destination: CocktailDetailsView(drinkName: drink.strDrink ?? "50/50")) {
+                    NavigationLink(destination: CocktailDetailsView(drink: drink)) {
                         DrinkByCategoryView(drink: drink)
                     }
                 }

@@ -16,7 +16,7 @@ struct CocktailTypeViewModel {
     
     // MARK: Public functions
     
-    func fetchDrinks(with type: DrinkType) async -> [Drnk] {
+    func fetchDrinks(with type: DrinkType) async -> [Drink] {
         await service.fetchDrinks(with: type)
     }
 }

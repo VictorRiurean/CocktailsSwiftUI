@@ -9,11 +9,11 @@ import SwiftUI
 
 struct DrinkByCategoryView: View {
     
-    private let drink: Drnk
+    private let drink: Drink
     
     var body: some View {
         VStack {
-            Text(drink.strDrink ?? "")
+            Text(drink.strDrink)
                 .font(.subheadline)
                 .lineLimit(2)
                 .minimumScaleFactor(0.5)
@@ -32,13 +32,13 @@ struct DrinkByCategoryView: View {
         .cornerRadius(15)
     }
                 
-    init(drink: Drnk) {
+    init(drink: Drink) {
         self.drink = drink
     }
 }
 
 struct DrinkByCategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        DrinkByCategoryView(drink: Drnk(strDrink: "Test"))
+        DrinkByCategoryView(drink: Drink(strDrink: "Cuba"))
     }
 }

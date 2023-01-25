@@ -10,7 +10,7 @@ import SwiftUI
 struct CocktailTypeView: View {
     
     @State private var showAlcoholic: Bool
-    @State private var drinks: [Drnk] = []
+    @State private var drinks: [Drink] = []
     private let viewModel = CocktailTypeViewModel()
     
     var body: some View {
@@ -32,7 +32,7 @@ struct CocktailTypeView: View {
             ScrollView(.vertical) {
                 LazyVGrid(columns: [GridItem(), GridItem()]) {
                     ForEach(drinks) { drink in
-                        NavigationLink(destination: CocktailDetailsView(drinkName: drink.strDrink ?? "50/50")) {
+                        NavigationLink(destination: CocktailDetailsView(drink: drink)) {
                             DrinkByCategoryView(drink: drink)
                         }
                     }

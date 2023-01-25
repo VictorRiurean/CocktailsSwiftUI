@@ -43,11 +43,11 @@ class WebService {
         }
     }
     
-    func fetchByCategory(name: String) async -> [Drnk] {
+    func fetchByCategory(name: String) async -> [Drink] {
         do {
             let url = try BaseEndpoint.byCategory(name: name).asURL()
             let (data, _) = try await URLSession.shared.data(from: url)
-            let drinks = try JSONDecoder().decode(Drinkz.self, from: data)
+            let drinks = try JSONDecoder().decode(Drinks.self, from: data)
             
             return drinks.drinks
         } catch {
@@ -79,16 +79,14 @@ class WebService {
         }
     }
     
-    func fetchDrinks(with type: DrinkType) async -> [Drnk] {
+    func fetchDrinks(with type: DrinkType) async -> [Drink] {
         do {
             let url = try BaseEndpoint.type(type: type).asURL()
-            print(url)
             let (data, _) = try await URLSession.shared.data(from: url)
-            let drinks = try JSONDecoder().decode(Drinkz.self, from: data)
+            let drinks = try JSONDecoder().decode(Drinks.self, from: data)
             
             return drinks.drinks
-        } catch let error {
-            print("Error \(error)")
+        } catch {
             return []
         }
     }

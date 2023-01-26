@@ -18,9 +18,8 @@ struct CocktailsView: View {
             List {
                 ForEach(drinks) { drink in
                     ZStack(alignment: .leading) {
-                        NavigationLink(destination: CocktailDetailsView(drink: drink)) {
-                            EmptyView()
-                        }
+                        NavigationLink(destination: CocktailDetailsView(drink: drink)) { }
+                        
                         CocktailCellView(drink: drink)
                     }
                 }

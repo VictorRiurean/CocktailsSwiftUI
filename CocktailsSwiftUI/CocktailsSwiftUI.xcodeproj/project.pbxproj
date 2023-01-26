@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57917BC52982797200C507C2 /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57917BC42982797200C507C2 /* FavouritesView.swift */; };
+		57917BC72982798200C507C2 /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57917BC62982798200C507C2 /* FavouritesViewModel.swift */; };
 		57CC608C2978005600C0D12A /* CocktailsSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC608B2978005600C0D12A /* CocktailsSwiftUIApp.swift */; };
 		57CC608E2978005700C0D12A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC608D2978005600C0D12A /* ContentView.swift */; };
 		57CC60902978005900C0D12A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57CC608F2978005900C0D12A /* Assets.xcassets */; };
@@ -51,6 +53,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		57917BC42982797200C507C2 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
+		57917BC62982798200C507C2 /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
 		57CC60882978005600C0D12A /* CocktailsSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocktailsSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57CC608B2978005600C0D12A /* CocktailsSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailsSwiftUIApp.swift; sourceTree = "<group>"; };
 		57CC608D2978005600C0D12A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -106,6 +110,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57917BC32982793E00C507C2 /* Favourites */ = {
+			isa = PBXGroup;
+			children = (
+				57917BC42982797200C507C2 /* FavouritesView.swift */,
+				57917BC62982798200C507C2 /* FavouritesViewModel.swift */,
+			);
+			path = Favourites;
+			sourceTree = "<group>";
+		};
 		57CC607F2978005600C0D12A = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +197,7 @@
 				57CC60E42980272300C0D12A /* CocktailDetails */,
 				57CC609F297836D200C0D12A /* Cocktails */,
 				57CC609E297836C800C0D12A /* Discover */,
+				57917BC32982793E00C507C2 /* Favourites */,
 				57CC60A1297836ED00C0D12A /* Glasses */,
 				57CC60A0297836DE00C0D12A /* Ingredients */,
 				57CC60D5297ED1A500C0D12A /* Tips */,
@@ -418,7 +432,9 @@
 				57CC60B729794EC900C0D12A /* AppColors.swift in Sources */,
 				57CC60D0297EBC7000C0D12A /* Ingredient.swift in Sources */,
 				57CC60D2297EBDBA00C0D12A /* IngredientsViewModel.swift in Sources */,
+				57917BC52982797200C507C2 /* FavouritesView.swift in Sources */,
 				57CC60CE297EBBE100C0D12A /* IngredientView.swift in Sources */,
+				57917BC72982798200C507C2 /* FavouritesViewModel.swift in Sources */,
 				57CC60C32979A02C00C0D12A /* Category.swift in Sources */,
 				57CC608C2978005600C0D12A /* CocktailsSwiftUIApp.swift in Sources */,
 				57CC60DB297ED4E700C0D12A /* TipView.swift in Sources */,

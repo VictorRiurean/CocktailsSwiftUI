@@ -11,7 +11,7 @@ struct Drinks: Codable {
     var drinks: [Drink]
 }
 
-struct Drink: Codable, Identifiable {
+struct Drink: Codable, Identifiable, Equatable {
     let id = UUID()
     var strDrink: String
     var strCategory: String?
@@ -78,6 +78,7 @@ struct Drink: Codable, Identifiable {
     }()
     
     static let surprizeMe: Drink = Drink(strDrink: "Surprize me!", strCategory: "", strAlcoholic: "", strGlass: "")
+    static let noDrinkForYou: Drink = Drink(strDrink: "No drink for this letter 🙃", strIngredient1: "Somebody should do something about this ...")
     
     func unwrappedFavourite() -> Bool {
         return isFavourite ?? false

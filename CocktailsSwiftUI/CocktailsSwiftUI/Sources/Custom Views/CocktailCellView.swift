@@ -14,12 +14,25 @@ struct CocktailCellView: View {
     
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: drink.strDrinkThumb ?? "")) { image in
-                image.resizable()
-            } placeholder: { Color.red }
-                .frame(width: 70, height: 70)
-                .clipShape(RoundedRectangle(cornerRadius: 35))
-                .padding()
+            
+            if drink.strDrinkThumb != nil {
+                AsyncImage(url: URL(string: drink.strDrinkThumb!)) { image in
+                    image.resizable()
+                } placeholder: { Color.red }
+                    .frame(width: 70, height: 70)
+                    .clipShape(RoundedRectangle(cornerRadius: 35))
+                    .padding()
+            } else {
+                Image(systemName: "questionmark.app.fill")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 70, height: 70)
+                    .clipShape(RoundedRectangle(cornerRadius: 35))
+                    .padding()
+                    .foregroundColor(AppColors.getRandomColor())
+                    
+            }
+            
             
             VStack(alignment: .leading) {
                 Text(drink.strDrink)

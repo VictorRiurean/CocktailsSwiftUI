@@ -9,23 +9,26 @@ import SwiftUI
 
 struct TipsView: View {
     
+    @State private var isShowingTip = false
+    @State private var tip: Tip = Tip.tips.first!
+    
     private let tips = Tip.tips
     
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(tips) { tip in
-                    ZStack {
-                        NavigationLink(destination: TipView(tip: tip)) {
-                            EmptyView()
-                        }
-                        .opacity(0)
+        List {
+            ForEach(tips) { tip in
+                TipView(tip: tip)
+                    .onTapGesture {
+                        self.tip = tip
+                        self.isShowingTip = true
                         
-                        TipView(tip: tip)
                     }
-                }
             }
             .navigationTitle("Tips & Tricks")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+        .sheet(isPresented: $isShowingTip) {
+            TipDetailsView(isPresented: $isShowingTip, tip: $tip)
         }
     }
 }

@@ -19,10 +19,7 @@ struct IngredientsView: View {
             List {
                 ForEach(ingredients) { ingredient in
                     ZStack {
-                        NavigationLink(destination: IngredientsDetailsView(ingredient: ingredient.strIngredient1)) {
-                            EmptyView()
-                        }
-                        .opacity(0)
+                        NavigationLink(destination: IngredientsDetailsView(ingredient: ingredient.strIngredient1)) { }
                         
                         IngredientView(ingredient: ingredient)
                     }

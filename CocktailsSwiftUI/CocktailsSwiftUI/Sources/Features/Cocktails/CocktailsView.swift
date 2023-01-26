@@ -13,6 +13,19 @@ struct CocktailsView: View {
     @State private var searchText = ""
     
     private var letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+    private var searchResults: [String: [Drink]] {
+        if searchText.isEmpty {
+            return drinks
+        } else {
+            var filtered: [String: [Drink]] = [:]
+            
+            viewModel.loadedLetters.forEach {
+                filtered[$0] = drinks[$0]?.filter { $0.strDrink.lowercased().contains(searchText.lowercased()) }
+            }
+            
+            return filtered
+        }
+    }
     
     @ObservedObject private var viewModel = CocktailsViewModel()
     
@@ -25,14 +38,14 @@ struct CocktailsView: View {
                 List {
                     ForEach(viewModel.loadedLetters, id: \.self) { letter in
                         Section(header: Text(letter)) {
-                            if drinks[letter] == nil {
+                            if searchResults[letter] == nil {
                                 EmptyView()
                             } else {
-                                if drinks[letter]!.isEmpty {
+                                if searchResults[letter]!.isEmpty {
                                     EmptyView()
                                 } else {
                                     LazyVStack {
-                                        ForEach(drinks[letter]!) { drink in
+                                        ForEach(searchResults[letter]!) { drink in
                                             ZStack(alignment: .leading) {
                                                 NavigationLink(destination: CocktailDetailsView(drink: drink)) { }
                                                 
@@ -65,7 +78,7 @@ struct CocktailsView: View {
             }
             
         }
-        .searchable(text: $searchText)
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
         .onAppear {
             Task {
                 if !viewModel.allLettersLoaded {

@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class CocktailsViewModel: ObservableObject {
     
     // MARK: Public properties

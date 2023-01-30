@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		578DAC572987C58A00B94904 /* MyActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC562987C58A00B94904 /* MyActivityIndicator.swift */; };
+		578DAC592987D3ED00B94904 /* View+NavigationTitleHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */; };
 		57917BC52982797200C507C2 /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57917BC42982797200C507C2 /* FavouritesView.swift */; };
 		57917BC72982798200C507C2 /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57917BC62982798200C507C2 /* FavouritesViewModel.swift */; };
 		57917BC9298288B600C507C2 /* TipDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57917BC8298288B600C507C2 /* TipDetailsView.swift */; };
@@ -56,6 +57,7 @@
 
 /* Begin PBXFileReference section */
 		578DAC562987C58A00B94904 /* MyActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityIndicator.swift; sourceTree = "<group>"; };
+		578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "View+NavigationTitleHidden.swift"; path = "CocktailsSwiftUI/Sources/Utilities/View+NavigationTitleHidden.swift"; sourceTree = SOURCE_ROOT; };
 		57917BC42982797200C507C2 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
 		57917BC62982798200C507C2 /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
 		57917BC8298288B600C507C2 /* TipDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailsView.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		57CC609B2978013800C0D12A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 			files = (
 				57CC60CA297EB87E00C0D12A /* GlassesViewModel.swift in Sources */,
 				57CC60B329785B1F00C0D12A /* CocktailType.swift in Sources */,
+				578DAC592987D3ED00B94904 /* View+NavigationTitleHidden.swift in Sources */,
 				57CC60BD29796F4E00C0D12A /* CocktailsViewModel.swift in Sources */,
 				57CC60E829802BEA00C0D12A /* IngredientAndMeasure.swift in Sources */,
 				57CC60DE2980193E00C0D12A /* CategoryDetailsView.swift in Sources */,

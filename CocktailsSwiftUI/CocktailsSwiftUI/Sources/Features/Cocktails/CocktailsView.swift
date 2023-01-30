@@ -78,7 +78,6 @@ struct CocktailsView: View {
                 }
                 .navigationTitle("Cocktails")
             }
-            
         }
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
         .onAppear {

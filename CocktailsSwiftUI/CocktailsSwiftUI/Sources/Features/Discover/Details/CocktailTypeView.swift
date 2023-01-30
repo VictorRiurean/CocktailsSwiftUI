@@ -11,6 +11,7 @@ struct CocktailTypeView: View {
     
     @State private var showAlcoholic: Bool
     @State private var drinks: [Drink] = []
+    
     private let viewModel = CocktailTypeViewModel()
     
     var body: some View {
@@ -35,12 +36,14 @@ struct CocktailTypeView: View {
                         NavigationLink(destination: CocktailDetailsView(drink: drink)) {
                             DrinkByCategoryView(drink: drink)
                         }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }
     
             Spacer()
         }
+        .navigationBarBackButtonTitleHidden()
         .navigationTitle(showAlcoholic ? "Alcoholic" : "Non Alcoholic")
         .onAppear {
             Task {

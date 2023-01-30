@@ -9,24 +9,43 @@ import SwiftUI
 
 struct IngredientsView: View {
     
-    private let viewModel = IngredientsViewModel()
-    
     @State private var ingredients: [Ingredient] = []
     @State private var searchText: String = ""
     
+    private let viewModel = IngredientsViewModel()
+    
+    private var searchResults: [Ingredient] {
+        if searchText.isEmpty {
+            return ingredients
+        } else {
+            return ingredients.filter {
+                $0.strIngredient1.lowercased().contains(searchText.lowercased())
+            }
+        }
+    }
+    
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(ingredients) { ingredient in
-                    ZStack {
-                        NavigationLink(destination: IngredientsDetailsView(ingredient: ingredient.strIngredient1)) { }
-                        
-                        IngredientView(ingredient: ingredient)
+            if ingredients.isEmpty {
+                ProgressView()
+                    .progressViewStyle(DefaultProgressViewStyle())
+            } else {
+                List {
+                    if searchResults.isEmpty {
+                        Text("It seems this ingredient is not in the list. 😔")
+                    } else {
+                        ForEach(searchResults) { ingredient in
+                            ZStack {
+                                NavigationLink(destination: IngredientsDetailsView(ingredient: ingredient.strIngredient1)) { }
+                                
+                                IngredientView(ingredient: ingredient)
+                            }
+                            
+                        }
                     }
-                    
                 }
+                .navigationTitle("Ingredients")
             }
-            .navigationTitle("Ingredients")
         }
         .onAppear {
             Task {

@@ -9,26 +9,45 @@ import SwiftUI
 
 struct GlassesView: View {
     
-    private let viewModel = GlassesViewModel()
-    
     @State private var glasses: [Glass] = []
     @State private var searchText = ""
     
+    private let viewModel = GlassesViewModel()
+    
+    private var searchResults: [Glass] {
+        if searchText.isEmpty {
+            return glasses
+        } else {
+            return glasses.filter {
+                $0.strGlass.lowercased().contains(searchText.lowercased())
+            }
+        }
+    }
+    
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(glasses) { glass in
-                    ZStack(alignment: .leading) {
-                        NavigationLink(destination: GlassesDetailsView(glass: glass.strGlass)) {
-                            EmptyView()
+            if glasses.isEmpty {
+                ProgressView()
+                    .progressViewStyle(DefaultProgressViewStyle())
+            } else {
+                if searchResults.isEmpty {
+                    Text("It seems this glass is not in the list. 😔")
+                } else {
+                    List {
+                        ForEach(searchResults) { glass in
+                            ZStack(alignment: .leading) {
+                                NavigationLink(destination: GlassesDetailsView(glass: glass.strGlass)) {
+                                    EmptyView()
+                                }
+                                .opacity(0)
+                                    
+                                Text(glass.strGlass)
+                            }
                         }
-                        .opacity(0)
-                            
-                        Text(glass.strGlass)
                     }
+                    .navigationTitle("Glasses")
                 }
             }
-            .navigationTitle("Glasses")
         }
         .onAppear {
             Task {
@@ -36,6 +55,7 @@ struct GlassesView: View {
             }
         }
         .searchable(text: $searchText)
+        .scrollDismissesKeyboard(.immediately)
     }
 }
 

@@ -72,6 +72,7 @@ struct CocktailDetailsView: View {
             .navigationTitle(drink.strDrink)
             .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationBarBackButtonTitleHidden()
         .onAppear {
             Task {
                 if drink.strCategory == nil {

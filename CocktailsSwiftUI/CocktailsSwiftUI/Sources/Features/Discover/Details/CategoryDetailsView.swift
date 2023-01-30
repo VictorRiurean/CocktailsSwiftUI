@@ -10,6 +10,7 @@ import SwiftUI
 struct CategoryDetailsView: View {
     
     @State private var drinks: [Drink] = []
+    
     private let categoryName: String
     private let viewModel = CategoryDetailsViewModel()
     
@@ -20,9 +21,11 @@ struct CategoryDetailsView: View {
                     NavigationLink(destination: CocktailDetailsView(drink: drink)) {
                         DrinkByCategoryView(drink: drink)
                     }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
         }
+        .navigationBarBackButtonTitleHidden()
         .onAppear {
             Task {
                 await drinks = viewModel.fetchDrinks(category: categoryName)

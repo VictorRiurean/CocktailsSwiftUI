@@ -5,6 +5,7 @@
 //  Created by Victor on 18/01/2023.
 //
 
+import NukeUI
 import SwiftUI
 
 struct IconicCocktail: View {
@@ -30,9 +31,7 @@ struct IconicCocktail: View {
                     .clipShape(Circle())
                     .padding()
             } else {
-                AsyncImage(url: URL(string: drink.strDrinkThumb ?? "")) { image in
-                    image.resizable()
-                } placeholder: { Color.red }
+                LazyImage(url: URL(string: drink.strDrinkThumb!))
                     .frame(width: 100, height: 100)
                     .clipShape(RoundedRectangle(cornerRadius: 50))
                     .padding()

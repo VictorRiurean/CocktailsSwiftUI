@@ -5,6 +5,7 @@
 //  Created by Victor on 24/01/2023.
 //
 
+import NukeUI
 import SwiftUI
 
 struct DrinkByCategoryView: View {
@@ -21,9 +22,7 @@ struct DrinkByCategoryView: View {
                 .minimumScaleFactor(0.5)
                 .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
             
-            AsyncImage(url: URL(string: drink.strDrinkThumb ?? "")) { image in
-                image.resizable()
-            } placeholder: { Color.red }
+            LazyImage(url: URL(string: drink.strDrinkThumb!))
                 .frame(width: 70, height: 70)
                 .clipShape(RoundedRectangle(cornerRadius: 35))
                 .padding()

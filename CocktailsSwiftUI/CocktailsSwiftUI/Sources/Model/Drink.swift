@@ -11,7 +11,7 @@ struct Drinks: Codable {
     var drinks: [Drink]
 }
 
-struct Drink: Codable, Identifiable, Equatable {
+struct Drink: Codable, Identifiable, Equatable, Hashable {
     let id = UUID()
     var strDrink: String
     var strCategory: String?

@@ -5,6 +5,7 @@
 //  Created by Victor on 24/01/2023.
 //
 
+import NukeUI
 import SwiftUI
 
 struct CocktailDetailsView: View {
@@ -20,9 +21,7 @@ struct CocktailDetailsView: View {
         ScrollView {
             VStack {
                 VStack {
-                    AsyncImage(url: URL(string: drink.strDrinkThumb ?? "")) { image in
-                        image.resizable()
-                    } placeholder: { Image(systemName: "placeholdertext.fill").resizable() }
+                    LazyImage(url: URL(string: drink.strDrinkThumb!))
                         .frame(width: 150, height: 150)
                         .padding()
                     

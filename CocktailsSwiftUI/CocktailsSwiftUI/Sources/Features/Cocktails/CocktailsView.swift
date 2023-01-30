@@ -61,7 +61,9 @@ struct CocktailsView: View {
                     
                     if !viewModel.allLettersLoaded {
                         ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+                        /// I had to go for a custom progressViewStyle because of the fact that
+                        /// the native ones were buggy. It should be replaced once the bug is fixed.
+                            .progressViewStyle(MyActivityIndicator())
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     Task {

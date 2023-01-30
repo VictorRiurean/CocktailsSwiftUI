@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 class AppColors {
-    static var colors = [
+    static var lightColors = [
         Color(UIColor(rgb: 0xcaf7e3)),
         Color(UIColor(rgb: 0xedffec)),
         Color(UIColor(rgb: 0xf6dfeb)),
@@ -21,8 +21,27 @@ class AppColors {
         Color(UIColor(rgb: 0xededd0))
     ]
     
-    static func getRandomColor() -> Color {
-        return colors.randomElement()!
+    static var darkColors = [
+        Color(UIColor(rgb: 0x2C3639)),
+        Color(UIColor(rgb: 0x3F4E4F)),
+        Color(UIColor(rgb: 0xA27B5C)),
+        Color(UIColor(rgb: 0xDCD7C9)),
+        Color(UIColor(rgb: 0x2C3333)),
+        Color(UIColor(rgb: 0x395B64)),
+        Color(UIColor(rgb: 0xA5C9CA)),
+        Color(UIColor(rgb: 0xE7F6F2)),
+        Color(UIColor(rgb: 0x413C69)),
+        Color(UIColor(rgb: 0x4A47A3)),
+        Color(UIColor(rgb: 0xAD62AA)),
+        Color(UIColor(rgb: 0xEAB9C9))
+    ]
+
+    static func getRandomLightColor() -> Color {
+        return lightColors.randomElement()!
+    }
+    
+    static func getRandomDarkColor() -> Color {
+        return darkColors.randomElement()!
     }
 }
 

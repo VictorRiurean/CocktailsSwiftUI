@@ -9,6 +9,8 @@ import SwiftUI
 
 struct DrinkByCategoryView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     private let drink: Drink
     
     var body: some View {
@@ -28,7 +30,7 @@ struct DrinkByCategoryView: View {
         }
         .frame(height: 150)
         .frame(maxWidth: UIScreen.main.bounds.width / 2 - 20)
-        .background(AppColors.getRandomColor())
+        .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(15)
     }
                 

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CocktailCellView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     private var drink: Drink
     @State private var ingredients: String = ""
     
@@ -29,7 +31,7 @@ struct CocktailCellView: View {
                     .frame(width: 70, height: 70)
                     .clipShape(RoundedRectangle(cornerRadius: 35))
                     .padding()
-                    .foregroundColor(AppColors.getRandomColor())
+                    .foregroundColor(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
                     
             }
             
@@ -54,7 +56,7 @@ struct CocktailCellView: View {
         }
         .frame(height: 100)
         .frame(maxWidth: .infinity)
-        .background(AppColors.getRandomColor())
+        .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(15)
         .onAppear {
             ingredients = getIngredients()

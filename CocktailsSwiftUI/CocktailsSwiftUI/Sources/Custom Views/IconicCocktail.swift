@@ -9,6 +9,8 @@ import SwiftUI
 
 struct IconicCocktail: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     private var drink: Drink
     
     var body: some View {
@@ -38,7 +40,7 @@ struct IconicCocktail: View {
         }
         .frame(maxWidth: 150)
         .frame(height: 200)
-        .background(AppColors.getRandomColor())
+        .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(10)
     }
     

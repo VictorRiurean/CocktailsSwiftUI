@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CocktailDetailsView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @State private var drink: Drink
     @State private var ingredientsAndMeasures: [IngredientAndMeasure] = []
     
@@ -44,7 +46,7 @@ struct CocktailDetailsView: View {
                         Text("\($0.measure) \($0.ingredient)")
                             .padding()
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(AppColors.getRandomColor())
+                            .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
                             .cornerRadius(10)
                     }
                 }
@@ -59,7 +61,7 @@ struct CocktailDetailsView: View {
                     Text(drink.strInstructions ?? "")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(AppColors.getRandomColor())
+                        .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
                         .lineLimit(nil)
                         .cornerRadius(10)
                 }

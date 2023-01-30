@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CocktailType: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     enum CType: Equatable {
         case alcoholic
         case nonalcoholic
@@ -27,8 +29,8 @@ struct CocktailType: View {
     var body: some View {
         ZStack {
             LinearGradient(colors: [
-                AppColors.getRandomColor(),
-                AppColors.getRandomColor()
+                colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor(),
+                colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor()
             ],
                            startPoint: type == .alcoholic ? .topLeading : .bottomTrailing,
                            endPoint: type == .alcoholic ? .topTrailing : .bottomLeading)

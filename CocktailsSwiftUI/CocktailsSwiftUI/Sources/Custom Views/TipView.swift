@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TipView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     private let tip: Tip
     
     var body: some View {
@@ -26,7 +28,7 @@ struct TipView: View {
         }
         .frame(height: 100)
         .frame(maxWidth: .infinity)
-        .background(AppColors.getRandomColor())
+        .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(15)
     }
     

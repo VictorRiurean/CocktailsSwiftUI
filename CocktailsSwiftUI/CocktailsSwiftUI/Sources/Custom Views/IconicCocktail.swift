@@ -5,9 +5,12 @@
 //  Created by Victor on 18/01/2023.
 //
 
+import NukeUI
 import SwiftUI
 
 struct IconicCocktail: View {
+    
+    @Environment(\.colorScheme) var colorScheme
     
     private var drink: Drink
     
@@ -28,9 +31,7 @@ struct IconicCocktail: View {
                     .clipShape(Circle())
                     .padding()
             } else {
-                AsyncImage(url: URL(string: drink.strDrinkThumb ?? "")) { image in
-                    image.resizable()
-                } placeholder: { Color.red }
+                LazyImage(url: URL(string: drink.strDrinkThumb!))
                     .frame(width: 100, height: 100)
                     .clipShape(RoundedRectangle(cornerRadius: 50))
                     .padding()
@@ -38,7 +39,7 @@ struct IconicCocktail: View {
         }
         .frame(maxWidth: 150)
         .frame(height: 200)
-        .background(AppColors.getRandomColor())
+        .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(10)
     }
     

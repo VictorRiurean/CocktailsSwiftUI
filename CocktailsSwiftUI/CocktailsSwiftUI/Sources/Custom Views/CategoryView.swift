@@ -9,11 +9,13 @@ import SwiftUI
 
 struct CategoryView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     private var category: Category
     
     var body: some View {
         ZStack {
-            AppColors.getRandomColor()
+            colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor()
             
             Text(category.strCategory)
                 .font(.title2)
@@ -21,7 +23,7 @@ struct CategoryView: View {
         }
         .frame(height: 100)
         .frame(maxWidth: .infinity)
-        .background(AppColors.getRandomColor())
+        .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(15)
     }
     

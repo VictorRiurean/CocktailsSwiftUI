@@ -5,17 +5,18 @@
 //  Created by Victor on 23/01/2023.
 //
 
+import NukeUI
 import SwiftUI
 
 struct IngredientView: View {
+    
+    @Environment(\.colorScheme) var colorScheme
     
     private var ingredient: Ingredient
     
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: IngredientsBaseURL.url + ingredient.urlString.lowercased().trimmingCharacters(in: .whitespaces) + IngredientsBaseURL.suffix)) { image in
-                image.resizable()
-            } placeholder: { Color.red }
+            LazyImage(url: URL(string: IngredientsBaseURL.url + ingredient.urlString.lowercased().trimmingCharacters(in: .whitespaces) + IngredientsBaseURL.suffix))
                 .frame(width: 70, height: 70)
                 .padding()
             
@@ -26,7 +27,7 @@ struct IngredientView: View {
         }
         .frame(height: 100)
         .frame(maxWidth: .infinity)
-        .background(AppColors.getRandomColor())
+        .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(15)
     }
     

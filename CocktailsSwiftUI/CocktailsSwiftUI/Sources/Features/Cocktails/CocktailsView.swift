@@ -10,6 +10,7 @@ import SwiftUI
 struct CocktailsView: View {
     
     @State private var drinks: [String: [Drink]] = [:]
+    @State private var showDrink: UUID?
     @State private var searchText = ""
     
     private var letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
@@ -39,21 +40,27 @@ struct CocktailsView: View {
                     ForEach(viewModel.loadedLetters, id: \.self) { letter in
                         Section(header: Text(letter)) {
                             if searchResults[letter] == nil {
-                                EmptyView()
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle())
                             } else {
                                 if searchResults[letter]!.isEmpty {
-                                    EmptyView()
+                                    Text("It seems this cocktail is not in the list. 😔")
                                 } else {
-                                    LazyVStack {
+//                                    LazyVStack {
+                                    /// Normally this would be wrapped inside a LazyVStack in order to not get the
+                                    /// wonky cell behaviour of images loading but then not being cached properly and
+                                    /// also not refreshing as they should once the image is loaded. Unfortunately
+                                    /// at the time of writing this code wrapping this in a LazyVStack breaks the navigation.
+                                    /// Namely, it pushes a lot of destination views on the navigation stack.
                                         ForEach(searchResults[letter]!) { drink in
                                             ZStack(alignment: .leading) {
-                                                NavigationLink(destination: CocktailDetailsView(drink: drink)) { }
+                                                NavigationLink(value: drink) { }
                                                 
                                                 CocktailCellView(drink: drink)
                                                     .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
                                             }
                                         }
-                                    }
+//                                    }
                                 }
                             }
                         }
@@ -61,7 +68,9 @@ struct CocktailsView: View {
                     
                     if !viewModel.allLettersLoaded {
                         ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+                        /// I had to go for a custom progressViewStyle because of the fact that
+                        /// the native ones were buggy. It should be replaced once the bug is fixed.
+                            .progressViewStyle(MyActivityIndicator())
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     Task {
@@ -74,9 +83,11 @@ struct CocktailsView: View {
                             }
                     }
                 }
+                .navigationDestination(for: Drink.self) { drink in
+                    CocktailDetailsView(drink: drink)
+                }
                 .navigationTitle("Cocktails")
             }
-            
         }
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
         .onAppear {

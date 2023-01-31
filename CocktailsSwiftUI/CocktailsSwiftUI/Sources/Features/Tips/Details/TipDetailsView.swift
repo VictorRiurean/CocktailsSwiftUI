@@ -9,13 +9,15 @@ import SwiftUI
 
 struct TipDetailsView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @Binding var isPresented: Bool
     
     @Binding var tip: Tip
     
     var body: some View {
         ZStack(alignment: .top) {
-            AppColors.getRandomColor()
+            (colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
                 .ignoresSafeArea()
             
             VStack {

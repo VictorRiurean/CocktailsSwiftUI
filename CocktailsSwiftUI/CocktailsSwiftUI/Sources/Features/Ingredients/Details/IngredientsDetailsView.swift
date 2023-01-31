@@ -20,9 +20,11 @@ struct IngredientsDetailsView: View {
                     NavigationLink(destination: CocktailDetailsView(drink: drink)) {
                         DrinkByCategoryView(drink: drink)
                     }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
         }
+        .navigationBarBackButtonTitleHidden()
         .onAppear {
             Task {
                 await drinks = viewModel.fetchDrinks(ingredient: ingredient)

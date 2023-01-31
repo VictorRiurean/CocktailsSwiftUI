@@ -10,8 +10,9 @@ import SwiftUI
 struct GlassesDetailsView: View {
     
     @State private var drinks: [Drink] = []
-    private let glass: String
+    
     private let viewModel = GlassesDetailsViewModel()
+    private let glass: String
     
     var body: some View {
         ScrollView(.vertical) {
@@ -20,9 +21,11 @@ struct GlassesDetailsView: View {
                     NavigationLink(destination: CocktailDetailsView(drink: drink)) {
                         DrinkByCategoryView(drink: drink)
                     }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
         }
+        .navigationBarBackButtonTitleHidden()
         .onAppear {
             Task {
                 await drinks = viewModel.fetchDrinks(glass: glass)

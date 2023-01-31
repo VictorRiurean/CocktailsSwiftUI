@@ -9,12 +9,18 @@ import SwiftUI
 
 struct FavouritesView: View {
     
+    @Environment(\.managedObjectContext) var moc
+    
+    @FetchRequest(sortDescriptors: []) var cocktails: FetchedResults<Cocktail>
+    @FetchRequest(sortDescriptors: []) var ingredients: FetchedResults<Component>
+    
+    
     @State private var drinks: [Drink] = [
         Drink(strDrink: "Cuba"),
         Drink(strDrink: "Mojito")
     ]
     
-    private let viewModel = FavouritesViewModel()
+    @ObservedObject var viewModel = FavouritesViewModel()
     
     var body: some View {
         NavigationStack {
@@ -26,12 +32,12 @@ struct FavouritesView: View {
                     .navigationBarTitleDisplayMode(.inline)
             } else {
                 List {
-                    ForEach(drinks) { drink in
+                    ForEach(cocktails) { drink in
                         ZStack(alignment: .leading) {
-                            NavigationLink(destination: CocktailDetailsView(drink: drink)) {
-                                EmptyView()
-                            }
-                            CocktailCellView(drink: drink)
+//                            NavigationLink(destination: CocktailDetailsView(drink: drink)) {
+//                                EmptyView()
+//                            }
+                            CocktailCellView(drink: Drink(strDrink: drink.unwrappedDrink, strDrinkThumb: drink.unwrappedThumbnail))
                         }
                     }
                 }

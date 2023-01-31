@@ -9,9 +9,15 @@ import SwiftUI
 
 struct CocktailsView: View {
     
+    @Environment(\.managedObjectContext) var moc
+    
+    @FetchRequest(sortDescriptors: []) var cocktails: FetchedResults<Cocktail>
+    
     @State private var drinks: [String: [Drink]] = [:]
     @State private var showDrink: UUID?
     @State private var searchText = ""
+    
+    @ObservedObject private var viewModel = CocktailsViewModel()
     
     private var letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
     private var searchResults: [String: [Drink]] {
@@ -27,8 +33,6 @@ struct CocktailsView: View {
             return filtered
         }
     }
-    
-    @ObservedObject private var viewModel = CocktailsViewModel()
     
     var body: some View {
         NavigationStack {
@@ -94,6 +98,10 @@ struct CocktailsView: View {
             Task {
                 if !viewModel.allLettersLoaded {
                     drinks[viewModel.currentLetter] = await viewModel.fetchDrinks()
+                    
+                    if let drinks = drinks[viewModel.currentLetter] {
+                        viewModel.addDrinksToCoreData(drinks: drinks, context: moc)
+                    }
                 }
             }
         }

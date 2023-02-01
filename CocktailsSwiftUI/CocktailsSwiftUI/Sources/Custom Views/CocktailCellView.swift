@@ -11,15 +11,14 @@ import SwiftUI
 struct CocktailCellView: View {
     
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.managedObjectContext) var moc
     
-    private var drink: Drink
-    @State private var ingredients: String = ""
+    @FetchRequest var fetchRequest: FetchedResults<Cocktail>
     
     var body: some View {
         HStack {
-            
-            if drink.strDrinkThumb != nil {
-                LazyImage(url: URL(string: drink.strDrinkThumb!))
+            if let drink = fetchRequest.first {
+                LazyImage(url: URL(string: drink.unwrappedThumbnail))
                     .frame(width: 70, height: 70)
                     .clipShape(RoundedRectangle(cornerRadius: 35))
                     .padding()
@@ -34,60 +33,50 @@ struct CocktailCellView: View {
                     
             }
             
-            
             VStack(alignment: .leading) {
-                Text(drink.strDrink)
-                    .font(.headline)
-                
-                Spacer()
-                
-                Text(ingredients)
-                    .font(.subheadline)
-                    .lineLimit(3)
-                    .minimumScaleFactor(0.5)
+                if let drink = fetchRequest.first {
+                    Text(drink.unwrappedDrink)
+                        .font(.headline)
+                    
+                    Spacer()
+                    
+                    Text(drink.unwrappedInstructions)
+                        .font(.subheadline)
+                        .lineLimit(3)
+                        .minimumScaleFactor(0.5)
+                } else {
+                    Text("Something very wrong happened here 😱")
+                }
             }
             .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
             
             Spacer()
-            
-            Image(systemName: drink.unwrappedFavourite() ? "heart.fill" : "heart")
+                
+            if let drink = fetchRequest.first {
+                Button {
+                    drink.isFavourite.toggle()
+                    
+                    try? moc.save()
+                } label: {
+                    Image(systemName: drink.isFavourite ? "heart.fill" : "heart")
+                }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                .buttonStyle(BorderlessButtonStyle())
+            }
         }
         .frame(height: 100)
         .frame(maxWidth: .infinity)
         .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(15)
-        .onAppear {
-            ingredients = getIngredients()
-        }
     }
     
-    init(drink: Drink) {
-        self.drink = drink
-    }
-    
-    func getIngredients() -> String {
-        var text = ""
-        
-        if let ingredient1 = drink.strIngredient1 {
-            text += ingredient1
-            if let ingredient2 = drink.strIngredient2 {
-                text += ", " + ingredient2
-                if let ingredient3 = drink.strIngredient3 {
-                    text += ", " + ingredient3
-                    if let _ = drink.strIngredient4 {
-                        text += " and more!"
-                    }
-                }
-            }
-        }
-        
-        return text
+    init(drinkName: String) {
+        _fetchRequest = FetchRequest<Cocktail>(sortDescriptors: [], predicate: NSPredicate(format: "\(FilterKey.drinkName.rawValue) \(PredicateFormat.equalsTo.rawValue) %@", drinkName))
     }
 }
 
 struct CocktailCellView_Previews: PreviewProvider {
     static var previews: some View {
-        CocktailCellView(drink: Drink(strDrink: "Test drink", strCategory: "Test category", strAlcoholic: "Yes", strGlass: "Big glass"))
+        CocktailCellView(drinkName: "A1")
     }
 }

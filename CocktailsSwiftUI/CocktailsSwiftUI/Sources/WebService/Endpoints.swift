@@ -21,7 +21,7 @@ enum BaseEndpoint {
     case random
     case categories
     case byCategory(name: String)
-    case alphabetically(letter: Character)
+    case alphabetically(letter: String)
     case type(type: DrinkType)
     case search(forDrink: String)
     case ingredients
@@ -60,7 +60,7 @@ enum BaseEndpoint {
             ]
         case .alphabetically(letter: let letter):
             urlComponents.queryItems = [
-                URLQueryItem(name: "f", value: String(letter))
+                URLQueryItem(name: "f", value: letter)
             ]
         case .type(let type):
             urlComponents.queryItems = [

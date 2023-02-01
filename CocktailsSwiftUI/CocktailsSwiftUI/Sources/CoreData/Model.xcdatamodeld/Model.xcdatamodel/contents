@@ -12,6 +12,11 @@
         <attribute name="strImageSource" optional="YES" attributeType="String"/>
         <attribute name="strInstructions" optional="YES" attributeType="String"/>
         <relationship name="ingredient" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Component" inverseName="cocktail" inverseEntity="Component"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="strDrink"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Component" representedClassName="Component" syncable="YES">
         <attribute name="measure" optional="YES" attributeType="String"/>

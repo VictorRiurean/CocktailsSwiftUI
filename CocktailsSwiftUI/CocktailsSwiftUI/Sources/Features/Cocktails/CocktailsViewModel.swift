@@ -23,8 +23,8 @@ class CocktailsViewModel: ObservableObject {
     // MARK: Private properties
     
     private let service = WebService.shared
-//    private var letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-    private var letters = ["a", "u", "v", "z"]
+    //    private var letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+    private var letters = ["a", "b", "v", "z"]
     
     
     // MARK: Public methods
@@ -36,12 +36,12 @@ class CocktailsViewModel: ObservableObject {
         var drinks: [Drink] = []
         
         if !letters.isEmpty {
-            drinks = await service.fetchDrinks(startingWith: Character(letters.first!))
+            drinks = await service.fetchDrinks(with: letters.first!)
             
             currentLetter = letters[0]
-
+            
             loadedLetters.append(currentLetter)
-
+            
             letters.removeFirst()
         }
         
@@ -53,9 +53,17 @@ class CocktailsViewModel: ObservableObject {
         
         isLoading = false
         
-//        addDrinksToCoreData(drinks: drinks)
+        //        addDrinksToCoreData(drinks: drinks)
         
         return drinks
+    }
+    
+    @MainActor
+    func loadNextLetter() {
+        if !letters.isEmpty {
+            loadedLetters.append(letters.first!)
+            letters.removeFirst()
+        }
     }
     
     func addDrinksToCoreData(drinks: [Drink], context: NSManagedObjectContext) {

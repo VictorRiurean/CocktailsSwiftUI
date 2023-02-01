@@ -91,7 +91,7 @@ class WebService {
         }
     }
     
-    func fetchDrinks(startingWith letter: Character) async -> [Drink] {
+    func fetchDrinks(with letter: String) async -> [Drink] {
         do {
             let url = try BaseEndpoint.alphabetically(letter: letter).asURL()
             let (data, _) = try await URLSession.shared.data(from: url)

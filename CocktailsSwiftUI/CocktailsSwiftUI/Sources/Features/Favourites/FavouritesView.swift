@@ -9,42 +9,35 @@ import SwiftUI
 
 struct FavouritesView: View {
     
-    @State private var drinks: [Drink] = [
-        Drink(strDrink: "Cuba"),
-        Drink(strDrink: "Mojito")
-    ]
+    @Environment(\.managedObjectContext) var moc
     
-    private let viewModel = FavouritesViewModel()
+    @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "\(FilterKey.isFavourite.rawValue) \(PredicateFormat.equalsTo.rawValue) \(FilterValue.yes.rawValue)")) var cocktails: FetchedResults<Cocktail>
+    
+    @ObservedObject var viewModel = FavouritesViewModel()
     
     var body: some View {
         NavigationStack {
-            
-            if drinks.isEmpty {
+            if cocktails.isEmpty {
                 Text("Looks like you added no drinks to your favourites list. Please do so by tapping the ❤️")
                     .padding()
                     .navigationTitle("Favourites")
                     .navigationBarTitleDisplayMode(.inline)
             } else {
-                List {
-                    ForEach(drinks) { drink in
-                        ZStack(alignment: .leading) {
-                            NavigationLink(destination: CocktailDetailsView(drink: drink)) {
-                                EmptyView()
-                            }
-                            CocktailCellView(drink: drink)
-                        }
+                List(cocktails) { cocktail in
+                    ZStack {
+                        NavigationLink(destination: CocktailDetailsView(drink: Drink(strDrink: cocktail.unwrappedDrink, strDrinkThumb: cocktail.unwrappedThumbnail))) { }
+                            .opacity(0)
+                        
+                        CocktailCellView(drinkName: cocktail.unwrappedDrink)
+                            .buttonStyle(PlainButtonStyle())
                     }
+                    
                 }
                 .navigationTitle("Favourites")
                 .navigationBarTitleDisplayMode(.inline)
             }
-                
         }
-        .onAppear {
-            Task {
-                // drinks = await viewModel.fetchFavourites()
-            }
-        }
+        .navigationBarBackButtonTitleHidden()
     }
 }
 

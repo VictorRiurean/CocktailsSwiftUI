@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @Environment(\.managedObjectContext) var moc
+    
     @State private var selectedTab = 0
     
     var body: some View {

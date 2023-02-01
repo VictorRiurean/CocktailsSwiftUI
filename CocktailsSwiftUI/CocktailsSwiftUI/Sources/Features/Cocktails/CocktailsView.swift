@@ -11,34 +11,29 @@ struct CocktailsView: View {
     
     @Environment(\.managedObjectContext) var moc
     
-    @FetchRequest(sortDescriptors: []) var cocktails: FetchedResults<Cocktail>
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.strDrink, order: .forward)]) var cocktails: FetchedResults<Cocktail>
     
     @AppStorage(StorageKeys.allLettersLoaded.rawValue) var allLettersLoaded: Bool = false
+    @AppStorage(StorageKeys.loadedLetters.rawValue) var loadedLetters: Data = Data()
     
     @State private var searchText = ""
     
     @ObservedObject private var viewModel = CocktailsViewModel()
     
     private var letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-//    private var searchResults: [String: [Drink]] {
-//        if searchText.isEmpty {
-//            return drinks
-//        } else {
-//            var filtered: [String: [Drink]] = [:]
-//
-//            viewModel.loadedLetters.forEach {
-//                filtered[$0] = drinks[$0]?.filter { $0.strDrink.lowercased().contains(searchText.lowercased()) }
-//            }
-//
-//            return filtered
-//        }
-//    }
+    private var searchResults: [Cocktail] {
+        if searchText.isEmpty {
+            return Array(cocktails)
+        } else {
+            return cocktails.filter { $0.unwrappedDrink.lowercased().contains(searchText.lowercased()) }
+        }
+    }
     
     var body: some View {
         NavigationStack {
-            List(viewModel.loadedLetters, id: \.self) { letter in
+            List(Storage.loadStringArray(data: loadedLetters), id: \.self) { letter in
                 Section(header: Text(letter)) {
-                    ForEach(cocktails.filter { $0.strDrink?.lowercased().starts(with: letter.lowercased()) ?? false } ) { drink in
+                    ForEach(searchResults.filter { $0.unwrappedDrink.lowercased().starts(with: letter.lowercased()) } ) { drink in
                         ZStack(alignment: .leading) {
                             NavigationLink(destination: CocktailDetailsView(drink: Drink(strDrink: drink.unwrappedDrink, strDrinkThumb: drink.unwrappedThumbnail))) { }
                                 .opacity(0)
@@ -50,23 +45,31 @@ struct CocktailsView: View {
                     }
                 }
                 
-                if !viewModel.allLettersLoaded {
+                if !allLettersLoaded {
                     ProgressView()
                         .progressViewStyle(MyActivityIndicator())
                         .onAppear {
                             Task {
-                                let drinks = await viewModel.fetchDrinks()
-                                
+                                let drinks = await viewModel.fetchDrinks(loadedLetters: Storage.loadStringArray(data: loadedLetters))
+
                                 viewModel.addDrinksToCoreData(drinks: drinks, context: moc)
+
+                                loadedLetters = Storage.archiveStringArray(object: viewModel.loadedLetters)
+                                allLettersLoaded = viewModel.allLettersLoaded
                             }
                         }
                 }
             }
             .onAppear {
-                Task {
-                    let drinks = await viewModel.fetchDrinks()
-                    
-                    viewModel.addDrinksToCoreData(drinks: drinks, context: moc)
+                if !allLettersLoaded {
+                    Task {
+                        let drinks = await viewModel.fetchDrinks(loadedLetters: Storage.loadStringArray(data: loadedLetters))
+
+                        viewModel.addDrinksToCoreData(drinks: drinks, context: moc)
+
+                        loadedLetters = Storage.archiveStringArray(object: viewModel.loadedLetters)
+                        allLettersLoaded = viewModel.allLettersLoaded
+                    }
                 }
             }
             .navigationTitle("Cocktails")

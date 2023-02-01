@@ -30,17 +30,23 @@ class CocktailsViewModel: ObservableObject {
     // MARK: Public methods
     
     @MainActor
-    func fetchDrinks() async -> [Drink] {
+    func fetchDrinks(loadedLetters: [String]) async -> [Drink] {
         isLoading = true
         
         var drinks: [Drink] = []
+        
+        self.loadedLetters = loadedLetters
+        
+        loadedLetters.forEach { letter in
+            letters = letters.filter { $0 != letter }
+        }
         
         if !letters.isEmpty {
             drinks = await service.fetchDrinks(with: letters.first!)
             
             currentLetter = letters[0]
             
-            loadedLetters.append(currentLetter)
+            self.loadedLetters.append(currentLetter)
             
             letters.removeFirst()
         }

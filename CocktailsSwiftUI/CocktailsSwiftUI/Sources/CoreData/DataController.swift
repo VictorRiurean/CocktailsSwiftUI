@@ -8,6 +8,23 @@
 import CoreData
 
 class DataController: ObservableObject {
+    
+    // A test configuration for SwiftUI previews
+    static var preview: DataController = {
+        let controller = DataController()
+
+        // Create 10 cocktails
+        for i in 0..<10 {
+            let cocktail = Cocktail(context: controller.container.viewContext)
+            
+            cocktail.strDrink = "Cocktail \(i)"
+            cocktail.strInstructions = "This is just a test cocktail, you don't prepare it."
+            cocktail.isFavourite = i % 2 == 0
+        }
+
+        return controller
+    }()
+    
     let container = NSPersistentContainer(name: "Model")
     
     init() {

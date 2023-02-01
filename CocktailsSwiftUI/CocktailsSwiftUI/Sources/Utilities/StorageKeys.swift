@@ -9,4 +9,5 @@ import Foundation
 
 enum StorageKeys: String {
     case allLettersLoaded
+    case loadedLetters
 }

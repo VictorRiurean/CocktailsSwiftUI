@@ -8,8 +8,14 @@
 import LinkPresentation
 
 class MyActivityItemSource: NSObject, UIActivityItemSource {
-    var title: String
-    var text: String
+    
+    // MARK: Private properties
+    
+    private var title: String
+    private var text: String
+    
+    
+    // MARK: Lifecycle
     
     init(title: String, text: String) {
         self.title = title
@@ -17,6 +23,9 @@ class MyActivityItemSource: NSObject, UIActivityItemSource {
         
         super.init()
     }
+    
+    
+    // MARK: Delegate methods
     
     func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
         return text

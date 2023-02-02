@@ -9,8 +9,13 @@ import SwiftUI
 
 struct IngredientsView: View {
     
+    // MARK: State
+    
     @State private var ingredients: [Ingredient] = []
     @State private var searchText: String = ""
+    
+    
+    // MARK: Private properties
     
     private let viewModel = IngredientsViewModel()
     
@@ -23,6 +28,9 @@ struct IngredientsView: View {
             }
         }
     }
+    
+    
+    // MARK: Body
     
     var body: some View {
         NavigationStack {
@@ -40,7 +48,6 @@ struct IngredientsView: View {
                                 
                                 IngredientView(ingredient: ingredient)
                             }
-                            
                         }
                     }
                 }
@@ -50,12 +57,6 @@ struct IngredientsView: View {
         .onAppear {
             Task {
                 ingredients = await viewModel.fetchIngredients()
-                ingredients.forEach {
-                    if $0.strIngredient1.contains("ejo rum") {
-                        // TODO:
-                        print("Debug this: \($0.urlString)")
-                    }
-                }
             }
         }
         .searchable(text: $searchText)

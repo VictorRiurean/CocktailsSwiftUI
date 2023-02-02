@@ -9,9 +9,17 @@ import SwiftUI
 
 struct TipView: View {
     
+    // MARK: Environment
+    
     @Environment(\.colorScheme) var colorScheme
     
+    
+    // MARK: Private properties
+    
     private let tip: Tip
+    
+    
+    // MARK: Body
     
     var body: some View {
         HStack {
@@ -31,6 +39,9 @@ struct TipView: View {
         .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(15)
     }
+    
+    
+    // MARK: Lifecycle
     
     init(tip: Tip) {
         self.tip = tip

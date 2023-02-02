@@ -9,9 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @Environment(\.managedObjectContext) var moc
-    
+    // MARK: State
+    /// This is passed as a binding via DiscoverView's init in order
+    /// to be able to programmatically change tabs at line 100
     @State private var selectedTab = 0
+    
+    
+    // MARK:  Body
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -45,6 +49,8 @@ struct ContentView: View {
                 }
                 .tag(4)
         }
+        /// Sets tintColor for tabView
+        .accentColor(AppColors.darkGray)
     }
 }
 

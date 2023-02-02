@@ -9,11 +9,17 @@ import SwiftUI
 
 struct FavouritesView: View {
     
+    // MARK: Environment
+    
     @Environment(\.managedObjectContext) var moc
+    
+    
+    // MARK: FetchRequests
     
     @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "\(FilterKey.isFavourite.rawValue) \(PredicateFormat.equalsTo.rawValue) \(FilterValue.yes.rawValue)")) var cocktails: FetchedResults<Cocktail>
     
-    @ObservedObject var viewModel = FavouritesViewModel()
+    
+    // MARK: Body
     
     var body: some View {
         NavigationStack {
@@ -24,6 +30,8 @@ struct FavouritesView: View {
                     .navigationBarTitleDisplayMode(.inline)
             } else {
                 List(cocktails) { cocktail in
+                    /// We use the combination of ZStack and empty NavigationLink to hide
+                    /// the disclosure chevron that NavigationLinks get by default.
                     ZStack {
                         NavigationLink(destination: CocktailDetailsView(name: cocktail.unwrappedDrink)) { }
                             .opacity(0)

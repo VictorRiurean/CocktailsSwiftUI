@@ -9,13 +9,19 @@ import SwiftUI
 
 struct AssistantCellView: View {
     
+    // MARK: Private properties
+    
     private let name: String
     private let title: String
     private let description: String
     
+    
+    // MARK: Body
+    
     var body: some View {
         HStack {
             Image(name)
+                /// Without this modifier images are rendered at original size
                 .resizable()
                 .frame(width: 75, height: 75)
             
@@ -28,6 +34,9 @@ struct AssistantCellView: View {
             }
         }
     }
+    
+    
+    // MARK: Lifecycle
     
     init(name: String, title: String, description: String) {
         self.name = name

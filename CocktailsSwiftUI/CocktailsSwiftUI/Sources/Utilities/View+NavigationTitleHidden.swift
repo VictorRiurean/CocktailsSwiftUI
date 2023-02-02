@@ -24,7 +24,7 @@ struct NavigationBarBackButtonTitleHiddenModifier: ViewModifier {
             .navigationBarItems(
                 leading: Button(action: { dismiss() }) {
                     Image(systemName: "chevron.left")
-                        .foregroundColor(.blue)
+                        .foregroundColor(AppColors.darkGray)
                     .imageScale(.large) })
             .contentShape(Rectangle()) // Start of the gesture to dismiss the navigation
             .gesture(

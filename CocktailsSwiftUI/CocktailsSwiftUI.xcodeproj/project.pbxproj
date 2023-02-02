@@ -20,14 +20,12 @@
 		578DAC662987FEC600B94904 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC652987FEC600B94904 /* DataController.swift */; };
 		578DAC692987FF5D00B94904 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC672987FF5D00B94904 /* Model.xcdatamodeld */; };
 		57917BC52982797200C507C2 /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57917BC42982797200C507C2 /* FavouritesView.swift */; };
-		57917BC72982798200C507C2 /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57917BC62982798200C507C2 /* FavouritesViewModel.swift */; };
 		57917BC9298288B600C507C2 /* TipDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57917BC8298288B600C507C2 /* TipDetailsView.swift */; };
 		5791F7E0298BC3CE002531C6 /* MyActivityItemSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5791F7DF298BC3CE002531C6 /* MyActivityItemSource.swift */; };
 		5791F7E2298BC3F5002531C6 /* UIApplication+Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5791F7E1298BC3F5002531C6 /* UIApplication+Window.swift */; };
 		5791F7E4298BE277002531C6 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5791F7E3298BE277002531C6 /* DatabaseManager.swift */; };
 		5796F838298947B50069057D /* StorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5796F837298947B50069057D /* StorageKeys.swift */; };
 		5796F83A298949E50069057D /* FilteredCocktailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5796F839298949E50069057D /* FilteredCocktailsView.swift */; };
-		5796F83C298954010069057D /* FilteredCocktailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5796F83B298954010069057D /* FilteredCocktailsViewModel.swift */; };
 		5796F83E29899E280069057D /* PredicateEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5796F83D29899E280069057D /* PredicateEnums.swift */; };
 		57CC608C2978005600C0D12A /* CocktailsSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC608B2978005600C0D12A /* CocktailsSwiftUIApp.swift */; };
 		57CC608E2978005700C0D12A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CC608D2978005600C0D12A /* ContentView.swift */; };
@@ -83,14 +81,12 @@
 		578DAC652987FEC600B94904 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		578DAC682987FF5D00B94904 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		57917BC42982797200C507C2 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
-		57917BC62982798200C507C2 /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
 		57917BC8298288B600C507C2 /* TipDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailsView.swift; sourceTree = "<group>"; };
 		5791F7DF298BC3CE002531C6 /* MyActivityItemSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityItemSource.swift; sourceTree = "<group>"; };
 		5791F7E1298BC3F5002531C6 /* UIApplication+Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIApplication+Window.swift"; path = "CocktailsSwiftUI/Sources/Utilities/UIApplication+Window.swift"; sourceTree = SOURCE_ROOT; };
 		5791F7E3298BE277002531C6 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatabaseManager.swift; path = CocktailsSwiftUI/Sources/Utilities/DatabaseManager.swift; sourceTree = SOURCE_ROOT; };
 		5796F837298947B50069057D /* StorageKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageKeys.swift; sourceTree = "<group>"; };
 		5796F839298949E50069057D /* FilteredCocktailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredCocktailsView.swift; sourceTree = "<group>"; };
-		5796F83B298954010069057D /* FilteredCocktailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredCocktailsViewModel.swift; sourceTree = "<group>"; };
 		5796F83D29899E280069057D /* PredicateEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredicateEnums.swift; sourceTree = "<group>"; };
 		57CC60882978005600C0D12A /* CocktailsSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocktailsSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57CC608B2978005600C0D12A /* CocktailsSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailsSwiftUIApp.swift; sourceTree = "<group>"; };
@@ -167,7 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				57917BC42982797200C507C2 /* FavouritesView.swift */,
-				57917BC62982798200C507C2 /* FavouritesViewModel.swift */,
 			);
 			path = Favourites;
 			sourceTree = "<group>";
@@ -240,8 +235,8 @@
 		57CC609B2978013800C0D12A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */,
 				5791F7E1298BC3F5002531C6 /* UIApplication+Window.swift */,
+				578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -285,7 +280,6 @@
 				57CC60AD2978377C00C0D12A /* CocktailsView.swift */,
 				57CC60BC29796F4E00C0D12A /* CocktailsViewModel.swift */,
 				5796F839298949E50069057D /* FilteredCocktailsView.swift */,
-				5796F83B298954010069057D /* FilteredCocktailsViewModel.swift */,
 			);
 			path = Cocktails;
 			sourceTree = "<group>";
@@ -508,7 +502,6 @@
 				57CC608E2978005700C0D12A /* ContentView.swift in Sources */,
 				57CC60BF2979935A00C0D12A /* DiscoverViewModel.swift in Sources */,
 				57CC60C6297E8A2800C0D12A /* WebService.swift in Sources */,
-				5796F83C298954010069057D /* FilteredCocktailsViewModel.swift in Sources */,
 				57CC60AC2978376C00C0D12A /* IngredientsView.swift in Sources */,
 				57CC60D7297ED20000C0D12A /* AssistantCellView.swift in Sources */,
 				57CC60B92979548C00C0D12A /* Drink.swift in Sources */,
@@ -525,7 +518,6 @@
 				57CC60D2297EBDBA00C0D12A /* IngredientsViewModel.swift in Sources */,
 				57917BC52982797200C507C2 /* FavouritesView.swift in Sources */,
 				57CC60CE297EBBE100C0D12A /* IngredientView.swift in Sources */,
-				57917BC72982798200C507C2 /* FavouritesViewModel.swift in Sources */,
 				5783D965298AE8F100EE36AF /* Storage.swift in Sources */,
 				57CC60C32979A02C00C0D12A /* Category.swift in Sources */,
 				57CC608C2978005600C0D12A /* CocktailsSwiftUIApp.swift in Sources */,

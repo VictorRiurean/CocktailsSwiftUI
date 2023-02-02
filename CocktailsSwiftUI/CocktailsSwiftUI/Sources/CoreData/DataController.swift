@@ -9,6 +9,7 @@ import CoreData
 
 class DataController: ObservableObject {
     
+    // MARK: Singleton
     // A test configuration for SwiftUI previews
     static var preview: DataController = {
         let controller = DataController()
@@ -25,7 +26,13 @@ class DataController: ObservableObject {
         return controller
     }()
     
+    
+    // MARK: Public properties
+    
     let container = NSPersistentContainer(name: "Model")
+    
+    
+    // MARK: Lifecycle
     
     init() {
         container.loadPersistentStores { description, error in

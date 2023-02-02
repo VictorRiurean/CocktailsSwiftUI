@@ -9,7 +9,12 @@ import SwiftUI
 
 struct AssistantView: View {
     
+    // MARK: State
+    
     @State private var isShowingAlert = false
+    
+    
+    // MARK: Body
     
     var body: some View {
         NavigationStack {
@@ -23,6 +28,7 @@ struct AssistantView: View {
                 
                 AssistantCellView(name: "add", title: "My Cocktails", description: "Didn't find your cocktail in the app? No problem, add it yourself and we will save it for you!")
                     .onTapGesture {
+                        /// Toggles alert at line 44
                         isShowingAlert = true
                     }
                 

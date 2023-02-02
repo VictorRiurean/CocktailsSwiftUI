@@ -9,18 +9,32 @@ import SwiftUI
 
 struct CocktailsView: View {
     
+    // MARK: Environment
+    
     @Environment(\.managedObjectContext) var moc
+    
+    
+    // MARK: FetchRequests
     
     @FetchRequest(sortDescriptors: [SortDescriptor(\.strDrink, order: .forward)]) var cocktails: FetchedResults<Cocktail>
     
+    
+    // MARK: Storage
+    
     @AppStorage(StorageKeys.allLettersLoaded.rawValue) var allLettersLoaded: Bool = false
     @AppStorage(StorageKeys.loadedLetters.rawValue) var loadedLetters: Data = Data()
+    
+    
+    // MARK: State
     
     @State private var searchText = ""
     @State private var drinkName = ""
     @State private var isShowingRandomCocktail = false
     
     @ObservedObject private var viewModel = CocktailsViewModel()
+    
+    
+    // MARK: Private properties
     
     private var searchResults: [Cocktail] {
         if searchText.isEmpty {
@@ -29,6 +43,9 @@ struct CocktailsView: View {
             return cocktails.filter { $0.unwrappedDrink.lowercased().contains(searchText.lowercased()) }
         }
     }
+    
+    
+    // MARK: Body
     
     var body: some View {
         NavigationStack {
@@ -96,7 +113,7 @@ struct CocktailsView: View {
     }
     
     
-    // MARK: Private funcs
+    // MARK: Private methods
     
     private func fetchDrinks() async {
         let drinks = await viewModel.fetchDrinks(loadedLetters: Storage.loadStringArray(data: loadedLetters))

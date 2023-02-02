@@ -9,9 +9,17 @@ import SwiftUI
 
 struct CategoryView: View {
     
+    // MARK: Environment
+    
     @Environment(\.colorScheme) var colorScheme
     
+    
+    // MARK: Private properties
+    
     private var category: Category
+    
+    
+    // MARK: Body
     
     var body: some View {
         ZStack {
@@ -26,6 +34,9 @@ struct CategoryView: View {
         .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(15)
     }
+    
+    
+    // MARK: Lifecycle
     
     init(category: Category) {
         self.category = category

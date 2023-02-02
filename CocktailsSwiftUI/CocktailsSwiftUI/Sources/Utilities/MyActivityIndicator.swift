@@ -8,8 +8,14 @@
 import SwiftUI
 
 public struct MyActivityIndicator: ProgressViewStyle {
+    
+    // MARK: State
+    
     @State private var isAnimating: Bool = false
 
+    
+    // MARK: Public methods
+    
     public func makeBody(configuration: ProgressViewStyleConfiguration) -> some View {
         VStack {
             ZStack {
@@ -28,6 +34,9 @@ public struct MyActivityIndicator: ProgressViewStyle {
         }
     }
 
+    
+    // MARK: Private methods
+    
     private func infiniteAnimation(duration: Double) -> Animation {
         .linear(duration: duration)
         .repeatForever(autoreverses: false)

@@ -9,10 +9,18 @@ import SwiftUI
 
 struct GlassesDetailsView: View {
     
+    // MARK: State
+    
     @State private var drinks: [Drink] = []
+    
+    
+    // MARK: Private properties
     
     private let viewModel = GlassesDetailsViewModel()
     private let glass: String
+    
+    
+    // MARK: Body
     
     var body: some View {
         ScrollView(.vertical) {
@@ -34,6 +42,9 @@ struct GlassesDetailsView: View {
         .navigationTitle(glass)
         .navigationBarTitleDisplayMode(.inline)
     }
+    
+    
+    // MARK: Lifecycle
     
     init(glass: String) {
         self.glass = glass

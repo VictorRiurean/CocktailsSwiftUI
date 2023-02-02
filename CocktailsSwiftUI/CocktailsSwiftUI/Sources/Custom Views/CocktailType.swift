@@ -9,14 +9,22 @@ import SwiftUI
 
 struct CocktailType: View {
     
-    @Environment(\.colorScheme) var colorScheme
+    // MARK: Cocktail Type
     
-    enum CType: Equatable {
+    enum CocktailType: Equatable {
         case alcoholic
         case nonalcoholic
     }
     
-    private let type: CType
+    
+    // MARK: Environment
+    
+    @Environment(\.colorScheme) var colorScheme
+    
+    
+    // MARK: Private properties
+    
+    private let type: CocktailType
     private var text: String {
         switch type {
         case .alcoholic:
@@ -25,6 +33,9 @@ struct CocktailType: View {
             return "Non-alcoholic"
         }
     }
+    
+    
+    // MARK: Body
     
     var body: some View {
         ZStack {
@@ -44,7 +55,10 @@ struct CocktailType: View {
         .padding()
     }
     
-    init(type: CType) {
+    
+    // MARK: Lifecycle
+    
+    init(type: CocktailType) {
         self.type = type
     }
 }

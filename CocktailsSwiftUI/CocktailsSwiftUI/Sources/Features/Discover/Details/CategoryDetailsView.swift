@@ -9,13 +9,22 @@ import SwiftUI
 
 struct CategoryDetailsView: View {
     
+    // MARK: State
+    
     @State private var drinks: [Drink] = []
+    
+    
+    // MARK: Private properties
     
     private let categoryName: String
     private let viewModel = CategoryDetailsViewModel()
     
+    
+    // MARK: Body
+    
     var body: some View {
         ScrollView(.vertical) {
+            /// This is how you make a two column grid
             LazyVGrid(columns: [GridItem(), GridItem()]) {
                 ForEach(drinks) { drink in
                     NavigationLink(destination: CocktailDetailsView(name: drink.strDrink)) {
@@ -33,6 +42,9 @@ struct CategoryDetailsView: View {
         }
         .navigationTitle(categoryName)
     }
+    
+    
+    // MARK: Lifecycle
     
     init(categoryName: String) {
         self.categoryName = categoryName

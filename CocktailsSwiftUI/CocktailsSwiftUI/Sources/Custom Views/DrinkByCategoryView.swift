@@ -10,9 +10,17 @@ import SwiftUI
 
 struct DrinkByCategoryView: View {
     
+    // MARK: Environment
+    
     @Environment(\.colorScheme) var colorScheme
     
+    
+    // MARK: Private properties
+    
     private let drink: Drink
+    
+    
+    // MARK: Body
     
     var body: some View {
         VStack {
@@ -32,7 +40,10 @@ struct DrinkByCategoryView: View {
         .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(15)
     }
-                
+           
+    
+    // MARK: Lifecycle
+    
     init(drink: Drink) {
         self.drink = drink
     }

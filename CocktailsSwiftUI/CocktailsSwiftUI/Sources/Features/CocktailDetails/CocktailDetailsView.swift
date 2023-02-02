@@ -22,9 +22,15 @@ struct CocktailDetailsView: View {
     @FetchRequest var components: FetchedResults<Component>
     
     
+    // MARK: State
+    
+    @State var isFetching = true
+    
+    
     // MARK: Private properties
     
     private let viewModel = CocktailDetailsViewModel()
+    private let name: String
     
     
     // MARK: Body
@@ -101,7 +107,23 @@ struct CocktailDetailsView: View {
                 }
             }
         } else {
-            Text("Something went horribly wrong here 😱")
+            /// This gets triggered when the user taps on a cocktail within the Discover scene
+            /// before having ever visited the Cocktails scene (and thus loading them to storage)
+            if isFetching {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .onAppear {
+                        Task {
+                            let drink = await viewModel.fetchDrink(name: name)
+                            
+                            viewModel.addDrinksToCoreData(drinks: [drink], context: moc)
+                            
+                            isFetching = false
+                        }
+                    }
+            } else {
+                Text("Something went horribly wrong here 😱")
+            }
         }
     }
     
@@ -111,6 +133,8 @@ struct CocktailDetailsView: View {
     init(name: String) {
         _cocktail = FetchRequest<Cocktail>(sortDescriptors: [], predicate: NSPredicate(format: "\(FilterKey.drinkName.rawValue) \(PredicateFormat.equalsTo.rawValue) %@", name))
         _components = FetchRequest<Component>(sortDescriptors: [], predicate: NSPredicate(format: "\(FilterKey.cocktail.rawValue) \(PredicateFormat.equalsTo.rawValue) %@", name))
+        
+        self.name = name
     }
     
     

@@ -24,6 +24,7 @@
 		57917BC9298288B600C507C2 /* TipDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57917BC8298288B600C507C2 /* TipDetailsView.swift */; };
 		5791F7E0298BC3CE002531C6 /* MyActivityItemSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5791F7DF298BC3CE002531C6 /* MyActivityItemSource.swift */; };
 		5791F7E2298BC3F5002531C6 /* UIApplication+Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5791F7E1298BC3F5002531C6 /* UIApplication+Window.swift */; };
+		5791F7E4298BE277002531C6 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5791F7E3298BE277002531C6 /* DatabaseManager.swift */; };
 		5796F838298947B50069057D /* StorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5796F837298947B50069057D /* StorageKeys.swift */; };
 		5796F83A298949E50069057D /* FilteredCocktailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5796F839298949E50069057D /* FilteredCocktailsView.swift */; };
 		5796F83C298954010069057D /* FilteredCocktailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5796F83B298954010069057D /* FilteredCocktailsViewModel.swift */; };
@@ -86,6 +87,7 @@
 		57917BC8298288B600C507C2 /* TipDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailsView.swift; sourceTree = "<group>"; };
 		5791F7DF298BC3CE002531C6 /* MyActivityItemSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityItemSource.swift; sourceTree = "<group>"; };
 		5791F7E1298BC3F5002531C6 /* UIApplication+Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIApplication+Window.swift"; path = "CocktailsSwiftUI/Sources/Utilities/UIApplication+Window.swift"; sourceTree = SOURCE_ROOT; };
+		5791F7E3298BE277002531C6 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatabaseManager.swift; path = CocktailsSwiftUI/Sources/Utilities/DatabaseManager.swift; sourceTree = SOURCE_ROOT; };
 		5796F837298947B50069057D /* StorageKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageKeys.swift; sourceTree = "<group>"; };
 		5796F839298949E50069057D /* FilteredCocktailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredCocktailsView.swift; sourceTree = "<group>"; };
 		5796F83B298954010069057D /* FilteredCocktailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredCocktailsViewModel.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 		57CC609A297800BD00C0D12A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				5791F7E3298BE277002531C6 /* DatabaseManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				5783D960298AD55000EE36AF /* Component+CoreDataClass.swift in Sources */,
 				57CC60BD29796F4E00C0D12A /* CocktailsViewModel.swift in Sources */,
 				57CC60E829802BEA00C0D12A /* IngredientAndMeasure.swift in Sources */,
+				5791F7E4298BE277002531C6 /* DatabaseManager.swift in Sources */,
 				57CC60DE2980193E00C0D12A /* CategoryDetailsView.swift in Sources */,
 				57CC608E2978005700C0D12A /* ContentView.swift in Sources */,
 				57CC60BF2979935A00C0D12A /* DiscoverViewModel.swift in Sources */,

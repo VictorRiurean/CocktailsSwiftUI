@@ -17,10 +17,11 @@ struct CocktailsView: View {
     @AppStorage(StorageKeys.loadedLetters.rawValue) var loadedLetters: Data = Data()
     
     @State private var searchText = ""
+    @State private var drinkName = ""
+    @State private var isShowingRandomCocktail = false
     
     @ObservedObject private var viewModel = CocktailsViewModel()
     
-    private var letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
     private var searchResults: [Cocktail] {
         if searchText.isEmpty {
             return Array(cocktails)
@@ -31,15 +32,22 @@ struct CocktailsView: View {
     
     var body: some View {
         NavigationStack {
-            List(Storage.loadStringArray(data: loadedLetters), id: \.self) { letter in
-                Section(header: Text(letter)) {
-                    ForEach(searchResults.filter { $0.unwrappedDrink.lowercased().starts(with: letter.lowercased()) } ) { drink in
-                        ZStack(alignment: .leading) {
-                            NavigationLink(destination: CocktailDetailsView(name: drink.unwrappedDrink)) { }
-                                .opacity(0)
-
-                            CocktailCellView(drinkName: drink.unwrappedDrink)
-                                .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+            List {
+                ForEach(Storage.loadStringArray(data: loadedLetters), id: \.self) { letter in
+                    Section(header: Text(letter)) {
+                        LazyVStack {
+                            ForEach(searchResults.filter { $0.unwrappedDrink.lowercased().starts(with: letter) }) { cocktail in
+                                /// This was the only navigation that was working properly with LazyVStack
+                                CocktailCellView(drinkName: cocktail.unwrappedDrink)
+                                    .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+                                    .onTapGesture {
+                                        drinkName = cocktail.unwrappedDrink
+                                        isShowingRandomCocktail = true
+                                    }
+                                    .navigationDestination(isPresented: $isShowingRandomCocktail) {
+                                        CocktailDetailsView(name: drinkName)
+                                    }
+                            }
                         }
                     }
                 }
@@ -47,33 +55,58 @@ struct CocktailsView: View {
                 if !allLettersLoaded {
                     ProgressView()
                         .progressViewStyle(MyActivityIndicator())
+                        /// onAppear is very trigger-happy. It sets off ages before the view is actually shown
+                        /// so I had to add all the pizzazz below to prevent the app being stuck while spinner
+                        /// goes BRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
                         .onAppear {
-                            Task {
-                                let drinks = await viewModel.fetchDrinks(loadedLetters: Storage.loadStringArray(data: loadedLetters))
-
-                                viewModel.addDrinksToCoreData(drinks: drinks, context: moc)
-
-                                loadedLetters = Storage.archiveStringArray(object: viewModel.loadedLetters)
-                                allLettersLoaded = viewModel.allLettersLoaded
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                Task {
+                                    await fetchDrinks()
+                                }
+                            }
+                            
+                            /// This is meant to handle the scenario in which the spinner is showing
+                            /// but for some reason onAppear was not called again on redraw.
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                                if !allLettersLoaded {
+                                    Task {
+                                        await fetchDrinks()
+                                    }
+                                }
                             }
                         }
                 }
             }
-            .onAppear {
-                if !allLettersLoaded {
-                    Task {
-                        let drinks = await viewModel.fetchDrinks(loadedLetters: Storage.loadStringArray(data: loadedLetters))
-
-                        viewModel.addDrinksToCoreData(drinks: drinks, context: moc)
-
-                        loadedLetters = Storage.archiveStringArray(object: viewModel.loadedLetters)
-                        allLettersLoaded = viewModel.allLettersLoaded
-                    }
-                }
-            }
             .navigationTitle("Cocktails")
         }
+        
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .onAppear {
+            if !allLettersLoaded {
+                Task {
+                    let drinks = await viewModel.fetchDrinks(loadedLetters: Storage.loadStringArray(data: loadedLetters))
+                    
+                    viewModel.addDrinksToCoreData(drinks: drinks, context: moc)
+                    
+                    loadedLetters = Storage.archiveStringArray(object: viewModel.loadedLetters)
+                    allLettersLoaded = viewModel.allLettersLoaded
+                }
+            }
+        }
+    }
+    
+    
+    // MARK: Private funcs
+    
+    private func fetchDrinks() async {
+        let drinks = await viewModel.fetchDrinks(loadedLetters: Storage.loadStringArray(data: loadedLetters))
+        
+        if !drinks.isEmpty {
+            viewModel.addDrinksToCoreData(drinks: drinks, context: moc)
+            
+            loadedLetters = Storage.archiveStringArray(object: viewModel.loadedLetters)
+            allLettersLoaded = viewModel.allLettersLoaded
+        }
     }
 }
 

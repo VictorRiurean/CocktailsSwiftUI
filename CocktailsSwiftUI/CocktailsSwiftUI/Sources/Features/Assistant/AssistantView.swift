@@ -14,7 +14,7 @@ struct AssistantView: View {
     var body: some View {
         NavigationStack {
             List {
-                ZStack {
+                ZStack(alignment: .leading)  {
                     NavigationLink(destination: FavouritesView()) { }
                         .opacity(0)
                     
@@ -26,7 +26,7 @@ struct AssistantView: View {
                         isShowingAlert = true
                     }
                 
-                ZStack {
+                ZStack(alignment: .leading) {
                     NavigationLink(destination: TipsView()) { }
                         .opacity(0)
                     

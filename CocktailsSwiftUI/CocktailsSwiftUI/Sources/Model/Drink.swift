@@ -77,8 +77,9 @@ struct Drink: Codable, Identifiable, Equatable, Hashable {
         return array
     }()
     
-    static let surprizeMe: Drink = Drink(strDrink: "Surprize me!", strCategory: "", strAlcoholic: "", strGlass: "")
-    static let noDrinkForYou: Drink = Drink(strDrink: "No drink for this letter 🙃", strIngredient1: "Somebody should do something about this ...")
+    static let surprizeMe: Drink = Drink(strDrink: "Surprize me!", strIngredient1: "Tap this to get a random cocktail!")
+    static let noDrinkForU: Drink = Drink(strDrink: "Unforunately there's no drink for U 🙃", strIngredient1: "Somebody should do something about this ...")
+    static let noDrinkForX: Drink = Drink(strDrink: "X is also a letter with no drinks 😭", strIngredient1: "Somebody should do something about this ...")
     
     func unwrappedFavourite() -> Bool {
         return isFavourite ?? false

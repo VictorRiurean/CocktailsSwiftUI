@@ -15,6 +15,7 @@ enum PredicateFormat: String {
 enum FilterKey: String {
     case drinkName = "strDrink"
     case isFavourite
+    case cocktail = "cocktail.strDrink"
 }
 
 enum FilterValue: String {

@@ -25,7 +25,7 @@ struct FavouritesView: View {
             } else {
                 List(cocktails) { cocktail in
                     ZStack {
-                        NavigationLink(destination: CocktailDetailsView(drink: Drink(strDrink: cocktail.unwrappedDrink, strDrinkThumb: cocktail.unwrappedThumbnail))) { }
+                        NavigationLink(destination: CocktailDetailsView(name: cocktail.unwrappedDrink)) { }
                             .opacity(0)
                         
                         CocktailCellView(drinkName: cocktail.unwrappedDrink)

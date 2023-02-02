@@ -10,14 +10,23 @@ import SwiftUI
 
 struct CocktailCellView: View {
     
+    // MARK: Environment
+    
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.managedObjectContext) var moc
     
+    
+    // MARK: FetchRequests
+    
     @FetchRequest var fetchRequest: FetchedResults<Cocktail>
+    
+    
+    // MARK: Body
     
     var body: some View {
         HStack {
             if let drink = fetchRequest.first {
+                /// We use Nuke's LazyImage because it adds caching functionality
                 LazyImage(url: URL(string: drink.unwrappedThumbnail))
                     .frame(width: 70, height: 70)
                     .clipShape(RoundedRectangle(cornerRadius: 35))
@@ -30,7 +39,6 @@ struct CocktailCellView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 35))
                     .padding()
                     .foregroundColor(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
-                    
             }
             
             VStack(alignment: .leading) {
@@ -61,6 +69,8 @@ struct CocktailCellView: View {
                     Image(systemName: drink.isFavourite ? "heart.fill" : "heart")
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                /// Without this modifier the frame of the button is too large and the button may
+                /// end up taking away tap gestures from the cell thus disabling navigation
                 .buttonStyle(BorderlessButtonStyle())
             }
         }
@@ -69,6 +79,9 @@ struct CocktailCellView: View {
         .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(15)
     }
+    
+    
+    // MARK: Lifecycle
     
     init(drinkName: String) {
         _fetchRequest = FetchRequest<Cocktail>(sortDescriptors: [], predicate: NSPredicate(format: "\(FilterKey.drinkName.rawValue) \(PredicateFormat.equalsTo.rawValue) %@", drinkName))

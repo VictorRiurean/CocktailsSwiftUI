@@ -9,6 +9,13 @@ import SwiftUI
 
 struct DiscoverView: View {
     
+    // MARK: Environment
+    
+    @Environment(\.colorScheme) var colorScheme
+    
+    
+    // MARK: State
+    /// Injected from ContentView via init
     @Binding var tabSelection: Int
     
     @State private var drinks: [Drink] = []
@@ -16,7 +23,13 @@ struct DiscoverView: View {
     @State private var isShowingRandomCocktail = false
     @State private var drink: Drink = Drink.surprizeMe
     
+    
+    // MARK: Private properties
+    
     private let viewModel = DiscoverViewModel()
+    
+    
+    // MARK: Body
     
     var body: some View {
         NavigationStack {
@@ -31,6 +44,7 @@ struct DiscoverView: View {
                                 NavigationLink(destination: CategoryDetailsView(categoryName: category.strCategory)) {
                                     CategoryView(category: category)
                                 }
+                                /// Without this modifier text and foreground colours will become blue
                                 .buttonStyle(PlainButtonStyle())
                             }
                         }
@@ -47,11 +61,11 @@ struct DiscoverView: View {
                                 .onTapGesture {
                                     Task {
                                         drink = await viewModel.fetchRandomCocktail()
-                                        
+                                        /// This triggers navigation at line 152
                                         isShowingRandomCocktail = true
                                     }
                                 }
-                            
+                            /// This is an example of direct navigation
                             NavigationLink(destination: CocktailDetailsView(name: drinks[0].strDrink)) {
                                 IconicCocktail(drink: drinks[0])
                             }
@@ -90,7 +104,7 @@ struct DiscoverView: View {
                                 .font(.headline)
                                 .foregroundColor(.white)
                         }
-                        .background(Color.red)
+                        .background(colorScheme == .light ? AppColors.lightModeRedButton : AppColors.darkModeRedButton)
                         .contentShape(Rectangle())
                         .cornerRadius(10)
                         
@@ -117,6 +131,9 @@ struct DiscoverView: View {
                 .padding()
                 .onAppear {
                     Task {
+                        /// This particular task group won't fail if one of the tasks fails,
+                        /// but if need be you can implement such a task group. Check out:
+                        /// https://www.avanderlee.com/concurrency/task-groups-in-swift/?utm_source=swiftlee&utm_medium=swiftlee_weekly&utm_campaign=issue_150
                         drinks = try await withThrowingTaskGroup(of: Drink.self, returning: [Drink].self) { taskGroup in
                             for _ in 0...2 {
                                 taskGroup.addTask { await viewModel.fetchRandomCocktail() }

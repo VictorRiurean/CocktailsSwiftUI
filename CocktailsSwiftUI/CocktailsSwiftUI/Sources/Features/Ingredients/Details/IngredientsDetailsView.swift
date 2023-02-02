@@ -9,9 +9,18 @@ import SwiftUI
 
 struct IngredientsDetailsView: View {
     
+    // MARK: State
+    
     @State private var drinks: [Drink] = []
-    private let ingredient: String
+    
+    
+    // MARK: Private properties
+
     private let viewModel = IngredientsDetailsViewModel()
+    private let ingredient: String
+
+    
+    // MARK: Body
     
     var body: some View {
         ScrollView(.vertical) {
@@ -33,6 +42,9 @@ struct IngredientsDetailsView: View {
         .navigationTitle(ingredient)
         .navigationBarTitleDisplayMode(.inline)
     }
+    
+    
+    // MARK: Lifecycle
     
     init(ingredient: String) {
         self.ingredient = ingredient

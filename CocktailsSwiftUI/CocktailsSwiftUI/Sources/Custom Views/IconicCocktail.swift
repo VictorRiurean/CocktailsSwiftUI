@@ -10,9 +10,17 @@ import SwiftUI
 
 struct IconicCocktail: View {
     
+    // MARK: Environment
+    
     @Environment(\.colorScheme) var colorScheme
     
+    
+    // MARK: Private properties
+    
     private var drink: Drink
+    
+    
+    // MARK: Body
     
     var body: some View {
         VStack {
@@ -42,6 +50,9 @@ struct IconicCocktail: View {
         .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(10)
     }
+    
+    
+    // MARK: Lifecycle
     
     init(drink: Drink) {
         self.drink = drink

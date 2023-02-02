@@ -99,12 +99,14 @@ struct CocktailDetailsView: View {
                 } label: {
                     cocktail.isFavourite ? Image(systemName: "heart.fill") : Image(systemName: "heart")
                 }
+                .buttonStyle(PlainButtonStyle())
                 
                 /// ShareLink is normally used in SwiftUI, but as of iOS 16
                 /// toolbars do not support it, so we have to go for this instead
                 Button(action: actionSheet) {
                     Image(systemName: "square.and.arrow.up")
                 }
+                .buttonStyle(PlainButtonStyle())
             }
         } else {
             /// This gets triggered when the user taps on a cocktail within the Discover scene
@@ -138,7 +140,7 @@ struct CocktailDetailsView: View {
     }
     
     
-    // MARK: Private funcs
+    // MARK: Private methods
     
     private func actionSheet() {
         guard let cocktail = cocktail.first else { return }

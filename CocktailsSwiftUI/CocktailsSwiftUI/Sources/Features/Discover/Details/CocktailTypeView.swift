@@ -9,10 +9,18 @@ import SwiftUI
 
 struct CocktailTypeView: View {
     
+    // MARK: State
+    /// Passed as binding to picker at line 29
     @State private var showAlcoholic: Bool
     @State private var drinks: [Drink] = []
     
+    
+    // MARK: Private properties
+    
     private let viewModel = CocktailTypeViewModel()
+    
+    
+    // MARK: Body
     
     var body: some View {
         VStack(spacing: 10) {
@@ -51,6 +59,9 @@ struct CocktailTypeView: View {
             }
         }
     }
+    
+    
+    // MARK: Lifecycle
     
     init(showAlcoholic: Bool) {
         self.showAlcoholic = showAlcoholic

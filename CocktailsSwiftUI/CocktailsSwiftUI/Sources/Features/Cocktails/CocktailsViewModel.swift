@@ -7,7 +7,8 @@
 
 import CoreData
 import SwiftUI
-
+/// Marked as MainActor because changes to it need to be published on main thread. See:
+/// https://www.hackingwithswift.com/quick-start/concurrency/how-to-use-mainactor-to-run-code-on-the-main-queue
 @MainActor
 class CocktailsViewModel: ObservableObject {
     
@@ -71,7 +72,8 @@ class CocktailsViewModel: ObservableObject {
         
         return drinks
     }
-    
+    /// We have to get the context passed from the parent view. If we were to declare
+    /// an environment variable here it wouldn't work (we get purple warnings).
     func addDrinksToCoreData(drinks: [Drink], context: NSManagedObjectContext) {
         databaseManager.addDrinksToCoreData(drinks: drinks, context: context)
     }

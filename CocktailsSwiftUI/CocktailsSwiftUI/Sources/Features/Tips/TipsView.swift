@@ -9,10 +9,18 @@ import SwiftUI
 
 struct TipsView: View {
     
+    // MARK: State
+    
     @State private var isShowingTip = false
     @State private var tip: Tip = Tip.tips.first!
     
+    
+    // MARK: Private properties
+    
     private let tips = Tip.tips
+    
+    
+    // MARK: Body
     
     var body: some View {
         List {
@@ -21,7 +29,6 @@ struct TipsView: View {
                     .onTapGesture {
                         self.tip = tip
                         self.isShowingTip = true
-                        
                     }
             }
             .navigationTitle("Tips & Tricks")
@@ -30,6 +37,7 @@ struct TipsView: View {
         .sheet(isPresented: $isShowingTip) {
             TipDetailsView(isPresented: $isShowingTip, tip: $tip)
         }
+        .navigationBarBackButtonTitleHidden()
     }
 }
 

@@ -6,7 +6,8 @@
 //
 
 import Foundation
-
+/// We use this because @AppStorage doesn't support arrays yet
+/// so we need to use Data() to store string arrays 
 class Storage: NSObject {
     static func archiveStringArray(object : [String]) -> Data {
         do {

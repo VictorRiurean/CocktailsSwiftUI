@@ -10,8 +10,13 @@ import SwiftUI
 @main
 struct CocktailsSwiftUIApp: App {
     
+    // MARK: Environment
+    /// Used to detect when app goes to background
     @Environment(\.scenePhase) var scenePhase
     
+    
+    // MARK: State
+    /// We use inject this instance in ContentView at line 25
     @StateObject private var dataController = DataController()
     
     var body: some Scene {

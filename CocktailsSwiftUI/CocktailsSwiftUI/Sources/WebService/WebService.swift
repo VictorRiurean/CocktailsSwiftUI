@@ -9,12 +9,12 @@ import Foundation
 
 class WebService {
     
-    //MARK: Singleton
+    // MARK: Singleton
     
     static let shared: WebService = WebService()
     
     
-    //MARK: Public functions
+    // MARK: Public functions
     
     /// Generic request
     /// - Parameter url: endpoint
@@ -30,6 +30,9 @@ class WebService {
             return []
         }
     }
+    
+    
+    // MARK: Category
     
     func fetchCategories() async -> [Category] {
         do {
@@ -55,6 +58,9 @@ class WebService {
         }
     }
     
+    
+    // MARK: Ingredient
+    
     func fetchByIngredient(name: String) async -> [Drink] {
         do {
             let url = try BaseEndpoint.byIngredient(name: name).asURL()
@@ -66,6 +72,21 @@ class WebService {
             return []
         }
     }
+    
+    func fetchIngredients() async -> [Ingredient] {
+        do {
+            let url = try BaseEndpoint.ingredients.asURL()
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let ingredients = try JSONDecoder().decode(Ingredients.self, from: data)
+            
+            return ingredients.drinks
+        } catch {
+            return []
+        }
+    }
+    
+    
+    // MARK: Glass
     
     func fetchByGlass(name: String) async -> [Drink] {
         do {
@@ -79,6 +100,21 @@ class WebService {
         }
     }
     
+    func fetchGlasses() async -> [Glass] {
+        do {
+            let url = try BaseEndpoint.glasses.asURL()
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let glasses = try JSONDecoder().decode(Glasses.self, from: data)
+            
+            return glasses.drinks
+        } catch {
+            return []
+        }
+    }
+    
+    
+    // MARK: Random
+    
     func fetchRandomCocktail() async -> Drink {
         do {
             let url = try BaseEndpoint.random.asURL()
@@ -91,21 +127,12 @@ class WebService {
         }
     }
     
+    
+    // MARK: Alphabetically and by name
+    
     func fetchDrinks(with letter: String) async -> [Drink] {
         do {
             let url = try BaseEndpoint.alphabetically(letter: letter).asURL()
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let drinks = try JSONDecoder().decode(Drinks.self, from: data)
-            
-            return drinks.drinks
-        } catch {
-            return []
-        }
-    }
-    
-    func fetchDrinks(with type: DrinkType) async -> [Drink] {
-        do {
-            let url = try BaseEndpoint.type(type: type).asURL()
             let (data, _) = try await URLSession.shared.data(from: url)
             let drinks = try JSONDecoder().decode(Drinks.self, from: data)
             
@@ -127,25 +154,16 @@ class WebService {
         }
     }
     
-    func fetchGlasses() async -> [Glass] {
-        do {
-            let url = try BaseEndpoint.glasses.asURL()
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let glasses = try JSONDecoder().decode(Glasses.self, from: data)
-            
-            return glasses.drinks
-        } catch {
-            return []
-        }
-    }
     
-    func fetchIngredients() async -> [Ingredient] {
+    // MARK: Alcoholic
+    
+    func fetchDrinks(with type: DrinkType) async -> [Drink] {
         do {
-            let url = try BaseEndpoint.ingredients.asURL()
+            let url = try BaseEndpoint.type(type: type).asURL()
             let (data, _) = try await URLSession.shared.data(from: url)
-            let ingredients = try JSONDecoder().decode(Ingredients.self, from: data)
+            let drinks = try JSONDecoder().decode(Drinks.self, from: data)
             
-            return ingredients.drinks
+            return drinks.drinks
         } catch {
             return []
         }

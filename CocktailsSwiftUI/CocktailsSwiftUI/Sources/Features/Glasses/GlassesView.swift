@@ -9,8 +9,13 @@ import SwiftUI
 
 struct GlassesView: View {
     
+    // MARK: State
+    
     @State private var glasses: [Glass] = []
     @State private var searchText = ""
+    
+    
+    // MARK: Private properties
     
     private let viewModel = GlassesViewModel()
     
@@ -23,6 +28,9 @@ struct GlassesView: View {
             }
         }
     }
+    
+    
+    // MARK: Body
     
     var body: some View {
         NavigationStack {
@@ -54,6 +62,7 @@ struct GlassesView: View {
                 glasses = await viewModel.fetchGlasses()
             }
         }
+        /// Used to add search textField
         .searchable(text: $searchText)
         .scrollDismissesKeyboard(.immediately)
     }

@@ -9,6 +9,9 @@ import UIKit
 import SwiftUI
 
 class AppColors {
+    
+    // MARK: Properties
+    
     static var lightColors = [
         Color(UIColor(rgb: 0xcaf7e3)),
         Color(UIColor(rgb: 0xedffec)),
@@ -35,6 +38,13 @@ class AppColors {
         Color(UIColor(rgb: 0xAD62AA)),
         Color(UIColor(rgb: 0xEAB9C9))
     ]
+    
+    static var lightModeRedButton = Color(UIColor(rgb: 0xEF7B7B))
+    static var darkModeRedButton = Color(UIColor(rgb: 0xDA0037))
+    static var darkGray = Color(UIColor(rgb: 0x171717))
+    
+    
+    // MARK: Public methods
 
     static func getRandomLightColor() -> Color {
         return lightColors.randomElement()!

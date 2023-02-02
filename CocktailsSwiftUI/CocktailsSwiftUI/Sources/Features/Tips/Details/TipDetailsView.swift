@@ -9,11 +9,19 @@ import SwiftUI
 
 struct TipDetailsView: View {
     
+    // MARK: Environment
+    
     @Environment(\.colorScheme) var colorScheme
     
-    @Binding var isPresented: Bool
     
+    // MARK: State
+    /// We use this to dismiss view when X is tapped (line 47)
+    @Binding var isPresented: Bool
     @Binding var tip: Tip
+    
+    
+    
+    // MARK: Body
     
     var body: some View {
         ZStack(alignment: .top) {

@@ -11,11 +11,12 @@ struct DiscoverView: View {
     
     @Binding var tabSelection: Int
     
-    private let viewModel = DiscoverViewModel()
     @State private var drinks: [Drink] = []
     @State private var categories: [Category] = []
     @State private var isShowingRandomCocktail = false
     @State private var drink: Drink = Drink.surprizeMe
+    
+    private let viewModel = DiscoverViewModel()
     
     var body: some View {
         NavigationStack {
@@ -46,11 +47,12 @@ struct DiscoverView: View {
                                 .onTapGesture {
                                     Task {
                                         drink = await viewModel.fetchRandomCocktail()
-                                        print(drink)
+                                        
                                         isShowingRandomCocktail = true
                                     }
                                 }
-                            NavigationLink(destination: CocktailDetailsView(drink: drinks[0])) {
+                            
+                            NavigationLink(destination: CocktailDetailsView(name: drinks[0].strDrink)) {
                                 IconicCocktail(drink: drinks[0])
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -63,12 +65,12 @@ struct DiscoverView: View {
                         Spacer()
                         
                         if drinks.count > 0 {
-                            NavigationLink(destination: CocktailDetailsView(drink: drinks[1])) {
+                            NavigationLink(destination: CocktailDetailsView(name: drinks[1].strDrink)) {
                                 IconicCocktail(drink: drinks[1])
                             }
                             .buttonStyle(PlainButtonStyle())
                             
-                            NavigationLink(destination: CocktailDetailsView(drink: drinks[2])) {
+                            NavigationLink(destination: CocktailDetailsView(name: drinks[2].strDrink)) {
                                 IconicCocktail(drink: drinks[2])
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -91,7 +93,6 @@ struct DiscoverView: View {
                         .background(Color.red)
                         .contentShape(Rectangle())
                         .cornerRadius(10)
-                        
                         
                         Spacer()
                     }
@@ -132,7 +133,7 @@ struct DiscoverView: View {
                     }
                 }
                 .navigationDestination(isPresented: $isShowingRandomCocktail) {
-                    CocktailDetailsView(drink: drink)
+                    CocktailDetailsView(name: drink.strDrink)
                 }
             }
         }

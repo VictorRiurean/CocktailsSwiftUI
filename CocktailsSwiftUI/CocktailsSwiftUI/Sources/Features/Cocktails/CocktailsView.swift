@@ -35,12 +35,11 @@ struct CocktailsView: View {
                 Section(header: Text(letter)) {
                     ForEach(searchResults.filter { $0.unwrappedDrink.lowercased().starts(with: letter.lowercased()) } ) { drink in
                         ZStack(alignment: .leading) {
-                            NavigationLink(destination: CocktailDetailsView(drink: Drink(strDrink: drink.unwrappedDrink, strDrinkThumb: drink.unwrappedThumbnail))) { }
+                            NavigationLink(destination: CocktailDetailsView(name: drink.unwrappedDrink)) { }
                                 .opacity(0)
 
                             CocktailCellView(drinkName: drink.unwrappedDrink)
                                 .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
-
                         }
                     }
                 }

@@ -17,7 +17,7 @@ struct IngredientsDetailsView: View {
         ScrollView(.vertical) {
             LazyVGrid(columns: [GridItem(), GridItem()]) {
                 ForEach(drinks) { drink in
-                    NavigationLink(destination: CocktailDetailsView(drink: drink)) {
+                    NavigationLink(destination: CocktailDetailsView(name: drink.strDrink)) {
                         DrinkByCategoryView(drink: drink)
                     }
                     .buttonStyle(PlainButtonStyle())

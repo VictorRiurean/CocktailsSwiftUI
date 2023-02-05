@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		574FFF9029903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574FFF8F29903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift */; };
 		5783D95E298AD55000EE36AF /* Cocktail+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95A298AD55000EE36AF /* Cocktail+CoreDataClass.swift */; };
 		5783D95F298AD55000EE36AF /* Cocktail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95B298AD55000EE36AF /* Cocktail+CoreDataProperties.swift */; };
 		5783D960298AD55000EE36AF /* Component+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95C298AD55000EE36AF /* Component+CoreDataClass.swift */; };
@@ -71,6 +72,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		574FFF8F29903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+FirstCharacterLowercasedOrNil.swift"; path = "CocktailsSwiftUI/Sources/Utilities/String+FirstCharacterLowercasedOrNil.swift"; sourceTree = SOURCE_ROOT; };
 		5783D95A298AD55000EE36AF /* Cocktail+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocktail+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		5783D95B298AD55000EE36AF /* Cocktail+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocktail+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		5783D95C298AD55000EE36AF /* Component+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Component+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -235,6 +237,7 @@
 		57CC609B2978013800C0D12A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				574FFF8F29903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift */,
 				5791F7E1298BC3F5002531C6 /* UIApplication+Window.swift */,
 				578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */,
 			);
@@ -534,6 +537,7 @@
 				57CC60B12978566400C0D12A /* IconicCocktail.swift in Sources */,
 				57EDFB56298165D60003F180 /* IngredientsDetailsView.swift in Sources */,
 				57917BC9298288B600C507C2 /* TipDetailsView.swift in Sources */,
+				574FFF9029903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift in Sources */,
 				5796F83E29899E280069057D /* PredicateEnums.swift in Sources */,
 				57EDFB58298165E30003F180 /* IngredientsDetailsViewModel.swift in Sources */,
 				57CC60E62980274100C0D12A /* CocktailDetailsView.swift in Sources */,

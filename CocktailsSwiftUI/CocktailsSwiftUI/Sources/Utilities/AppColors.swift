@@ -25,17 +25,17 @@ class AppColors {
     ]
     
     static var darkColors = [
-        Color(UIColor(rgb: 0x2C3639)),
-        Color(UIColor(rgb: 0x3F4E4F)),
-        Color(UIColor(rgb: 0xA27B5C)),
-        Color(UIColor(rgb: 0xDCD7C9)),
-        Color(UIColor(rgb: 0x2C3333)),
-        Color(UIColor(rgb: 0x395B64)),
-        Color(UIColor(rgb: 0xA5C9CA)),
-        Color(UIColor(rgb: 0xE7F6F2)),
         Color(UIColor(rgb: 0x413C69)),
         Color(UIColor(rgb: 0x4A47A3)),
         Color(UIColor(rgb: 0xAD62AA)),
+        Color(UIColor(rgb: 0x2C3639)),
+        Color(UIColor(rgb: 0x3F4E4F)),
+        Color(UIColor(rgb: 0x395B64)),
+        Color(UIColor(rgb: 0xA5C9CA)),
+        Color(UIColor(rgb: 0xE7F6F2)),
+        Color(UIColor(rgb: 0xA27B5C)),
+        Color(UIColor(rgb: 0xDCD7C9)),
+        Color(UIColor(rgb: 0x2C3333)),
         Color(UIColor(rgb: 0xEAB9C9))
     ]
     

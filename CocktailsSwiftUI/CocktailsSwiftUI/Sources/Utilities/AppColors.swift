@@ -13,13 +13,13 @@ class AppColors {
     // MARK: Properties
     
     static var lightColors = [
-        Color(UIColor(rgb: 0xcaf7e3)),
-        Color(UIColor(rgb: 0xedffec)),
         Color(UIColor(rgb: 0xf6dfeb)),
         Color(UIColor(rgb: 0xe4bad4)),
+        Color(UIColor(rgb: 0xcaf7e3)),
         Color(UIColor(rgb: 0xfceaea)),
         Color(UIColor(rgb: 0xf5d9d9)),
         Color(UIColor(rgb: 0xfbead1)),
+        Color(UIColor(rgb: 0xedffec)),
         Color(UIColor(rgb: 0xa6d6d6)),
         Color(UIColor(rgb: 0xededd0))
     ]
@@ -43,15 +43,16 @@ class AppColors {
     static var darkModeRedButton = Color(UIColor(rgb: 0xDA0037))
     static var darkGray = Color(UIColor(rgb: 0x171717))
     
+    static let letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
     
     // MARK: Public methods
 
-    static func getRandomLightColor() -> Color {
-        return lightColors.randomElement()!
+    static func getRandomLightColor(with letter: String? = nil) -> Color {
+        return letter == nil ? lightColors.randomElement()! : lightColors[letters.firstIndex(of: letter!)! % 9]
     }
     
-    static func getRandomDarkColor() -> Color {
-        return darkColors.randomElement()!
+    static func getRandomDarkColor(with letter: String? = nil) -> Color {
+        return letter == nil ? darkColors.randomElement()! : darkColors[letters.firstIndex(of: letter!)! % 12]
     }
 }
 

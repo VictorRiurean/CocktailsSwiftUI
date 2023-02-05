@@ -21,6 +21,10 @@ struct CocktailCellView: View {
     @FetchRequest var fetchRequest: FetchedResults<Cocktail>
     
     
+    // MARK: Private properties
+    
+    private var letter: String?
+    
     // MARK: Body
     
     var body: some View {
@@ -38,7 +42,7 @@ struct CocktailCellView: View {
                     .frame(width: 70, height: 70)
                     .clipShape(RoundedRectangle(cornerRadius: 35))
                     .padding()
-                    .foregroundColor(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
+                    .foregroundColor(colorScheme == .light ? AppColors.getRandomLightColor(with: letter) : AppColors.getRandomDarkColor(with: letter))
             }
             
             VStack(alignment: .leading) {
@@ -76,15 +80,17 @@ struct CocktailCellView: View {
         }
         .frame(height: 100)
         .frame(maxWidth: .infinity)
-        .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
+        .background(colorScheme == .light ? AppColors.getRandomLightColor(with: letter) : AppColors.getRandomDarkColor(with: letter))
         .cornerRadius(15)
     }
     
     
     // MARK: Lifecycle
     
-    init(drinkName: String) {
+    init(drinkName: String, letter: String? = nil) {
         _fetchRequest = FetchRequest<Cocktail>(sortDescriptors: [], predicate: NSPredicate(format: "\(FilterKey.drinkName.rawValue) \(PredicateFormat.equalsTo.rawValue) %@", drinkName))
+        
+        self.letter = letter
     }
 }
 

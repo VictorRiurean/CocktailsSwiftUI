@@ -25,6 +25,7 @@ struct CocktailDetailsView: View {
     // MARK: State
     
     @State var isFetching = true
+    @State var isShowingAlert = false
     
     
     // MARK: Private properties
@@ -125,6 +126,12 @@ struct CocktailDetailsView: View {
                     }
             } else {
                 Text("Something went horribly wrong here 😱")
+                    .onAppear {
+                        
+                    }
+                    .alert("Could not fetch cocktail named \(name)", isPresented: $isShowingAlert) {
+                        Button("OK", role: .cancel) { }
+                    }
             }
         }
     }

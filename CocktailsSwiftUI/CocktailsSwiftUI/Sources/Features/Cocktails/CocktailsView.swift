@@ -55,7 +55,7 @@ struct CocktailsView: View {
                         LazyVStack {
                             ForEach(searchResults.filter { $0.unwrappedDrink.lowercased().starts(with: letter) }) { cocktail in
                                 /// This was the only navigation that was working properly with LazyVStack
-                                CocktailCellView(drinkName: cocktail.unwrappedDrink)
+                                CocktailCellView(drinkName: cocktail.unwrappedDrink, letter: letter)
                                     .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
                                     .onTapGesture {
                                         drinkName = cocktail.unwrappedDrink

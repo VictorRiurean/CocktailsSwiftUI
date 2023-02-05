@@ -43,12 +43,7 @@ struct GlassesView: View {
                 } else {
                     List {
                         ForEach(searchResults) { glass in
-                            ZStack(alignment: .leading) {
-                                NavigationLink(destination: GlassesDetailsView(glass: glass.strGlass)) {
-                                    EmptyView()
-                                }
-                                .opacity(0)
-                                    
+                            NavigationLink(destination: GlassesDetailsView(glass: glass.strGlass)) {
                                 Text(glass.strGlass)
                             }
                         }

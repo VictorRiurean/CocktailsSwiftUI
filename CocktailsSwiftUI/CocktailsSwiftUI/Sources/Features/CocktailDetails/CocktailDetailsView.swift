@@ -65,7 +65,7 @@ struct CocktailDetailsView: View {
                             Text("\($0.unwrappedMeasure) \($0.unwrappedName)")
                                 .padding()
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
+                                .background(colorScheme == .light ? AppColors.getRandomLightColor(with: $0.unwrappedName.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: $0.unwrappedName.getFirstCharacterLowercasedOrNil()))
                                 .cornerRadius(10)
                         }
                     }
@@ -80,7 +80,7 @@ struct CocktailDetailsView: View {
                         Text(cocktail.unwrappedInstructions)
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
+                            .background(colorScheme == .light ? AppColors.getRandomLightColor(with: cocktail.unwrappedDrink.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: cocktail.unwrappedDrink.getFirstCharacterLowercasedOrNil()))
                             .lineLimit(nil)
                             .cornerRadius(10)
                     }

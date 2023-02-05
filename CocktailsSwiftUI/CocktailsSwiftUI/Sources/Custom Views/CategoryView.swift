@@ -23,7 +23,7 @@ struct CategoryView: View {
     
     var body: some View {
         ZStack {
-            colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor()
+            colorScheme == .light ? AppColors.getRandomLightColor(with: category.strCategory.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: category.strCategory.getFirstCharacterLowercasedOrNil())
             
             Text(category.strCategory)
                 .font(.title2)
@@ -31,7 +31,6 @@ struct CategoryView: View {
         }
         .frame(height: 100)
         .frame(maxWidth: .infinity)
-        .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
         .cornerRadius(15)
     }
     

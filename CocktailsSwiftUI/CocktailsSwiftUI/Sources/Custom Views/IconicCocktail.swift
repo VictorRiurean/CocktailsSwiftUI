@@ -47,7 +47,7 @@ struct IconicCocktail: View {
         }
         .frame(maxWidth: 150)
         .frame(height: 200)
-        .background(colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor())
+        .background(colorScheme == .light ? AppColors.getRandomLightColor(with: drink.strDrink.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: drink.strDrink.getFirstCharacterLowercasedOrNil()))
         .cornerRadius(10)
     }
     

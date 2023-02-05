@@ -12,6 +12,9 @@ struct Drinks: Codable {
 }
 
 struct Drink: Codable, Identifiable, Equatable, Hashable {
+    
+    // MARK: Properties
+    
     let id = UUID()
     var strDrink: String
     var strCategory: String?
@@ -80,6 +83,55 @@ struct Drink: Codable, Identifiable, Equatable, Hashable {
     static let surprizeMe: Drink = Drink(strDrink: "Surprize me!", strIngredient1: "Tap this to get a random cocktail!")
     static let noDrinkForU: Drink = Drink(strDrink: "Unforunately there's no drink for U 🙃", strIngredient1: "Somebody should do something about this ...")
     static let noDrinkForX: Drink = Drink(strDrink: "X is also a letter with no drinks 😭", strIngredient1: "Somebody should do something about this ...")
+    
+    
+    // MARK: CodingKeys
+    
+    enum CodingKeys: CodingKey {
+        case id
+        case strDrink
+        case strCategory
+        case strAlcoholic
+        case strGlass
+        case strInstructions
+        case strDrinkThumb
+        case strImageSource
+        case strIngredient1
+        case strIngredient2
+        case strIngredient3
+        case strIngredient4
+        case strIngredient5
+        case strIngredient6
+        case strIngredient7
+        case strIngredient8
+        case strIngredient9
+        case strIngredient10
+        case strIngredient11
+        case strIngredient12
+        case strIngredient13
+        case strIngredient14
+        case strIngredient15
+        case strMeasure1
+        case strMeasure2
+        case strMeasure3
+        case strMeasure4
+        case strMeasure5
+        case strMeasure6
+        case strMeasure7
+        case strMeasure8
+        case strMeasure9
+        case strMeasure10
+        case strMeasure11
+        case strMeasure12
+        case strMeasure13
+        case strMeasure14
+        case strMeasure15
+        case isFavourite
+        case idDrink
+    }
+    
+    
+    // MARK: Public methods
     
     func unwrappedFavourite() -> Bool {
         return isFavourite ?? false

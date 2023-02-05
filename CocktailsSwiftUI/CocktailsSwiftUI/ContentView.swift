@@ -9,6 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     
+    // MARK: Environment
+    
+    @Environment(\.colorScheme) var colorScheme
+    
+    
     // MARK: State
     /// This is passed as a binding via DiscoverView's init in order
     /// to be able to programmatically change tabs at line 100
@@ -50,7 +55,7 @@ struct ContentView: View {
                 .tag(4)
         }
         /// Sets tintColor for tabView
-        .accentColor(AppColors.darkGray)
+        .accentColor(colorScheme == .light ? AppColors.darkGray : .orange)
     }
 }
 

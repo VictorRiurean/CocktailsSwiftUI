@@ -100,6 +100,7 @@ struct CocktailDetailsView: View {
                 } label: {
                     cocktail.isFavourite ? Image(systemName: "heart.fill") : Image(systemName: "heart")
                 }
+                .foregroundColor(colorScheme == .light ? AppColors.darkGray : .orange)
                 .buttonStyle(PlainButtonStyle())
                 
                 /// ShareLink is normally used in SwiftUI, but as of iOS 16
@@ -107,6 +108,7 @@ struct CocktailDetailsView: View {
                 Button(action: actionSheet) {
                     Image(systemName: "square.and.arrow.up")
                 }
+                .foregroundColor(colorScheme == .light ? AppColors.darkGray : .orange)
                 .buttonStyle(PlainButtonStyle())
             }
         } else {
@@ -124,6 +126,7 @@ struct CocktailDetailsView: View {
                             isFetching = false
                         }
                     }
+                    .navigationBarBackButtonTitleHidden()
             } else {
                 Text("Something went horribly wrong here 😱")
                     .onAppear {
@@ -132,6 +135,7 @@ struct CocktailDetailsView: View {
                     .alert("Could not fetch cocktail named \(name)", isPresented: $isShowingAlert) {
                         Button("OK", role: .cancel) { }
                     }
+                    .navigationBarBackButtonTitleHidden()
             }
         }
     }

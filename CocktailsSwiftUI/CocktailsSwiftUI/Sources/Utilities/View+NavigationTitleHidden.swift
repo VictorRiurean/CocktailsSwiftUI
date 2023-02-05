@@ -15,6 +15,7 @@ extension View {
 
 struct NavigationBarBackButtonTitleHiddenModifier: ViewModifier {
 
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
 
     @ViewBuilder @MainActor
@@ -24,7 +25,7 @@ struct NavigationBarBackButtonTitleHiddenModifier: ViewModifier {
             .navigationBarItems(
                 leading: Button(action: { dismiss() }) {
                     Image(systemName: "chevron.left")
-                        .foregroundColor(AppColors.darkGray)
+                        .foregroundColor(colorScheme == .light ? AppColors.darkGray : .orange)
                     .imageScale(.large) })
             .contentShape(Rectangle()) // Start of the gesture to dismiss the navigation
             .gesture(

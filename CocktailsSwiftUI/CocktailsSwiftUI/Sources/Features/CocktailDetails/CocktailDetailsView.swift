@@ -127,7 +127,7 @@ struct CocktailDetailsView: View {
             } else {
                 Text("Something went horribly wrong here 😱")
                     .onAppear {
-                        
+                        isShowingAlert = true
                     }
                     .alert("Could not fetch cocktail named \(name)", isPresented: $isShowingAlert) {
                         Button("OK", role: .cancel) { }

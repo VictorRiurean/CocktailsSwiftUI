@@ -13,6 +13,7 @@
 		5783D960298AD55000EE36AF /* Component+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95C298AD55000EE36AF /* Component+CoreDataClass.swift */; };
 		5783D961298AD55000EE36AF /* Component+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95D298AD55000EE36AF /* Component+CoreDataProperties.swift */; };
 		5783D965298AE8F100EE36AF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D964298AE8F100EE36AF /* Storage.swift */; };
+		578966252992653A00D8CDCF /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 578966242992653A00D8CDCF /* Lottie */; };
 		578DAC572987C58A00B94904 /* MyActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC562987C58A00B94904 /* MyActivityIndicator.swift */; };
 		578DAC592987D3ED00B94904 /* View+NavigationTitleHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */; };
 		578DAC5F2987F1B400B94904 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 578DAC5E2987F1B400B94904 /* Nuke */; };
@@ -142,6 +143,7 @@
 				578DAC632987F1B400B94904 /* NukeUI in Frameworks */,
 				578DAC5F2987F1B400B94904 /* Nuke in Frameworks */,
 				578DAC612987F1B400B94904 /* NukeExtensions in Frameworks */,
+				578966252992653A00D8CDCF /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,6 +436,7 @@
 				578DAC5E2987F1B400B94904 /* Nuke */,
 				578DAC602987F1B400B94904 /* NukeExtensions */,
 				578DAC622987F1B400B94904 /* NukeUI */,
+				578966242992653A00D8CDCF /* Lottie */,
 			);
 			productName = CocktailsSwiftUI;
 			productReference = 57CC60882978005600C0D12A /* CocktailsSwiftUI.app */;
@@ -465,6 +468,7 @@
 			mainGroup = 57CC607F2978005600C0D12A;
 			packageReferences = (
 				578DAC5D2987F1B400B94904 /* XCRemoteSwiftPackageReference "Nuke" */,
+				578966232992653A00D8CDCF /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 57CC60892978005600C0D12A /* Products */;
 			projectDirPath = "";
@@ -751,6 +755,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		578966232992653A00D8CDCF /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		578DAC5D2987F1B400B94904 /* XCRemoteSwiftPackageReference "Nuke" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke.git";
@@ -762,6 +774,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		578966242992653A00D8CDCF /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 578966232992653A00D8CDCF /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		578DAC5E2987F1B400B94904 /* Nuke */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 578DAC5D2987F1B400B94904 /* XCRemoteSwiftPackageReference "Nuke" */;

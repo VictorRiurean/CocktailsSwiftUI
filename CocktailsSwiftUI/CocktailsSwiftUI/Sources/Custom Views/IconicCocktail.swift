@@ -31,7 +31,7 @@ struct IconicCocktail: View {
             
             Spacer()
             
-            if drink.strDrink == "Surprize me!" {
+            if drink.strDrink == "Surprise me!" {
                 Image(systemName: "questionmark.circle")
                     .font(.largeTitle)
                     .frame(minWidth: 100, minHeight: 100)

@@ -22,6 +22,7 @@ struct DiscoverView: View {
     @State private var categories: [Category] = []
     @State private var isShowingRandomCocktail = false
     @State private var drink: Drink = Drink.surprizeMe
+    @State private var isAnimating = false
     
     
     // MARK: Private properties
@@ -34,124 +35,143 @@ struct DiscoverView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 15) {
-                    Text("Cocktail Categories")
-                        .font(.title)
-                    
-                    ScrollView(.horizontal) {
-                        LazyHStack {
-                            ForEach(categories) { category in
-                                NavigationLink(destination: CategoryDetailsView(categoryName: category.strCategory)) {
-                                    CategoryView(category: category)
+                ZStack {
+                    VStack(alignment: .leading, spacing: 15) {
+                        Text("Cocktail Categories")
+                            .font(.title)
+                        
+                        ScrollView(.horizontal) {
+                            LazyHStack {
+                                ForEach(categories) { category in
+                                    NavigationLink(destination: CategoryDetailsView(categoryName: category.strCategory)) {
+                                        CategoryView(category: category)
+                                    }
+                                    /// Without this modifier text and foreground colours will become blue
+                                    .buttonStyle(PlainButtonStyle())
                                 }
-                                /// Without this modifier text and foreground colours will become blue
+                            }
+                        }
+                        
+                        Text("Iconic cocktails")
+                            .font(.title)
+                        
+                        HStack(spacing: 20) {
+                            Spacer()
+                            
+                            if drinks.count > 0 {
+                                IconicCocktail(drink: .surprizeMe)
+                                    .onTapGesture {
+                                        isAnimating.toggle()
+                                        
+                                        Task {
+                                            drink = await viewModel.fetchRandomCocktail()
+                                        }
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                            withAnimation {
+                                                isAnimating.toggle()
+                                            }
+                                            /// This triggers navigation at line 162
+                                            isShowingRandomCocktail = true
+                                        }
+                                    }
+                                /// This is an example of direct navigation
+                                NavigationLink(destination: CocktailDetailsView(name: drinks[0].strDrink)) {
+                                    IconicCocktail(drink: drinks[0])
+                                }
                                 .buttonStyle(PlainButtonStyle())
                             }
+                            
+                            Spacer()
                         }
-                    }
-                    
-                    Text("Iconic cocktails")
-                        .font(.title)
-                    
-                    HStack(spacing: 20) {
-                        Spacer()
                         
-                        if drinks.count > 0 {
-                            IconicCocktail(drink: .surprizeMe)
-                                .onTapGesture {
-                                    Task {
-                                        drink = await viewModel.fetchRandomCocktail()
-                                        /// This triggers navigation at line 152
-                                        isShowingRandomCocktail = true
-                                    }
+                        HStack(spacing: 20) {
+                            Spacer()
+                            
+                            if drinks.count > 0 {
+                                NavigationLink(destination: CocktailDetailsView(name: drinks[1].strDrink)) {
+                                    IconicCocktail(drink: drinks[1])
                                 }
-                            /// This is an example of direct navigation
-                            NavigationLink(destination: CocktailDetailsView(name: drinks[0].strDrink)) {
-                                IconicCocktail(drink: drinks[0])
+                                .buttonStyle(PlainButtonStyle())
+                                
+                                NavigationLink(destination: CocktailDetailsView(name: drinks[2].strDrink)) {
+                                    IconicCocktail(drink: drinks[2])
+                                }
+                                .buttonStyle(PlainButtonStyle())
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            
+                            Spacer()
                         }
                         
-                        Spacer()
-                    }
-                    
-                    HStack(spacing: 20) {
-                        Spacer()
+                        HStack {
+                            Spacer()
+                            
+                            Button {
+                                tabSelection = 1
+                            } label: {
+                                Text("Show more")
+                                    .padding()
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                            }
+                            .background(colorScheme == .light ? AppColors.lightModeRedButton : AppColors.darkModeRedButton)
+                            .contentShape(Rectangle())
+                            .cornerRadius(10)
+                            
+                            Spacer()
+                        }
                         
-                        if drinks.count > 0 {
-                            NavigationLink(destination: CocktailDetailsView(name: drinks[1].strDrink)) {
-                                IconicCocktail(drink: drinks[1])
+                        Text("Cocktail types")
+                            .font(.title)
+                        
+                        HStack(spacing: 10) {
+                            NavigationLink(destination: CocktailTypeView(showAlcoholic: true)) {
+                                CocktailType(type: .alcoholic)
                             }
                             .buttonStyle(PlainButtonStyle())
                             
-                            NavigationLink(destination: CocktailDetailsView(name: drinks[2].strDrink)) {
-                                IconicCocktail(drink: drinks[2])
+                            NavigationLink(destination: CocktailTypeView(showAlcoholic: false)) {
+                                CocktailType(type: .nonalcoholic)
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
                         
                         Spacer()
                     }
-                    
-                    HStack {
-                        Spacer()
-                        
-                        Button {
-                            tabSelection = 1
-                        } label: {
-                            Text("Show more")
-                                .padding()
-                                .font(.headline)
-                                .foregroundColor(.white)
-                        }
-                        .background(colorScheme == .light ? AppColors.lightModeRedButton : AppColors.darkModeRedButton)
-                        .contentShape(Rectangle())
-                        .cornerRadius(10)
-                        
-                        Spacer()
-                    }
-                    
-                    Text("Cocktail types")
-                        .font(.title)
-                    
-                    HStack(spacing: 10) {
-                        NavigationLink(destination: CocktailTypeView(showAlcoholic: true)) {
-                            CocktailType(type: .alcoholic)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        NavigationLink(destination: CocktailTypeView(showAlcoholic: false)) {
-                            CocktailType(type: .nonalcoholic)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }
-                    
-                    Spacer()
-                }
-                .padding()
-                .onAppear {
-                    Task {
-                        /// This particular task group won't fail if one of the tasks fails,
-                        /// but if need be you can implement such a task group. Check out:
-                        /// https://www.avanderlee.com/concurrency/task-groups-in-swift/?utm_source=swiftlee&utm_medium=swiftlee_weekly&utm_campaign=issue_150
-                        drinks = try await withThrowingTaskGroup(of: Drink.self, returning: [Drink].self) { taskGroup in
-                            for _ in 0...2 {
-                                taskGroup.addTask { await viewModel.fetchRandomCocktail() }
-                            }
-                            
-                            return try await taskGroup.reduce(into: [Drink]()) { partialResult, drink in
-                                partialResult.append(drink)
+                    .padding()
+                    .onAppear {
+                        Task {
+                            /// This particular task group won't fail if one of the tasks fails,
+                            /// but if need be you can implement such a task group. Check out:
+                            /// https://www.avanderlee.com/concurrency/task-groups-in-swift/?utm_source=swiftlee&utm_medium=swiftlee_weekly&utm_campaign=issue_150
+                            drinks = try await withThrowingTaskGroup(of: Drink.self, returning: [Drink].self) { taskGroup in
+                                for _ in 0...2 {
+                                    taskGroup.addTask { await viewModel.fetchRandomCocktail() }
+                                }
+                                
+                                return try await taskGroup.reduce(into: [Drink]()) { partialResult, drink in
+                                    partialResult.append(drink)
+                                }
                             }
                         }
+                        
+                        Task {
+                            categories = await viewModel.fetchCategories()
+                        }
+                    }
+                    .navigationDestination(isPresented: $isShowingRandomCocktail) {
+                        CocktailDetailsView(name: drink.strDrink)
                     }
                     
-                    Task {
-                        categories = await viewModel.fetchCategories()
+                    if isAnimating {
+                        LottiePlusView(
+                            name: LottieView.Animations.confetti.rawValue,
+                            contentMode: .scaleToFill
+                        )
                     }
                 }
-                .navigationDestination(isPresented: $isShowingRandomCocktail) {
-                    CocktailDetailsView(name: drink.strDrink)
-                }
+                /// This is so that the confetti animation covers the whole screen
+                .ignoresSafeArea()
             }
         }
     }

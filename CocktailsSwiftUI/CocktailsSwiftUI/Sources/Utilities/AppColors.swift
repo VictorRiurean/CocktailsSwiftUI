@@ -48,10 +48,14 @@ class AppColors {
     // MARK: Public methods
 
     static func getRandomLightColor(with letter: String? = nil) -> Color {
+        guard letters.contains(letter ?? "") else { return lightColors[0] }
+        
         return letter == nil ? lightColors.randomElement()! : lightColors[letters.firstIndex(of: letter!)! % 9]
     }
     
     static func getRandomDarkColor(with letter: String? = nil) -> Color {
+        guard letters.contains(letter ?? "") else { return darkColors[0] }
+        
         return letter == nil ? darkColors.randomElement()! : darkColors[letters.firstIndex(of: letter!)! % 12]
     }
 }

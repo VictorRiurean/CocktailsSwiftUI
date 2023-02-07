@@ -21,6 +21,13 @@ struct CocktailCellView: View {
     @FetchRequest var fetchRequest: FetchedResults<Cocktail>
     
     
+    // MARK: State
+    
+    @State private var play = false
+    @State private var selectedCocktailID = UUID()
+    @State private var animationID = 0
+    
+    
     // MARK: Private properties
     
     private var letter: String?
@@ -66,6 +73,12 @@ struct CocktailCellView: View {
                 
             if let drink = fetchRequest.first {
                 Button {
+                    if !drink.isFavourite {
+                        play = true
+                        selectedCocktailID = drink.unwrappedID
+                        animationID += 1
+                    }
+                    
                     drink.isFavourite.toggle()
                     
                     try? moc.save()
@@ -76,6 +89,25 @@ struct CocktailCellView: View {
                 /// Without this modifier the frame of the button is too large and the button may
                 /// end up taking away tap gestures from the cell thus disabling navigation
                 .buttonStyle(BorderlessButtonStyle())
+                .overlay(alignment: .center) {
+                    /// We only want to animate the button that was tapped
+                    if selectedCocktailID == drink.unwrappedID {
+                        LottiePlusView(
+                            name: LottieView.Animations.like.rawValue,
+                            animationSpeed: 4,
+                            play: $play
+                        )
+                        .frame(width: 50, height: 50)
+                        /// This modifier allows taps to go through the animation view
+                        .allowsHitTesting(false)
+                        /// This is rather obscure, but in order for the view to
+                        /// re-render the LottieView something in it needs to
+                        /// change so we need to update its id, otherwise it would
+                        /// just animate the first time isFavourite is set to true
+                        .id(animationID)
+                    }
+                }
+                .animation(.easeOut(duration: 1), value: drink.isFavourite)
             }
         }
         .frame(height: 100)

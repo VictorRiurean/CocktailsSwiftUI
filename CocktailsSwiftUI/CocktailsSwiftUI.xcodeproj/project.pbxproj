@@ -13,6 +13,14 @@
 		5783D960298AD55000EE36AF /* Component+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95C298AD55000EE36AF /* Component+CoreDataClass.swift */; };
 		5783D961298AD55000EE36AF /* Component+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95D298AD55000EE36AF /* Component+CoreDataProperties.swift */; };
 		5783D965298AE8F100EE36AF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D964298AE8F100EE36AF /* Storage.swift */; };
+		578966252992653A00D8CDCF /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 578966242992653A00D8CDCF /* Lottie */; };
+		578966282992657400D8CDCF /* confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 578966272992657400D8CDCF /* confetti.json */; };
+		5789662A299265C800D8CDCF /* surprise-gift-box.json in Resources */ = {isa = PBXBuildFile; fileRef = 57896629299265C800D8CDCF /* surprise-gift-box.json */; };
+		5789662C2992666300D8CDCF /* cool-chick.json in Resources */ = {isa = PBXBuildFile; fileRef = 5789662B2992666300D8CDCF /* cool-chick.json */; };
+		5789662E299266AD00D8CDCF /* summer-drink.json in Resources */ = {isa = PBXBuildFile; fileRef = 5789662D299266AD00D8CDCF /* summer-drink.json */; };
+		578966302992698B00D8CDCF /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5789662F2992698B00D8CDCF /* LottieView.swift */; };
+		578966322992705300D8CDCF /* LottiePlusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578966312992705300D8CDCF /* LottiePlusView.swift */; };
+		57896634299276F700D8CDCF /* like-5x.json in Resources */ = {isa = PBXBuildFile; fileRef = 57896633299276F700D8CDCF /* like-5x.json */; };
 		578DAC572987C58A00B94904 /* MyActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC562987C58A00B94904 /* MyActivityIndicator.swift */; };
 		578DAC592987D3ED00B94904 /* View+NavigationTitleHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */; };
 		578DAC5F2987F1B400B94904 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 578DAC5E2987F1B400B94904 /* Nuke */; };
@@ -78,6 +86,13 @@
 		5783D95C298AD55000EE36AF /* Component+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Component+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		5783D95D298AD55000EE36AF /* Component+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Component+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		5783D964298AE8F100EE36AF /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		578966272992657400D8CDCF /* confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti.json; sourceTree = "<group>"; };
+		57896629299265C800D8CDCF /* surprise-gift-box.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "surprise-gift-box.json"; sourceTree = "<group>"; };
+		5789662B2992666300D8CDCF /* cool-chick.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "cool-chick.json"; sourceTree = "<group>"; };
+		5789662D299266AD00D8CDCF /* summer-drink.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "summer-drink.json"; sourceTree = "<group>"; };
+		5789662F2992698B00D8CDCF /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		578966312992705300D8CDCF /* LottiePlusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottiePlusView.swift; sourceTree = "<group>"; };
+		57896633299276F700D8CDCF /* like-5x.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "like-5x.json"; sourceTree = "<group>"; };
 		578DAC562987C58A00B94904 /* MyActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityIndicator.swift; sourceTree = "<group>"; };
 		578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "View+NavigationTitleHidden.swift"; path = "CocktailsSwiftUI/Sources/Utilities/View+NavigationTitleHidden.swift"; sourceTree = SOURCE_ROOT; };
 		578DAC652987FEC600B94904 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -142,12 +157,25 @@
 				578DAC632987F1B400B94904 /* NukeUI in Frameworks */,
 				578DAC5F2987F1B400B94904 /* Nuke in Frameworks */,
 				578DAC612987F1B400B94904 /* NukeExtensions in Frameworks */,
+				578966252992653A00D8CDCF /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		578966262992655A00D8CDCF /* Lottie  */ = {
+			isa = PBXGroup;
+			children = (
+				578966272992657400D8CDCF /* confetti.json */,
+				5789662B2992666300D8CDCF /* cool-chick.json */,
+				57896633299276F700D8CDCF /* like-5x.json */,
+				5789662D299266AD00D8CDCF /* summer-drink.json */,
+				57896629299265C800D8CDCF /* surprise-gift-box.json */,
+			);
+			path = "Lottie ";
+			sourceTree = "<group>";
+		};
 		578DAC642987FEB700B94904 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +275,7 @@
 		57CC609C2978014E00C0D12A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				578966262992655A00D8CDCF /* Lottie  */,
 				57CC608F2978005900C0D12A /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -325,6 +354,8 @@
 				57CC60E229801BCF00C0D12A /* DrinkByCategoryView.swift */,
 				57CC60B02978566400C0D12A /* IconicCocktail.swift */,
 				57CC60CD297EBBE100C0D12A /* IngredientView.swift */,
+				5789662F2992698B00D8CDCF /* LottieView.swift */,
+				578966312992705300D8CDCF /* LottiePlusView.swift */,
 				57CC60DA297ED4E700C0D12A /* TipView.swift */,
 			);
 			path = "Custom Views";
@@ -434,6 +465,7 @@
 				578DAC5E2987F1B400B94904 /* Nuke */,
 				578DAC602987F1B400B94904 /* NukeExtensions */,
 				578DAC622987F1B400B94904 /* NukeUI */,
+				578966242992653A00D8CDCF /* Lottie */,
 			);
 			productName = CocktailsSwiftUI;
 			productReference = 57CC60882978005600C0D12A /* CocktailsSwiftUI.app */;
@@ -465,6 +497,7 @@
 			mainGroup = 57CC607F2978005600C0D12A;
 			packageReferences = (
 				578DAC5D2987F1B400B94904 /* XCRemoteSwiftPackageReference "Nuke" */,
+				578966232992653A00D8CDCF /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 57CC60892978005600C0D12A /* Products */;
 			projectDirPath = "";
@@ -480,8 +513,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5789662A299265C800D8CDCF /* surprise-gift-box.json in Resources */,
+				57896634299276F700D8CDCF /* like-5x.json in Resources */,
 				57CC60932978005900C0D12A /* Preview Assets.xcassets in Resources */,
+				578966282992657400D8CDCF /* confetti.json in Resources */,
+				5789662E299266AD00D8CDCF /* summer-drink.json in Resources */,
 				57CC60902978005900C0D12A /* Assets.xcassets in Resources */,
+				5789662C2992666300D8CDCF /* cool-chick.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +548,7 @@
 				57CC60B92979548C00C0D12A /* Drink.swift in Sources */,
 				5783D961298AD55000EE36AF /* Component+CoreDataProperties.swift in Sources */,
 				57CC60CC297EB8BD00C0D12A /* Glass.swift in Sources */,
+				578966322992705300D8CDCF /* LottiePlusView.swift in Sources */,
 				57EDFB5B2981684C0003F180 /* GlassesDetailsView.swift in Sources */,
 				57CC60EC29803CD300C0D12A /* CocktailTypeView.swift in Sources */,
 				57CC60D4297EC70A00C0D12A /* Tip.swift in Sources */,
@@ -521,6 +560,7 @@
 				57CC60D2297EBDBA00C0D12A /* IngredientsViewModel.swift in Sources */,
 				57917BC52982797200C507C2 /* FavouritesView.swift in Sources */,
 				57CC60CE297EBBE100C0D12A /* IngredientView.swift in Sources */,
+				578966302992698B00D8CDCF /* LottieView.swift in Sources */,
 				5783D965298AE8F100EE36AF /* Storage.swift in Sources */,
 				57CC60C32979A02C00C0D12A /* Category.swift in Sources */,
 				57CC608C2978005600C0D12A /* CocktailsSwiftUIApp.swift in Sources */,
@@ -751,6 +791,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		578966232992653A00D8CDCF /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		578DAC5D2987F1B400B94904 /* XCRemoteSwiftPackageReference "Nuke" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke.git";
@@ -762,6 +810,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		578966242992653A00D8CDCF /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 578966232992653A00D8CDCF /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		578DAC5E2987F1B400B94904 /* Nuke */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 578DAC5D2987F1B400B94904 /* XCRemoteSwiftPackageReference "Nuke" */;

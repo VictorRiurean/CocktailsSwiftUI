@@ -14,6 +14,10 @@
 		5783D961298AD55000EE36AF /* Component+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95D298AD55000EE36AF /* Component+CoreDataProperties.swift */; };
 		5783D965298AE8F100EE36AF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D964298AE8F100EE36AF /* Storage.swift */; };
 		578966252992653A00D8CDCF /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 578966242992653A00D8CDCF /* Lottie */; };
+		578966282992657400D8CDCF /* confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 578966272992657400D8CDCF /* confetti.json */; };
+		5789662A299265C800D8CDCF /* surprise-gift-box.json in Resources */ = {isa = PBXBuildFile; fileRef = 57896629299265C800D8CDCF /* surprise-gift-box.json */; };
+		5789662C2992666300D8CDCF /* cool-chick.json in Resources */ = {isa = PBXBuildFile; fileRef = 5789662B2992666300D8CDCF /* cool-chick.json */; };
+		5789662E299266AD00D8CDCF /* summer-drink.json in Resources */ = {isa = PBXBuildFile; fileRef = 5789662D299266AD00D8CDCF /* summer-drink.json */; };
 		578DAC572987C58A00B94904 /* MyActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC562987C58A00B94904 /* MyActivityIndicator.swift */; };
 		578DAC592987D3ED00B94904 /* View+NavigationTitleHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */; };
 		578DAC5F2987F1B400B94904 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 578DAC5E2987F1B400B94904 /* Nuke */; };
@@ -79,6 +83,10 @@
 		5783D95C298AD55000EE36AF /* Component+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Component+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		5783D95D298AD55000EE36AF /* Component+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Component+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		5783D964298AE8F100EE36AF /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		578966272992657400D8CDCF /* confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti.json; sourceTree = "<group>"; };
+		57896629299265C800D8CDCF /* surprise-gift-box.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "surprise-gift-box.json"; sourceTree = "<group>"; };
+		5789662B2992666300D8CDCF /* cool-chick.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "cool-chick.json"; sourceTree = "<group>"; };
+		5789662D299266AD00D8CDCF /* summer-drink.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "summer-drink.json"; sourceTree = "<group>"; };
 		578DAC562987C58A00B94904 /* MyActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityIndicator.swift; sourceTree = "<group>"; };
 		578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "View+NavigationTitleHidden.swift"; path = "CocktailsSwiftUI/Sources/Utilities/View+NavigationTitleHidden.swift"; sourceTree = SOURCE_ROOT; };
 		578DAC652987FEC600B94904 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -150,6 +158,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		578966262992655A00D8CDCF /* Lottie  */ = {
+			isa = PBXGroup;
+			children = (
+				578966272992657400D8CDCF /* confetti.json */,
+				5789662B2992666300D8CDCF /* cool-chick.json */,
+				5789662D299266AD00D8CDCF /* summer-drink.json */,
+				57896629299265C800D8CDCF /* surprise-gift-box.json */,
+			);
+			path = "Lottie ";
+			sourceTree = "<group>";
+		};
 		578DAC642987FEB700B94904 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +268,7 @@
 		57CC609C2978014E00C0D12A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				578966262992655A00D8CDCF /* Lottie  */,
 				57CC608F2978005900C0D12A /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -484,8 +504,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5789662A299265C800D8CDCF /* surprise-gift-box.json in Resources */,
 				57CC60932978005900C0D12A /* Preview Assets.xcassets in Resources */,
+				578966282992657400D8CDCF /* confetti.json in Resources */,
+				5789662E299266AD00D8CDCF /* summer-drink.json in Resources */,
 				57CC60902978005900C0D12A /* Assets.xcassets in Resources */,
+				5789662C2992666300D8CDCF /* cool-chick.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

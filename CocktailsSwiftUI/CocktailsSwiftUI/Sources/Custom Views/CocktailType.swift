@@ -40,8 +40,8 @@ struct CocktailType: View {
     var body: some View {
         ZStack {
             LinearGradient(colors: [
-                colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor(),
-                colorScheme == .light ? AppColors.getRandomLightColor() : AppColors.getRandomDarkColor()
+                colorScheme == .light ? AppColors.lightColors.randomElement()! : AppColors.darkColors.randomElement()!,
+                colorScheme == .light ? AppColors.lightColors.randomElement()! : AppColors.darkColors.randomElement()!
             ],
                            startPoint: type == .alcoholic ? .topLeading : .bottomTrailing,
                            endPoint: type == .alcoholic ? .topTrailing : .bottomLeading)

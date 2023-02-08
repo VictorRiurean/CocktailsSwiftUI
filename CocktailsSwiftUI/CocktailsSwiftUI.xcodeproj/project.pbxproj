@@ -21,6 +21,8 @@
 		578966302992698B00D8CDCF /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5789662F2992698B00D8CDCF /* LottieView.swift */; };
 		578966322992705300D8CDCF /* LottiePlusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578966312992705300D8CDCF /* LottiePlusView.swift */; };
 		57896634299276F700D8CDCF /* like-5x.json in Resources */ = {isa = PBXBuildFile; fileRef = 57896633299276F700D8CDCF /* like-5x.json */; };
+		578966372992930800D8CDCF /* AddFavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578966362992930800D8CDCF /* AddFavouriteView.swift */; };
+		578966392992AF6100D8CDCF /* AddIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578966382992AF6100D8CDCF /* AddIngredientView.swift */; };
 		578DAC572987C58A00B94904 /* MyActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC562987C58A00B94904 /* MyActivityIndicator.swift */; };
 		578DAC592987D3ED00B94904 /* View+NavigationTitleHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */; };
 		578DAC5F2987F1B400B94904 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 578DAC5E2987F1B400B94904 /* Nuke */; };
@@ -93,6 +95,8 @@
 		5789662F2992698B00D8CDCF /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		578966312992705300D8CDCF /* LottiePlusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottiePlusView.swift; sourceTree = "<group>"; };
 		57896633299276F700D8CDCF /* like-5x.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "like-5x.json"; sourceTree = "<group>"; };
+		578966362992930800D8CDCF /* AddFavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFavouriteView.swift; sourceTree = "<group>"; };
+		578966382992AF6100D8CDCF /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
 		578DAC562987C58A00B94904 /* MyActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityIndicator.swift; sourceTree = "<group>"; };
 		578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "View+NavigationTitleHidden.swift"; path = "CocktailsSwiftUI/Sources/Utilities/View+NavigationTitleHidden.swift"; sourceTree = SOURCE_ROOT; };
 		578DAC652987FEC600B94904 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -176,6 +180,15 @@
 			path = "Lottie ";
 			sourceTree = "<group>";
 		};
+		57896635299292E100D8CDCF /* AddFavourites */ = {
+			isa = PBXGroup;
+			children = (
+				578966362992930800D8CDCF /* AddFavouriteView.swift */,
+				578966382992AF6100D8CDCF /* AddIngredientView.swift */,
+			);
+			path = AddFavourites;
+			sourceTree = "<group>";
+		};
 		578DAC642987FEB700B94904 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +205,7 @@
 		57917BC32982793E00C507C2 /* Favourites */ = {
 			isa = PBXGroup;
 			children = (
+				57896635299292E100D8CDCF /* AddFavourites */,
 				57917BC42982797200C507C2 /* FavouritesView.swift */,
 			);
 			path = Favourites;
@@ -567,6 +581,7 @@
 				57CC60DB297ED4E700C0D12A /* TipView.swift in Sources */,
 				57CC60AE2978377C00C0D12A /* CocktailsView.swift in Sources */,
 				5796F83A298949E50069057D /* FilteredCocktailsView.swift in Sources */,
+				578966392992AF6100D8CDCF /* AddIngredientView.swift in Sources */,
 				57CC60D9297ED48800C0D12A /* TipsView.swift in Sources */,
 				57CC60AA2978376200C0D12A /* GlassesView.swift in Sources */,
 				578DAC572987C58A00B94904 /* MyActivityIndicator.swift in Sources */,
@@ -576,6 +591,7 @@
 				57EDFB5D298168590003F180 /* GlassesDetailsViewModel.swift in Sources */,
 				57CC60B12978566400C0D12A /* IconicCocktail.swift in Sources */,
 				57EDFB56298165D60003F180 /* IngredientsDetailsView.swift in Sources */,
+				578966372992930800D8CDCF /* AddFavouriteView.swift in Sources */,
 				57917BC9298288B600C507C2 /* TipDetailsView.swift in Sources */,
 				574FFF9029903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift in Sources */,
 				5796F83E29899E280069057D /* PredicateEnums.swift in Sources */,

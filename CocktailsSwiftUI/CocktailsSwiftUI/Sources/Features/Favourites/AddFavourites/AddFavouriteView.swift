@@ -26,12 +26,16 @@ struct AddFavouriteView: View {
     @State private var type: String = "Alcoholic"
     @State private var types: [String] = ["Alcoholic", "Non-Alcoholic"]
     @State private var ingredients: [Component] = []
+    @State private var ingredientsText: String = ""
     @State private var showAddIngredient: Bool = false
     @State private var instructions: String = ""
     
     private var saveButtonEnabled: Bool {
         !name.isEmpty && !category.isEmpty && !glass.isEmpty && !ingredients.isEmpty
     }
+    
+    
+    // MARK: Body
     
     var body: some View {
         Form {
@@ -75,28 +79,30 @@ struct AddFavouriteView: View {
                 }
             }
             
-            Section(header: Text("Ingredients")) {
-                ForEach(ingredients, id: \.self) { ingredient in
-                    HStack {
-                        Text("\(ingredient.unwrappedMeasure) \(ingredient.unwrappedName)")
-                        
-                        Spacer()
-                        
-                        Button {
-                            ingredients.removeAll { $0 == ingredient }
-                        } label: {
-                            Image(systemName: "minus")
+            Section(header: SectionHeaderWithTextAndBoolBinding(boolBinding: $showAddIngredient, text: "Ingredients")) {
+                if ingredients.isEmpty {
+                    TextField("Add ingredients by tapping the plus button", text: $ingredientsText)
+                        /// This prevents text crop in placeholder
+                        .fixedSize(horizontal: true, vertical: false)
+                        /// I went for a disabled TextField because I wanted to reproduce the
+                        /// look of the other sections. This does require us to add an extra
+                        /// @State var that ends up not being used, but for now c'est la vie.
+                        .disabled(true)
+                } else {
+                    ForEach(ingredients, id: \.self) { ingredient in
+                        HStack {
+                            Text("\(ingredient.unwrappedMeasure) \(ingredient.unwrappedName)")
+                            
+                            Spacer()
+                            
+                            Button {
+                                withAnimation {
+                                    ingredients.removeAll { $0 == ingredient }
+                                }
+                            } label: {
+                                Image(systemName: "minus")
+                            }
                         }
-                    }
-                }
-                
-                HStack {
-                    Spacer()
-                    
-                    Button {
-                        showAddIngredient = true
-                    } label: {
-                        Image(systemName: "plus")
                     }
                 }
             }
@@ -152,5 +158,38 @@ struct AddFavouriteView: View {
 struct AddFavouriteView_Previews: PreviewProvider {
     static var previews: some View {
         AddFavouriteView()
+    }
+}
+
+// MARK: - Custom section header view
+/// I was going to move this to its own file but just before doing so
+/// I realised that I had never actually used the fileprivate access
+/// modifier. At least not intentionally ...
+struct SectionHeaderWithTextAndBoolBinding: View {
+    
+    // MARK: State
+    
+    @Binding var boolBinding: Bool
+    
+    
+    // MARK: Public properties
+    
+    fileprivate var text: String
+    
+    
+    // MARK: Body
+    
+    var body: some View {
+        HStack {
+            Text(text)
+            
+            Spacer()
+            
+            Button {
+                boolBinding = true
+            } label: {
+                Image(systemName: "plus")
+            }
+        }
     }
 }

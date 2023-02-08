@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		573B0CB92993971F00209AE9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0CB82993971F00209AE9 /* ImagePicker.swift */; };
 		574FFF9029903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574FFF8F29903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift */; };
 		5783D95E298AD55000EE36AF /* Cocktail+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95A298AD55000EE36AF /* Cocktail+CoreDataClass.swift */; };
 		5783D95F298AD55000EE36AF /* Cocktail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95B298AD55000EE36AF /* Cocktail+CoreDataProperties.swift */; };
@@ -82,6 +83,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		573B0CB82993971F00209AE9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		574FFF8F29903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+FirstCharacterLowercasedOrNil.swift"; path = "CocktailsSwiftUI/Sources/Utilities/String+FirstCharacterLowercasedOrNil.swift"; sourceTree = SOURCE_ROOT; };
 		5783D95A298AD55000EE36AF /* Cocktail+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocktail+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		5783D95B298AD55000EE36AF /* Cocktail+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocktail+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
@@ -394,6 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				57CC60B629794EC900C0D12A /* AppColors.swift */,
+				573B0CB82993971F00209AE9 /* ImagePicker.swift */,
 				578DAC562987C58A00B94904 /* MyActivityIndicator.swift */,
 				5796F83D29899E280069057D /* PredicateEnums.swift */,
 				5783D964298AE8F100EE36AF /* Storage.swift */,
@@ -567,6 +570,7 @@
 				57CC60EC29803CD300C0D12A /* CocktailTypeView.swift in Sources */,
 				57CC60D4297EC70A00C0D12A /* Tip.swift in Sources */,
 				57CC60B729794EC900C0D12A /* AppColors.swift in Sources */,
+				573B0CB92993971F00209AE9 /* ImagePicker.swift in Sources */,
 				5783D95F298AD55000EE36AF /* Cocktail+CoreDataProperties.swift in Sources */,
 				5796F838298947B50069057D /* StorageKeys.swift in Sources */,
 				5791F7E2298BC3F5002531C6 /* UIApplication+Window.swift in Sources */,

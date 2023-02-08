@@ -16,10 +16,13 @@ struct AddFavouriteView: View {
     
     // MARK: State
     
+    @State private var image: Image = Image(systemName: "questionmark")
     @State private var name: String = ""
     @State private var category: String = ""
     @State private var glass: String = ""
     @State private var url: String = ""
+    @State private var showingImagePicker = false
+    @State private var inputImage: UIImage?
     @State private var type: String = "Alcoholic"
     @State private var types: [String] = ["Alcoholic", "Non-Alcoholic"]
     @State private var ingredients: [Component] = []
@@ -39,15 +42,40 @@ struct AddFavouriteView: View {
             }
             .pickerStyle(.segmented)
             
+            Section {
+                HStack {
+                    Spacer()
+                    
+                    image
+                        .resizable()
+                        .frame(width: 150, height: 150)
+                        .scaledToFill()
+                    
+                    Spacer()
+                }
+            }
+            .listRowBackground(Color.clear)
+            
             Section(header: Text("Cocktail details")) {
                 TextField("Cocktail name", text: $name)
                 TextField("Category", text: $category)
                 TextField("Glass", text: $glass)
-                TextField("URL (optional)", text: $url)
+                
+                HStack {
+                    TextField("URL (optional)", text: $url)
+                    
+                    Spacer()
+                    
+                    Button {
+                        showingImagePicker = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .disabled(!url.isEmpty)
+                }
             }
             
             Section(header: Text("Ingredients")) {
-                
                 ForEach(ingredients, id: \.self) { ingredient in
                     HStack {
                         Text("\(ingredient.unwrappedMeasure) \(ingredient.unwrappedName)")
@@ -101,8 +129,27 @@ struct AddFavouriteView: View {
         .navigationBarBackButtonTitleHidden()
         .navigationTitle("Add Cocktail")
         .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: inputImage) { _ in loadImage() }
         .sheet(isPresented: $showAddIngredient) {
             AddIngredientView(isPresented: $showAddIngredient, components: $ingredients)
         }
+        .sheet(isPresented: $showingImagePicker) {
+            ImagePicker(image: $inputImage)
+        }
+    }
+    
+    
+    // MARK: Private methods
+    
+    private func loadImage() {
+        guard let inputImage = inputImage else { return }
+        
+        image = Image(uiImage: inputImage)
+    }
+}
+
+struct AddFavouriteView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddFavouriteView()
     }
 }

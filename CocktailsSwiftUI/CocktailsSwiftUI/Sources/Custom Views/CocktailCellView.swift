@@ -37,11 +37,19 @@ struct CocktailCellView: View {
     var body: some View {
         HStack {
             if let drink = fetchRequest.first {
-                /// We use Nuke's LazyImage because it adds caching functionality
-                LazyImage(url: URL(string: drink.unwrappedThumbnail))
-                    .frame(width: 70, height: 70)
-                    .clipShape(RoundedRectangle(cornerRadius: 35))
-                    .padding()
+                if let image = drink.image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .frame(width: 70, height: 70)
+                        .clipShape(RoundedRectangle(cornerRadius: 35))
+                        .padding()
+                } else {
+                    /// We use Nuke's LazyImage because it adds caching functionality
+                    LazyImage(url: URL(string: drink.unwrappedThumbnail))
+                        .frame(width: 70, height: 70)
+                        .clipShape(RoundedRectangle(cornerRadius: 35))
+                        .padding()
+                }
             } else {
                 Image(systemName: "questionmark.app.fill")
                     .resizable()

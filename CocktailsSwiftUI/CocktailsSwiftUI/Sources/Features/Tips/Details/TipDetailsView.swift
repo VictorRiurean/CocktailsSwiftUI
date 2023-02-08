@@ -15,7 +15,7 @@ struct TipDetailsView: View {
     
     
     // MARK: State
-    /// We use this to dismiss view when X is tapped (line 47)
+    /// We use this to dismiss view when X is tapped (line 51)
     @Binding var isPresented: Bool
     @Binding var tip: Tip
     

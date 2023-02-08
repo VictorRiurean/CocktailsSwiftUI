@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		573B0CB92993971F00209AE9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0CB82993971F00209AE9 /* ImagePicker.swift */; };
+		573B0CBB2993A25800209AE9 /* UIImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0CBA2993A25800209AE9 /* UIImageTransformer.swift */; };
+		573B0CBE2993AA8D00209AE9 /* Cocktail+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0CBC2993AA8D00209AE9 /* Cocktail+CoreDataClass.swift */; };
+		573B0CBF2993AA8D00209AE9 /* Cocktail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0CBD2993AA8D00209AE9 /* Cocktail+CoreDataProperties.swift */; };
 		574FFF9029903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574FFF8F29903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift */; };
-		5783D95E298AD55000EE36AF /* Cocktail+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95A298AD55000EE36AF /* Cocktail+CoreDataClass.swift */; };
-		5783D95F298AD55000EE36AF /* Cocktail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95B298AD55000EE36AF /* Cocktail+CoreDataProperties.swift */; };
 		5783D960298AD55000EE36AF /* Component+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95C298AD55000EE36AF /* Component+CoreDataClass.swift */; };
 		5783D961298AD55000EE36AF /* Component+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95D298AD55000EE36AF /* Component+CoreDataProperties.swift */; };
 		5783D965298AE8F100EE36AF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D964298AE8F100EE36AF /* Storage.swift */; };
@@ -21,6 +23,8 @@
 		578966302992698B00D8CDCF /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5789662F2992698B00D8CDCF /* LottieView.swift */; };
 		578966322992705300D8CDCF /* LottiePlusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578966312992705300D8CDCF /* LottiePlusView.swift */; };
 		57896634299276F700D8CDCF /* like-5x.json in Resources */ = {isa = PBXBuildFile; fileRef = 57896633299276F700D8CDCF /* like-5x.json */; };
+		578966372992930800D8CDCF /* AddFavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578966362992930800D8CDCF /* AddFavouriteView.swift */; };
+		578966392992AF6100D8CDCF /* AddIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578966382992AF6100D8CDCF /* AddIngredientView.swift */; };
 		578DAC572987C58A00B94904 /* MyActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC562987C58A00B94904 /* MyActivityIndicator.swift */; };
 		578DAC592987D3ED00B94904 /* View+NavigationTitleHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */; };
 		578DAC5F2987F1B400B94904 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 578DAC5E2987F1B400B94904 /* Nuke */; };
@@ -80,9 +84,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		573B0CB82993971F00209AE9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		573B0CBA2993A25800209AE9 /* UIImageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageTransformer.swift; sourceTree = "<group>"; };
+		573B0CBC2993AA8D00209AE9 /* Cocktail+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocktail+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		573B0CBD2993AA8D00209AE9 /* Cocktail+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocktail+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		574FFF8F29903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+FirstCharacterLowercasedOrNil.swift"; path = "CocktailsSwiftUI/Sources/Utilities/String+FirstCharacterLowercasedOrNil.swift"; sourceTree = SOURCE_ROOT; };
-		5783D95A298AD55000EE36AF /* Cocktail+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocktail+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		5783D95B298AD55000EE36AF /* Cocktail+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocktail+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		5783D95C298AD55000EE36AF /* Component+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Component+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		5783D95D298AD55000EE36AF /* Component+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Component+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		5783D964298AE8F100EE36AF /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
@@ -93,6 +99,8 @@
 		5789662F2992698B00D8CDCF /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		578966312992705300D8CDCF /* LottiePlusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottiePlusView.swift; sourceTree = "<group>"; };
 		57896633299276F700D8CDCF /* like-5x.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "like-5x.json"; sourceTree = "<group>"; };
+		578966362992930800D8CDCF /* AddFavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFavouriteView.swift; sourceTree = "<group>"; };
+		578966382992AF6100D8CDCF /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
 		578DAC562987C58A00B94904 /* MyActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityIndicator.swift; sourceTree = "<group>"; };
 		578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "View+NavigationTitleHidden.swift"; path = "CocktailsSwiftUI/Sources/Utilities/View+NavigationTitleHidden.swift"; sourceTree = SOURCE_ROOT; };
 		578DAC652987FEC600B94904 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -176,15 +184,25 @@
 			path = "Lottie ";
 			sourceTree = "<group>";
 		};
+		57896635299292E100D8CDCF /* AddFavourites */ = {
+			isa = PBXGroup;
+			children = (
+				578966362992930800D8CDCF /* AddFavouriteView.swift */,
+				578966382992AF6100D8CDCF /* AddIngredientView.swift */,
+			);
+			path = AddFavourites;
+			sourceTree = "<group>";
+		};
 		578DAC642987FEB700B94904 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				578DAC672987FF5D00B94904 /* Model.xcdatamodeld */,
-				5783D95A298AD55000EE36AF /* Cocktail+CoreDataClass.swift */,
-				5783D95B298AD55000EE36AF /* Cocktail+CoreDataProperties.swift */,
+				573B0CBC2993AA8D00209AE9 /* Cocktail+CoreDataClass.swift */,
+				573B0CBD2993AA8D00209AE9 /* Cocktail+CoreDataProperties.swift */,
 				5783D95C298AD55000EE36AF /* Component+CoreDataClass.swift */,
 				5783D95D298AD55000EE36AF /* Component+CoreDataProperties.swift */,
 				578DAC652987FEC600B94904 /* DataController.swift */,
+				573B0CBA2993A25800209AE9 /* UIImageTransformer.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -192,6 +210,7 @@
 		57917BC32982793E00C507C2 /* Favourites */ = {
 			isa = PBXGroup;
 			children = (
+				57896635299292E100D8CDCF /* AddFavourites */,
 				57917BC42982797200C507C2 /* FavouritesView.swift */,
 			);
 			path = Favourites;
@@ -380,6 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				57CC60B629794EC900C0D12A /* AppColors.swift */,
+				573B0CB82993971F00209AE9 /* ImagePicker.swift */,
 				578DAC562987C58A00B94904 /* MyActivityIndicator.swift */,
 				5796F83D29899E280069057D /* PredicateEnums.swift */,
 				5783D964298AE8F100EE36AF /* Storage.swift */,
@@ -550,10 +570,11 @@
 				57CC60CC297EB8BD00C0D12A /* Glass.swift in Sources */,
 				578966322992705300D8CDCF /* LottiePlusView.swift in Sources */,
 				57EDFB5B2981684C0003F180 /* GlassesDetailsView.swift in Sources */,
+				573B0CBB2993A25800209AE9 /* UIImageTransformer.swift in Sources */,
 				57CC60EC29803CD300C0D12A /* CocktailTypeView.swift in Sources */,
 				57CC60D4297EC70A00C0D12A /* Tip.swift in Sources */,
 				57CC60B729794EC900C0D12A /* AppColors.swift in Sources */,
-				5783D95F298AD55000EE36AF /* Cocktail+CoreDataProperties.swift in Sources */,
+				573B0CB92993971F00209AE9 /* ImagePicker.swift in Sources */,
 				5796F838298947B50069057D /* StorageKeys.swift in Sources */,
 				5791F7E2298BC3F5002531C6 /* UIApplication+Window.swift in Sources */,
 				57CC60D0297EBC7000C0D12A /* Ingredient.swift in Sources */,
@@ -564,9 +585,12 @@
 				5783D965298AE8F100EE36AF /* Storage.swift in Sources */,
 				57CC60C32979A02C00C0D12A /* Category.swift in Sources */,
 				57CC608C2978005600C0D12A /* CocktailsSwiftUIApp.swift in Sources */,
+				573B0CBE2993AA8D00209AE9 /* Cocktail+CoreDataClass.swift in Sources */,
 				57CC60DB297ED4E700C0D12A /* TipView.swift in Sources */,
 				57CC60AE2978377C00C0D12A /* CocktailsView.swift in Sources */,
 				5796F83A298949E50069057D /* FilteredCocktailsView.swift in Sources */,
+				578966392992AF6100D8CDCF /* AddIngredientView.swift in Sources */,
+				573B0CBF2993AA8D00209AE9 /* Cocktail+CoreDataProperties.swift in Sources */,
 				57CC60D9297ED48800C0D12A /* TipsView.swift in Sources */,
 				57CC60AA2978376200C0D12A /* GlassesView.swift in Sources */,
 				578DAC572987C58A00B94904 /* MyActivityIndicator.swift in Sources */,
@@ -576,6 +600,7 @@
 				57EDFB5D298168590003F180 /* GlassesDetailsViewModel.swift in Sources */,
 				57CC60B12978566400C0D12A /* IconicCocktail.swift in Sources */,
 				57EDFB56298165D60003F180 /* IngredientsDetailsView.swift in Sources */,
+				578966372992930800D8CDCF /* AddFavouriteView.swift in Sources */,
 				57917BC9298288B600C507C2 /* TipDetailsView.swift in Sources */,
 				574FFF9029903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift in Sources */,
 				5796F83E29899E280069057D /* PredicateEnums.swift in Sources */,
@@ -588,7 +613,6 @@
 				57CC60C8297E8A3100C0D12A /* Endpoints.swift in Sources */,
 				57CC60EE29803E5600C0D12A /* CocktailTypeViewModel.swift in Sources */,
 				57CC60C129799FA000C0D12A /* CategoryView.swift in Sources */,
-				5783D95E298AD55000EE36AF /* Cocktail+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

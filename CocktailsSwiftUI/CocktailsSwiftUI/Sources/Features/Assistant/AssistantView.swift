@@ -9,11 +9,6 @@ import SwiftUI
 
 struct AssistantView: View {
     
-    // MARK: State
-    
-    @State private var isShowingAlert = false
-    
-    
     // MARK: Body
     
     var body: some View {
@@ -26,11 +21,12 @@ struct AssistantView: View {
                     AssistantCellView(name: "favourite", title: "Favourite Cocktails", description: "Mark cocktails as \"favourites\" so you can have quick access to them.")
                 }
                 
-                AssistantCellView(name: "add", title: "My Cocktails", description: "Didn't find your cocktail in the app? No problem, add it yourself and we will save it for you!")
-                    .onTapGesture {
-                        /// Toggles alert at line 44
-                        isShowingAlert = true
-                    }
+                ZStack(alignment: .leading) {
+                    NavigationLink(destination: AddFavouriteView()) { }
+                        .opacity(0)
+                    
+                    AssistantCellView(name: "add", title: "My Cocktails", description: "Didn't find your cocktail in the app? No problem, add it yourself and we will save it for you!")
+                }
                 
                 ZStack(alignment: .leading) {
                     NavigationLink(destination: TipsView()) { }
@@ -40,11 +36,6 @@ struct AssistantView: View {
                 }
             }
             .navigationTitle("Assistant")
-        }
-        .alert("Available soon", isPresented: $isShowingAlert) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text("Stay tuned! We are working to bring this feature to life.")
         }
     }
 }

@@ -41,9 +41,18 @@ struct CocktailDetailsView: View {
             ScrollView {
                 VStack {
                     VStack {
-                        LazyImage(url: URL(string: cocktail.unwrappedThumbnail))
-                            .frame(width: 150, height: 150)
-                            .padding()
+                        if let image = cocktail.image {
+                            Image(uiImage: image)
+                                .resizable()
+                                .frame(width: 70, height: 70)
+                                .clipShape(RoundedRectangle(cornerRadius: 35))
+                                .padding()
+                                .scaledToFill()
+                        } else {
+                            LazyImage(url: URL(string: cocktail.unwrappedThumbnail))
+                                .frame(width: 150, height: 150)
+                                .padding()
+                        }
                         
                         Text(cocktail.unwrappedCategory + " | " + cocktail.unwrappedAlcoholic)
                             .font(.title)

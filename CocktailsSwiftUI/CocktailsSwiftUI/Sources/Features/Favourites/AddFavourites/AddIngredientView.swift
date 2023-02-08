@@ -26,6 +26,9 @@ struct AddIngredientView: View {
         !measure.isEmpty && !name.isEmpty
     }
     
+    
+    // MARK: Body
+    
     var body: some View {
         Form {
             TextField("Measure", text: $measure)

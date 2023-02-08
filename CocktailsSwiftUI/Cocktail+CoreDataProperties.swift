@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-
+import UIKit
 
 extension Cocktail {
 
@@ -26,6 +26,7 @@ extension Cocktail {
     @NSManaged public var strGlass: String?
     @NSManaged public var strImageSource: String?
     @NSManaged public var strInstructions: String?
+    @NSManaged public var image: UIImage?
     @NSManaged public var ingredient: NSSet?
 
     public var unwrappedID: UUID {

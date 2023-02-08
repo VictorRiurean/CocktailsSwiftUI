@@ -118,6 +118,9 @@ struct AddFavouriteView: View {
                     cocktail.strInstructions = instructions
                     cocktail.ingredient = NSSet(array: ingredients)
                     cocktail.isFavourite = true
+                    cocktail.image = inputImage
+                    
+                    print(inputImage.debugDescription.count)
                     
                     try? moc.save()
                 }

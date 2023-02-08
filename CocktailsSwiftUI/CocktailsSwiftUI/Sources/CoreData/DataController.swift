@@ -35,6 +35,8 @@ class DataController: ObservableObject {
     // MARK: Lifecycle
     
     init() {
+        UIImageTransformer.register()
+        
         container.loadPersistentStores { description, error in
             if let error = error {
                 print("Core Data failed to load: \(error.localizedDescription)")

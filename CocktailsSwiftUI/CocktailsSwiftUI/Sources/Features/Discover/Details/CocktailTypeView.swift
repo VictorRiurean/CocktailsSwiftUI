@@ -9,15 +9,24 @@ import SwiftUI
 
 struct CocktailTypeView: View {
     
+    // MARK: FetchRequests
+    
+    @FetchRequest(sortDescriptors: []) var cocktails: FetchedResults<Cocktail>
+    
+    
     // MARK: State
-    /// Passed as binding to picker at line 29
-    @State private var showAlcoholic: Bool
+    /// Passed as binding to picker at line 38
+    @State private var showAlcoholic: Bool = true
     @State private var drinks: [Drink] = []
     
     
     // MARK: Private properties
     
     private let viewModel = CocktailTypeViewModel()
+    private var filteredCocktails: [Cocktail] {
+        return showAlcoholic ? cocktails.filter { $0.strAlcoholic == "Alcoholic" }
+                             : cocktails.filter { $0.strAlcoholic != "Alcoholic" }
+    }
     
     
     // MARK: Body
@@ -33,18 +42,30 @@ struct CocktailTypeView: View {
             .pickerStyle(.segmented)
             .frame(maxWidth: UIScreen.main.bounds.width * 0.75)
             .onChange(of: showAlcoholic) { type in
-                Task {
-                    drinks = await viewModel.fetchDrinks(with: type ? .alcoholic : .nonAlcoholic)
+                if cocktails.isEmpty {
+                    Task {
+                        drinks = await viewModel.fetchDrinks(with: type ? .alcoholic : .nonAlcoholic)
+                    }
                 }
             }
             
             ScrollView(.vertical) {
                 LazyVGrid(columns: [GridItem(), GridItem()]) {
-                    ForEach(drinks) { drink in
-                        NavigationLink(destination: CocktailDetailsView(name: drink.strDrink)) {
-                            DrinkByCategoryView(drink: drink)
+                    if cocktails.isEmpty {
+                        ForEach(drinks) { drink in
+                            NavigationLink(destination: CocktailDetailsView(name: drink.strDrink)) {
+                                DrinkByCategoryView(drink: drink)
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
-                        .buttonStyle(PlainButtonStyle())
+                    } else {
+                        ForEach(filteredCocktails) { cocktail in
+                            NavigationLink {
+                                CocktailDetailsView(name: cocktail.unwrappedDrink)
+                            } label: {
+                                DrinkByCategoryView(drink: Drink(strDrink: cocktail.unwrappedDrink, strDrinkThumb: cocktail.unwrappedThumbnail))
+                            }
+                        }
                     }
                 }
             }
@@ -54,8 +75,10 @@ struct CocktailTypeView: View {
         .navigationBarBackButtonTitleHidden()
         .navigationTitle(showAlcoholic ? "Alcoholic" : "Non Alcoholic")
         .onAppear {
-            Task {
-                drinks = await viewModel.fetchDrinks(with: showAlcoholic ? .alcoholic : .nonAlcoholic)
+            if cocktails.isEmpty {
+                Task {
+                    drinks = await viewModel.fetchDrinks(with: showAlcoholic ? .alcoholic : .nonAlcoholic)
+                }
             }
         }
     }

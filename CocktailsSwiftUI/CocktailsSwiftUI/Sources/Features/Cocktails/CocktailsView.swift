@@ -30,7 +30,14 @@ struct CocktailsView: View {
     @State private var searchText = ""
     @State private var drinkName = ""
     @State private var isShowingRandomCocktail = false
-    
+    /// According to the resources I've found when it comes to choosing between @StateObject and @ObservedObject
+    /// the rule of thumb would be: if the object will be used throughout a navigation stack then you want to
+    /// declare it at @StateObject in the parent and then as @ObservedObject in all of the children. @StateObject
+    /// guarantees that the object will exist before invoking the body function (properties marked with state
+    /// are stored outside of the view they belong to), whereas if we use @ObservedObject there's no such guarantee:
+    /// https://www.youtube.com/watch?v=VLUhZbz4arg
+    /// If you are curious to see @ObservedObject failing, check this out:
+    /// https://www.youtube.com/watch?v=5ryXee_Ye3k&t=111s
     @ObservedObject private var viewModel = CocktailsViewModel()
     
     

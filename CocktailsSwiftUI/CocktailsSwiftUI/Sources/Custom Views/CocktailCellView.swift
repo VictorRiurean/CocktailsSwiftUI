@@ -39,6 +39,7 @@ struct CocktailCellView: View {
             if let drink = fetchRequest.first {
                 if let image = drink.image {
                     Image(uiImage: image)
+                        .resizable()
                         .frame(width: 70, height: 70)
                         .clipShape(RoundedRectangle(cornerRadius: 35))
                         .padding()

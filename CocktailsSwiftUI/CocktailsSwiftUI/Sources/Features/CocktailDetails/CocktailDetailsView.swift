@@ -43,13 +43,11 @@ struct CocktailDetailsView: View {
                     VStack {
                         if let image = cocktail.image {
                             Image(uiImage: image)
+                                .resizable()
                                 .frame(width: 70, height: 70)
                                 .clipShape(RoundedRectangle(cornerRadius: 35))
                                 .padding()
                                 .scaledToFill()
-                                .onAppear {
-                                    print("Image: \(cocktail.image)")
-                                }
                         } else {
                             LazyImage(url: URL(string: cocktail.unwrappedThumbnail))
                                 .frame(width: 150, height: 150)

@@ -120,8 +120,6 @@ struct AddFavouriteView: View {
                     cocktail.isFavourite = true
                     cocktail.image = inputImage
                     
-                    print(inputImage.debugDescription.count)
-                    
                     try? moc.save()
                 }
                 .disabled(saveButtonEnabled == false)

@@ -16,10 +16,10 @@ class UIImageTransformer: ValueTransformer {
         
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: image, requiringSecureCoding: true)
-            print("data: \(data)")
+            
             return data
         } catch {
-            print("Failed to data")
+
             return nil
         }
     }
@@ -29,10 +29,10 @@ class UIImageTransformer: ValueTransformer {
         
         do {
             let image = try NSKeyedUnarchiver.unarchivedObject(ofClass: UIImage.self, from: data)
-            print("reverse: \(image)")
+            
             return image
         } catch {
-            print("failed to reverse")
+
             return nil
         }
     }

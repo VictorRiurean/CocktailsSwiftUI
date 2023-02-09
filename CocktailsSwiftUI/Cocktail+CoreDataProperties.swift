@@ -27,6 +27,7 @@ extension Cocktail {
     @NSManaged public var strImageSource: String?
     @NSManaged public var strInstructions: String?
     @NSManaged public var image: UIImage?
+    @NSManaged public var order: Int16
     @NSManaged public var ingredient: NSSet?
 
     public var unwrappedID: UUID {

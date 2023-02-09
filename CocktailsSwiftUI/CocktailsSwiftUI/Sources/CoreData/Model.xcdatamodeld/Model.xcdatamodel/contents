@@ -5,6 +5,7 @@
         <attribute name="idDrink" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="UIImageTransformer" customClassName="UIImage"/>
         <attribute name="isFavourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="strAlcoholic" optional="YES" attributeType="String"/>
         <attribute name="strCategory" optional="YES" attributeType="String"/>
         <attribute name="strDrink" optional="YES" attributeType="String"/>

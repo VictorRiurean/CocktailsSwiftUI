@@ -57,7 +57,7 @@ struct FavouritesView: View {
                                 
                                 showingAlert = true
                             } label: {
-                                Label("Delete", systemImage: "minus")
+                                Label("Delete", systemImage: "trash")
                             }
                         }
                     }
@@ -68,6 +68,8 @@ struct FavouritesView: View {
                     Button("Delete", role: .destructive) {
                         withAnimation {
                             delete(cocktail: cocktailToDelete!)
+                            
+                            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                         }
                     }
                     

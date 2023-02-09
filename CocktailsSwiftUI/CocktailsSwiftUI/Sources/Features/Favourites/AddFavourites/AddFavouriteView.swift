@@ -12,6 +12,7 @@ struct AddFavouriteView: View {
     // MARK: Environment
     
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var presentation
     
     
     // MARK: State
@@ -29,6 +30,7 @@ struct AddFavouriteView: View {
     @State private var ingredientsText: String = ""
     @State private var showAddIngredient: Bool = false
     @State private var instructions: String = ""
+    @State private var showNewCocktail: Bool = false
     
     private var saveButtonEnabled: Bool {
         !name.isEmpty && !category.isEmpty && !glass.isEmpty && !ingredients.isEmpty
@@ -127,6 +129,12 @@ struct AddFavouriteView: View {
                     cocktail.image = inputImage
                     
                     try? moc.save()
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        UINotificationFeedbackGenerator().notificationOccurred(.success)
+
+                        showNewCocktail = true
+                    }
                 }
                 .disabled(saveButtonEnabled == false)
                 
@@ -142,6 +150,12 @@ struct AddFavouriteView: View {
         }
         .sheet(isPresented: $showingImagePicker) {
             ImagePicker(image: $inputImage)
+        }
+        .alert("Cocktail added!", isPresented: $showNewCocktail) {
+            Button("OK", role: .cancel) {
+                /// This is how you programmatically dimiss a view
+                presentation.wrappedValue.dismiss()
+            }
         }
     }
     

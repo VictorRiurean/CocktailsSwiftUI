@@ -61,7 +61,8 @@ struct CocktailsView: View {
                     Section(header: Text(letter)) {
                         LazyVStack {
                             ForEach(searchResults.filter { $0.unwrappedDrink.lowercased().starts(with: letter) }) { cocktail in
-                                /// This was the only navigation that was working properly with LazyVStack
+                                /// This was the only navigation that was working properly with LazyVStack.
+                                /// Also, swipeAction and onDelete don't work properly with LazyVStacks.
                                 CocktailCellView(drinkName: cocktail.unwrappedDrink, letter: letter)
                                     .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
                                     .onTapGesture {
@@ -88,7 +89,6 @@ struct CocktailsView: View {
                                     await fetchDrinks()
                                 }
                             }
-                            
                             /// This is meant to handle the scenario in which the spinner is showing
                             /// but for some reason onAppear was not called again on redraw.
                             DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
@@ -103,7 +103,6 @@ struct CocktailsView: View {
             }
             .navigationTitle("Cocktails")
         }
-        
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
         .onAppear {
             if !allLettersLoaded {

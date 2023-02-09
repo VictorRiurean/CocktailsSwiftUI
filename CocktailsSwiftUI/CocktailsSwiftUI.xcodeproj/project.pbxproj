@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		573B0CB92993971F00209AE9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0CB82993971F00209AE9 /* ImagePicker.swift */; };
 		573B0CBB2993A25800209AE9 /* UIImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0CBA2993A25800209AE9 /* UIImageTransformer.swift */; };
-		573B0CBE2993AA8D00209AE9 /* Cocktail+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0CBC2993AA8D00209AE9 /* Cocktail+CoreDataClass.swift */; };
-		573B0CBF2993AA8D00209AE9 /* Cocktail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0CBD2993AA8D00209AE9 /* Cocktail+CoreDataProperties.swift */; };
 		574FFF9029903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574FFF8F29903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift */; };
+		5767B6662995529E004664A4 /* Cocktail+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5767B6642995529E004664A4 /* Cocktail+CoreDataClass.swift */; };
+		5767B6672995529E004664A4 /* Cocktail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5767B6652995529E004664A4 /* Cocktail+CoreDataProperties.swift */; };
 		5783D960298AD55000EE36AF /* Component+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95C298AD55000EE36AF /* Component+CoreDataClass.swift */; };
 		5783D961298AD55000EE36AF /* Component+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D95D298AD55000EE36AF /* Component+CoreDataProperties.swift */; };
 		5783D965298AE8F100EE36AF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D964298AE8F100EE36AF /* Storage.swift */; };
@@ -86,9 +86,9 @@
 /* Begin PBXFileReference section */
 		573B0CB82993971F00209AE9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		573B0CBA2993A25800209AE9 /* UIImageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageTransformer.swift; sourceTree = "<group>"; };
-		573B0CBC2993AA8D00209AE9 /* Cocktail+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocktail+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		573B0CBD2993AA8D00209AE9 /* Cocktail+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocktail+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		574FFF8F29903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+FirstCharacterLowercasedOrNil.swift"; path = "CocktailsSwiftUI/Sources/Utilities/String+FirstCharacterLowercasedOrNil.swift"; sourceTree = SOURCE_ROOT; };
+		5767B6642995529E004664A4 /* Cocktail+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocktail+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		5767B6652995529E004664A4 /* Cocktail+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cocktail+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		5783D95C298AD55000EE36AF /* Component+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Component+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		5783D95D298AD55000EE36AF /* Component+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Component+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		5783D964298AE8F100EE36AF /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
@@ -197,8 +197,8 @@
 			isa = PBXGroup;
 			children = (
 				578DAC672987FF5D00B94904 /* Model.xcdatamodeld */,
-				573B0CBC2993AA8D00209AE9 /* Cocktail+CoreDataClass.swift */,
-				573B0CBD2993AA8D00209AE9 /* Cocktail+CoreDataProperties.swift */,
+				5767B6642995529E004664A4 /* Cocktail+CoreDataClass.swift */,
+				5767B6652995529E004664A4 /* Cocktail+CoreDataProperties.swift */,
 				5783D95C298AD55000EE36AF /* Component+CoreDataClass.swift */,
 				5783D95D298AD55000EE36AF /* Component+CoreDataProperties.swift */,
 				578DAC652987FEC600B94904 /* DataController.swift */,
@@ -585,12 +585,12 @@
 				5783D965298AE8F100EE36AF /* Storage.swift in Sources */,
 				57CC60C32979A02C00C0D12A /* Category.swift in Sources */,
 				57CC608C2978005600C0D12A /* CocktailsSwiftUIApp.swift in Sources */,
-				573B0CBE2993AA8D00209AE9 /* Cocktail+CoreDataClass.swift in Sources */,
+				5767B6662995529E004664A4 /* Cocktail+CoreDataClass.swift in Sources */,
 				57CC60DB297ED4E700C0D12A /* TipView.swift in Sources */,
 				57CC60AE2978377C00C0D12A /* CocktailsView.swift in Sources */,
 				5796F83A298949E50069057D /* FilteredCocktailsView.swift in Sources */,
 				578966392992AF6100D8CDCF /* AddIngredientView.swift in Sources */,
-				573B0CBF2993AA8D00209AE9 /* Cocktail+CoreDataProperties.swift in Sources */,
+				5767B6672995529E004664A4 /* Cocktail+CoreDataProperties.swift in Sources */,
 				57CC60D9297ED48800C0D12A /* TipsView.swift in Sources */,
 				57CC60AA2978376200C0D12A /* GlassesView.swift in Sources */,
 				578DAC572987C58A00B94904 /* MyActivityIndicator.swift in Sources */,

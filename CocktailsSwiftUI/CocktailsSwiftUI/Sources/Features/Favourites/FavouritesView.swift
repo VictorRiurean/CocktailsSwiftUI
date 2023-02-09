@@ -16,7 +16,7 @@ struct FavouritesView: View {
     
     // MARK: FetchRequests
     
-    @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "\(FilterKey.isFavourite.rawValue) \(PredicateFormat.equalsTo.rawValue) \(FilterValue.yes.rawValue)")) var cocktails: FetchedResults<Cocktail>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Cocktail.order, ascending: true)], predicate: NSPredicate(format: "\(FilterKey.isFavourite.rawValue) \(PredicateFormat.equalsTo.rawValue) \(FilterValue.yes.rawValue)")) var cocktails: FetchedResults<Cocktail>
     
     
     // MARK: State
@@ -61,6 +61,7 @@ struct FavouritesView: View {
                             }
                         }
                     }
+                    .onMove(perform: move)
                 }
                 .navigationTitle("Favourites")
                 .navigationBarTitleDisplayMode(.inline)
@@ -75,6 +76,13 @@ struct FavouritesView: View {
                     
                     Button("Cancel", role: .cancel) { }
                 }
+                .onAppear {
+                    for index in 0..<cocktails.count {
+                        cocktails[index].order = Int16(index)
+                    }
+                    
+                    try? moc.save()
+                }
             }
         }
         .navigationBarBackButtonTitleHidden()
@@ -85,6 +93,43 @@ struct FavouritesView: View {
     
     private func delete(cocktail: Cocktail) {
         moc.delete(cocktail)
+        
+        try? moc.save()
+    }
+    
+    private func move(from source: IndexSet, to destination: Int) {
+        /// In order for the changes to be persisted the Cocktail object needed to have an order property
+        /// added that would be used as SortDescriptor inside the FetchRequest and saved onMove.
+        let itemToMove = source.first!
+        
+        if itemToMove < destination {
+            var startIndex = itemToMove + 1
+            let endIndex = destination - 1
+            var startOrder = cocktails[itemToMove].order
+            
+            while startIndex <= endIndex {
+                cocktails[startIndex].order = startOrder
+                
+                startOrder += 1
+                startIndex += 1
+            }
+            
+            cocktails[itemToMove].order = startOrder
+        } else {
+            var startIndex = destination
+            let endIndex = itemToMove - 1
+            var startOrder = cocktails[startIndex].order + 1
+            let newOrder = cocktails[startIndex].order
+            
+            while startIndex <= endIndex {
+                cocktails[startIndex].order = startOrder
+                
+                startOrder += 1
+                startIndex += 1
+            }
+            
+            cocktails[itemToMove].order = newOrder
+        }
         
         try? moc.save()
     }

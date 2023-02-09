@@ -67,7 +67,7 @@ struct CocktailCellView: View {
                     
                     Spacer()
                     
-                    Text(drink.unwrappedInstructions)
+                    Text(drink.getIngredientsForCellDescription())
                         .font(.subheadline)
                         .lineLimit(3)
                         .minimumScaleFactor(0.5)
@@ -85,6 +85,8 @@ struct CocktailCellView: View {
                         play = true
                         selectedCocktailID = drink.unwrappedID
                         animationID += 1
+                        
+                        UINotificationFeedbackGenerator().notificationOccurred(.success)
                     }
                     
                     drink.isFavourite.toggle()

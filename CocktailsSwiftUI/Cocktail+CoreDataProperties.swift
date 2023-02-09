@@ -63,6 +63,28 @@ extension Cocktail {
             $0.unwrappedName < $1.unwrappedName
         }
     }
+    
+    public func getIngredientsForCellDescription() -> String {
+        var description = ""
+        
+        if ingredients.count < 4 {
+            for index in 0..<ingredients.count {
+                description += ingredients[index].unwrappedName.lowercased()
+                
+                if index < ingredients.count - 1 {
+                    description += ", "
+                }
+            }
+        } else {
+            for index in 0..<4 {
+                description += ingredients[index].unwrappedName.lowercased() + ", "
+            }
+            
+            description += "and more ..."
+        }
+        
+        return description
+    }
 }
 
 // MARK: Generated accessors for ingredient

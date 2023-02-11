@@ -14,6 +14,7 @@ struct CocktailDetailsView: View {
     
     @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.presentationMode) var presentation
     
     
     // MARK: FetchRequests
@@ -24,8 +25,10 @@ struct CocktailDetailsView: View {
     
     // MARK: State
     
-    @State var isFetching = true
-    @State var isShowingAlert = false
+    @State private var isFetching = true
+    @State private var isShowingMissingCocktailAlert = false
+    @State private var isShowingDeleteCocktailAlert = false
+    @State private var cocktailWasDeleted = false
     
     
     // MARK: Private properties
@@ -102,23 +105,48 @@ struct CocktailDetailsView: View {
             }
             .navigationBarBackButtonTitleHidden()
             .toolbar {
-                Button {
-                    cocktail.isFavourite.toggle()
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button {
+                        isShowingDeleteCocktailAlert = true
+                    } label: {
+                        Image(systemName: "trash")
+                    }
+                    .alert("Are you sure you want to delete this cocktail?", isPresented: $isShowingDeleteCocktailAlert) {
+                        Button("Delete", role: .destructive) {
+                            /// We do it in this order because otherwise the view will redraw
+                            /// once the fetchRequest is updated and the screen becomes jerky
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                presentation.wrappedValue.dismiss()
+                            }
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                delete(cocktail: cocktail)
+                            }
+                        }
+                        .foregroundColor(colorScheme == .light ? AppColors.darkGray : .orange)
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        Button("Cancel", role: .cancel) { }
+                    }
                     
-                    try? moc.save()
-                } label: {
-                    cocktail.isFavourite ? Image(systemName: "heart.fill") : Image(systemName: "heart")
+                    Button {
+                        cocktail.isFavourite.toggle()
+                        
+                        try? moc.save()
+                    } label: {
+                        cocktail.isFavourite ? Image(systemName: "heart.fill") : Image(systemName: "heart")
+                    }
+                    .foregroundColor(colorScheme == .light ? AppColors.darkGray : .orange)
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    /// ShareLink is normally used in SwiftUI, but as of iOS 16
+                    /// toolbars do not support it, so we have to go for this instead
+                    Button(action: actionSheet) {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .foregroundColor(colorScheme == .light ? AppColors.darkGray : .orange)
+                    .buttonStyle(PlainButtonStyle())
                 }
-                .foregroundColor(colorScheme == .light ? AppColors.darkGray : .orange)
-                .buttonStyle(PlainButtonStyle())
-                
-                /// ShareLink is normally used in SwiftUI, but as of iOS 16
-                /// toolbars do not support it, so we have to go for this instead
-                Button(action: actionSheet) {
-                    Image(systemName: "square.and.arrow.up")
-                }
-                .foregroundColor(colorScheme == .light ? AppColors.darkGray : .orange)
-                .buttonStyle(PlainButtonStyle())
             }
         } else {
             /// This gets triggered when the user taps on a cocktail within the Discover scene
@@ -139,9 +167,9 @@ struct CocktailDetailsView: View {
             } else {
                 Text("Something went horribly wrong here 😱")
                     .onAppear {
-                        isShowingAlert = true
+                        isShowingMissingCocktailAlert = true
                     }
-                    .alert("Could not fetch cocktail named \(name)", isPresented: $isShowingAlert) {
+                    .alert("Could not fetch cocktail named \(name)", isPresented: $isShowingMissingCocktailAlert) {
                         Button("OK", role: .cancel) { }
                     }
                     .navigationBarBackButtonTitleHidden()
@@ -168,5 +196,11 @@ struct CocktailDetailsView: View {
         let activityVC = UIActivityViewController(activityItems: [MyActivityItemSource(title: cocktail.unwrappedDrink, text: cocktail.unwrappedInstructions)], applicationActivities: nil)
         
         UIApplication.shared.currentUIWindow()?.rootViewController?.present(activityVC, animated: true, completion: nil)
+    }
+    
+    private func delete(cocktail: Cocktail) {
+        moc.delete(cocktail)
+        
+        try? moc.save()
     }
 }

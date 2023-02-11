@@ -28,7 +28,9 @@ struct DiscoverView: View {
     // MARK: Private properties
     
     private let viewModel = DiscoverViewModel()
-    
+    private var cats: [Category] {
+        categories
+    }
     
     // MARK: Body
     
@@ -42,11 +44,11 @@ struct DiscoverView: View {
                         
                         ScrollView(.horizontal) {
                             LazyHStack {
-                                ForEach(categories) { category in
-                                    NavigationLink(destination: CategoryDetailsView(categoryName: category.strCategory)) {
-                                        CategoryView(category: category)
+                                ForEach(0..<categories.count, id: \.self) { index in
+                                    NavigationLink(destination: CategoryDetailsView(categoryName: categories[index].strCategory)) {
+                                        CategoryView(category: categories[index], index: index)
                                     }
-                                    /// Without this modifier text and foreground colours will become blue
+                                    /// Without this modifier text and foreground colours will be the same as the tintColor
                                     .buttonStyle(PlainButtonStyle())
                                 }
                             }

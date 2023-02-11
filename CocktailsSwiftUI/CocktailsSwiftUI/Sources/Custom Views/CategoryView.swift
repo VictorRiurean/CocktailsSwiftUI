@@ -17,13 +17,14 @@ struct CategoryView: View {
     // MARK: Private properties
     
     private var category: Category
+    private let index: Int
     
     
     // MARK: Body
     
     var body: some View {
         ZStack {
-            colorScheme == .light ? AppColors.getRandomLightColor(with: category.strCategory.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: category.strCategory.getFirstCharacterLowercasedOrNil())
+            colorScheme == .light ? AppColors.getLightColorWithIndex(index) : AppColors.getDarkColorWithIndex(index)
             
             Text(category.strCategory)
                 .font(.title2)
@@ -38,13 +39,14 @@ struct CategoryView: View {
     
     // MARK: Lifecycle
     
-    init(category: Category) {
+    init(category: Category, index: Int) {
         self.category = category
+        self.index = index
     }
 }
 
 struct CategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryView(category: Category(strCategory: "Palinque"))
+        CategoryView(category: Category(strCategory: "Palinque"), index: 0)
     }
 }

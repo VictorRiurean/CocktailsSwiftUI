@@ -32,7 +32,6 @@ class AppColors {
         Color(UIColor(rgb: 0x3F4E4F)),
         Color(UIColor(rgb: 0x395B64)),
         Color(UIColor(rgb: 0xA5C9CA)),
-        Color(UIColor(rgb: 0xE7F6F2)),
         Color(UIColor(rgb: 0xA27B5C)),
         Color(UIColor(rgb: 0xDCD7C9)),
         Color(UIColor(rgb: 0x2C3333)),
@@ -45,18 +44,27 @@ class AppColors {
     
     static let letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
     
+    
     // MARK: Public methods
 
+    static func getLightColorWithIndex(_ index: Int) -> Color {
+        lightColors[index % 9]
+    }
+    
     static func getRandomLightColor(with letter: String? = nil) -> Color {
         guard letters.contains(letter ?? "") else { return lightColors[0] }
         
         return letter == nil ? lightColors.randomElement()! : lightColors[letters.firstIndex(of: letter!)! % 9]
     }
     
+    static func getDarkColorWithIndex(_ index: Int) -> Color {
+        darkColors[index % 11]
+    }
+    
     static func getRandomDarkColor(with letter: String? = nil) -> Color {
         guard letters.contains(letter ?? "") else { return darkColors[0] }
         
-        return letter == nil ? darkColors.randomElement()! : darkColors[letters.firstIndex(of: letter!)! % 12]
+        return letter == nil ? darkColors.randomElement()! : darkColors[letters.firstIndex(of: letter!)! % 11]
     }
 }
 

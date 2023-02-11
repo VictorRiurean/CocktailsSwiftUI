@@ -193,7 +193,7 @@ struct CocktailDetailsView: View {
     private func actionSheet() {
         guard let cocktail = cocktail.first else { return }
         
-        let activityVC = UIActivityViewController(activityItems: [MyActivityItemSource(title: cocktail.unwrappedDrink, text: cocktail.unwrappedInstructions)], applicationActivities: nil)
+        let activityVC = UIActivityViewController(activityItems: [MyActivityItemSource(title: cocktail.unwrappedDrink, text: cocktail.getShareMessageString())], applicationActivities: nil)
         
         UIApplication.shared.currentUIWindow()?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }

@@ -48,6 +48,7 @@ struct CocktailType: View {
             
             Text(text)
                 .font(.headline)
+                .shadow(radius: 5)
         }
         .frame(minHeight: 150)
         .frame(maxWidth: .infinity)

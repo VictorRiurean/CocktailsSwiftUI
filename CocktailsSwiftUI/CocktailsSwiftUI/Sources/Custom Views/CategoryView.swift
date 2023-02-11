@@ -28,6 +28,7 @@ struct CategoryView: View {
             Text(category.strCategory)
                 .font(.title2)
                 .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
+                .shadow(radius: 5)
         }
         .frame(height: 100)
         .frame(maxWidth: .infinity)

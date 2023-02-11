@@ -28,6 +28,7 @@ struct IconicCocktail: View {
                 .font(.headline)
                 .minimumScaleFactor(0.5)
                 .padding()
+                .shadow(radius: 5)
             
             Spacer()
             

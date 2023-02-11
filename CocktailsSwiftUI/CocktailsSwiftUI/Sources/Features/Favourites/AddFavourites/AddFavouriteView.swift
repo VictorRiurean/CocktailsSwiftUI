@@ -17,7 +17,7 @@ struct AddFavouriteView: View {
     
     // MARK: State
     
-    @State private var image: Image = Image(systemName: "questionmark")
+    @State private var image: Image = Image(uiImage: UIImage(named: "cocktail")!)
     @State private var name: String = ""
     @State private var category: String = ""
     @State private var glass: String = ""
@@ -28,12 +28,18 @@ struct AddFavouriteView: View {
     @State private var types: [String] = ["Alcoholic", "Non-Alcoholic"]
     @State private var ingredients: [Component] = []
     @State private var ingredientsText: String = ""
-    @State private var showAddIngredient: Bool = false
+    @State private var measureToAdd = ""
+    @State private var ingredientToAdd = ""
+    @State private var didTouchAddIngredient: Bool = false
+    @State private var invalidIngredient: Bool = false
     @State private var instructions: String = ""
     @State private var showNewCocktail: Bool = false
     
     private var saveButtonEnabled: Bool {
         !name.isEmpty && !category.isEmpty && !glass.isEmpty && !ingredients.isEmpty
+    }
+    private var addIngredientEnabled: Bool {
+        !measureToAdd.isEmpty && !ingredientToAdd.isEmpty
     }
     
     
@@ -55,6 +61,7 @@ struct AddFavouriteView: View {
                     image
                         .resizable()
                         .frame(width: 150, height: 150)
+                        .cornerRadius(75)
                         .scaledToFill()
                     
                     Spacer()
@@ -81,31 +88,32 @@ struct AddFavouriteView: View {
                 }
             }
             
-            Section(header: SectionHeaderWithTextAndBoolBinding(boolBinding: $showAddIngredient, text: "Ingredients")) {
-                if ingredients.isEmpty {
-                    TextField("Add ingredients by tapping the plus button", text: $ingredientsText)
-                        /// This prevents text crop in placeholder
-                        .fixedSize(horizontal: true, vertical: false)
-                        /// I went for a disabled TextField because I wanted to reproduce the
-                        /// look of the other sections. This does require us to add an extra
-                        /// @State var that ends up not being used, but for now c'est la vie.
-                        .disabled(true)
-                } else {
-                    ForEach(ingredients, id: \.self) { ingredient in
-                        HStack {
-                            Text("\(ingredient.unwrappedMeasure) \(ingredient.unwrappedName)")
-                            
-                            Spacer()
-                            
-                            Button {
-                                withAnimation {
-                                    ingredients.removeAll { $0 == ingredient }
-                                }
-                            } label: {
-                                Image(systemName: "minus")
+            Section(header: SectionHeaderWithTextAndBoolBinding(boolBinding: $didTouchAddIngredient, text: "Ingredients")) {
+                ForEach(ingredients, id: \.self) { ingredient in
+                    HStack {
+                        Text("\(ingredient.unwrappedMeasure) \(ingredient.unwrappedName)")
+                        
+                        Spacer()
+                        
+                        Button {
+                            withAnimation {
+                                ingredients.removeAll { $0 == ingredient }
                             }
+                        } label: {
+                            Image(systemName: "minus")
                         }
+                        .buttonStyle(BorderlessButtonStyle())
                     }
+                }
+                
+                AddIngredientView(measure: $measureToAdd, name: $ingredientToAdd)
+                
+                if invalidIngredient {
+                    Text("Please make sure measure and ingredient fields aren't empty.")
+                        .foregroundColor(.red)
+                        .font(.caption)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .transition(.push(from: .top))
                 }
             }
             
@@ -145,8 +153,30 @@ struct AddFavouriteView: View {
         .navigationTitle("Add Cocktail")
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: inputImage) { _ in loadImage() }
-        .sheet(isPresented: $showAddIngredient) {
-            AddIngredientView(isPresented: $showAddIngredient, components: $ingredients)
+        .onChange(of: didTouchAddIngredient) { _ in
+            if addIngredientEnabled {
+                let ingredient = Component(context: moc)
+                
+                ingredient.measure = measureToAdd
+                ingredient.name = ingredientToAdd
+                
+                ingredients.append(ingredient)
+                
+                measureToAdd = ""
+                ingredientToAdd = ""
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    withAnimation {
+                        invalidIngredient = false
+                    }
+                }
+                
+                withAnimation {
+                    invalidIngredient = true
+                }
+                
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+            }
         }
         .sheet(isPresented: $showingImagePicker) {
             ImagePicker(image: $inputImage)
@@ -200,7 +230,7 @@ struct SectionHeaderWithTextAndBoolBinding: View {
             Spacer()
             
             Button {
-                boolBinding = true
+                boolBinding.toggle()
             } label: {
                 Image(systemName: "plus")
             }

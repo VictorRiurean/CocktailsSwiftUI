@@ -9,54 +9,21 @@ import SwiftUI
 
 struct AddIngredientView: View {
     
-    // MARK: Environment
-    
-    @Environment(\.managedObjectContext) var moc
-
-    
     // MARK: State
     
-    @Binding var isPresented: Bool
-    @Binding var components: [Component]
-    
-    @State private var measure = ""
-    @State private var name = ""
-    
-    private var saveButtonActive: Bool {
-        !measure.isEmpty && !name.isEmpty
-    }
+    @Binding var measure: String
+    @Binding var name: String
     
     
     // MARK: Body
     
     var body: some View {
-        Form {
+        HStack {
             TextField("Measure", text: $measure)
-            TextField("Name", text: $name)
             
-            HStack(spacing: 50) {
-                Spacer()
-                
-                Button("Save") {
-                    let ingredient = Component(context: moc)
-                    
-                    ingredient.name = name
-                    ingredient.measure = measure
-                    
-                    components.append(ingredient)
-                    
-                    isPresented = false
-                }
-                .disabled(!saveButtonActive)
-                
-                Button("Cancel") {
-                    isPresented = false
-                }
-                
-                Spacer()
-            }
+            Divider()
+            
+            TextField("Ingredient", text: $name)
         }
-        .navigationTitle("Add ingredient")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }

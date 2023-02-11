@@ -46,145 +46,150 @@ struct AddFavouriteView: View {
     // MARK: Body
     
     var body: some View {
-        Form {
-            Picker("Choose cocktail type", selection: $type) {
-                ForEach(types, id: \.self) {
-                    Text($0)
-                }
-            }
-            .pickerStyle(.segmented)
-            
-            Section {
-                HStack {
-                    Spacer()
-                    
-                    image
-                        .resizable()
-                        .frame(width: 150, height: 150)
-                        .cornerRadius(75)
-                        .scaledToFill()
-                    
-                    Spacer()
-                }
-            }
-            .listRowBackground(Color.clear)
-            
-            Section(header: Text("Cocktail details")) {
-                TextField("Cocktail name", text: $name)
-                TextField("Category", text: $category)
-                TextField("Glass", text: $glass)
-                
-                HStack {
-                    TextField("URL (optional)", text: $url)
-                    
-                    Spacer()
-                    
-                    Button {
-                        showingImagePicker = true
-                    } label: {
-                        Image(systemName: "plus")
+        ZStack(alignment: .top) {
+            Form {
+                Picker("Choose cocktail type", selection: $type) {
+                    ForEach(types, id: \.self) {
+                        Text($0)
                     }
-                    .disabled(!url.isEmpty)
                 }
-            }
-            
-            Section(header: SectionHeaderWithTextAndBoolBinding(boolBinding: $didTouchAddIngredient, text: "Ingredients")) {
-                ForEach(ingredients, id: \.self) { ingredient in
+                .pickerStyle(.segmented)
+                
+                Section {
                     HStack {
-                        Text("\(ingredient.unwrappedMeasure) \(ingredient.unwrappedName)")
+                        Spacer()
+                        
+                        image
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                            .cornerRadius(75)
+                            .scaledToFill()
+                        
+                        Spacer()
+                    }
+                }
+                .listRowBackground(Color.clear)
+                
+                Section(header: Text("Cocktail details")) {
+                    TextField("Cocktail name", text: $name)
+                    TextField("Category", text: $category)
+                    TextField("Glass", text: $glass)
+                    
+                    HStack {
+                        TextField("URL (optional)", text: $url)
                         
                         Spacer()
                         
                         Button {
-                            withAnimation {
-                                ingredients.removeAll { $0 == ingredient }
-                            }
+                            showingImagePicker = true
                         } label: {
-                            Image(systemName: "minus")
+                            Image(systemName: "plus")
                         }
-                        .buttonStyle(BorderlessButtonStyle())
+                        .disabled(!url.isEmpty)
                     }
                 }
                 
-                AddIngredientView(measure: $measureToAdd, name: $ingredientToAdd)
-                
-                if invalidIngredient {
-                    Text("Please make sure measure and ingredient fields aren't empty.")
-                        .foregroundColor(.red)
-                        .font(.caption)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .transition(.push(from: .top))
-                }
-            }
-            
-            Section(header: Text("Preparation")) {
-                TextField("Instructions", text: $instructions)
-            }
-            
-            HStack {
-                Spacer()
-                
-                Button("Save") {
-                    let cocktail = Cocktail(context: moc)
-                    
-                    cocktail.id = UUID()
-                    cocktail.strDrink = name
-                    cocktail.strCategory = category
-                    cocktail.strAlcoholic = type
-                    cocktail.strInstructions = instructions
-                    cocktail.ingredient = NSSet(array: ingredients)
-                    cocktail.isFavourite = true
-                    cocktail.image = inputImage
-                    
-                    try? moc.save()
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        UINotificationFeedbackGenerator().notificationOccurred(.success)
-
-                        showNewCocktail = true
+                Section(header: SectionHeaderWithTextAndBoolBinding(boolBinding: $didTouchAddIngredient, text: "Ingredients")) {
+                    ForEach(ingredients, id: \.self) { ingredient in
+                        HStack {
+                            Text("\(ingredient.unwrappedMeasure) \(ingredient.unwrappedName)")
+                            
+                            Spacer()
+                            
+                            Button {
+                                withAnimation {
+                                    ingredients.removeAll { $0 == ingredient }
+                                }
+                            } label: {
+                                Image(systemName: "minus")
+                            }
+                            .buttonStyle(BorderlessButtonStyle())
+                        }
                     }
+                    
+                    AddIngredientView(measure: $measureToAdd, name: $ingredientToAdd)
                 }
-                .disabled(saveButtonEnabled == false)
                 
-                Spacer()
+                Section(header: Text("Preparation")) {
+                    TextField("Instructions", text: $instructions)
+                }
+                
+                HStack {
+                    Spacer()
+                    
+                    Button("Save") {
+                        let cocktail = Cocktail(context: moc)
+                        
+                        cocktail.id = UUID()
+                        cocktail.strDrink = name
+                        cocktail.strCategory = category
+                        cocktail.strAlcoholic = type
+                        cocktail.strInstructions = instructions
+                        cocktail.ingredient = NSSet(array: ingredients)
+                        cocktail.isFavourite = true
+                        cocktail.image = inputImage
+                        
+                        try? moc.save()
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            UINotificationFeedbackGenerator().notificationOccurred(.success)
+                            
+                            showNewCocktail = true
+                        }
+                    }
+                    .disabled(saveButtonEnabled == false)
+                    
+                    Spacer()
+                }
             }
-        }
-        .navigationBarBackButtonTitleHidden()
-        .navigationTitle("Add Cocktail")
-        .navigationBarTitleDisplayMode(.inline)
-        .onChange(of: inputImage) { _ in loadImage() }
-        .onChange(of: didTouchAddIngredient) { _ in
-            if addIngredientEnabled {
-                let ingredient = Component(context: moc)
-                
-                ingredient.measure = measureToAdd
-                ingredient.name = ingredientToAdd
-                
-                ingredients.append(ingredient)
-                
-                measureToAdd = ""
-                ingredientToAdd = ""
-            } else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            .navigationBarBackButtonTitleHidden()
+            .navigationTitle("Add Cocktail")
+            .navigationBarTitleDisplayMode(.inline)
+            .onChange(of: inputImage) { _ in loadImage() }
+            .onChange(of: didTouchAddIngredient) { _ in
+                if addIngredientEnabled {
+                    let ingredient = Component(context: moc)
+                    
+                    ingredient.measure = measureToAdd
+                    ingredient.name = ingredientToAdd
+                    
+                    ingredients.append(ingredient)
+                    
+                    measureToAdd = ""
+                    ingredientToAdd = ""
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        withAnimation {
+                            invalidIngredient = false
+                        }
+                    }
+                    
                     withAnimation {
-                        invalidIngredient = false
+                        invalidIngredient = true
                     }
+                    
+                    UINotificationFeedbackGenerator().notificationOccurred(.error)
                 }
-                
-                withAnimation {
-                    invalidIngredient = true
-                }
-                
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
             }
-        }
-        .sheet(isPresented: $showingImagePicker) {
-            ImagePicker(image: $inputImage)
-        }
-        .alert("Cocktail added!", isPresented: $showNewCocktail) {
-            Button("OK", role: .cancel) {
-                /// This is how you programmatically dimiss a view
-                presentation.wrappedValue.dismiss()
+            .sheet(isPresented: $showingImagePicker) {
+                ImagePicker(image: $inputImage)
+            }
+            .alert("Cocktail added!", isPresented: $showNewCocktail) {
+                Button("OK", role: .cancel) {
+                    /// This is how you programmatically dimiss a view
+                    presentation.wrappedValue.dismiss()
+                }
+            }
+            
+            if invalidIngredient {
+                Text("Please make sure measure and ingredient fields aren't empty.")
+                    .padding()
+                    .background(.white)
+                    .clipShape(Capsule())
+                    .foregroundColor(.red)
+                    .font(.subheadline)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .transition(.push(from: .top))
             }
         }
     }

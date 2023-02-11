@@ -141,26 +141,6 @@ struct DiscoverView: View {
                         Spacer()
                     }
                     .padding()
-                    .onAppear {
-                        Task {
-                            /// This particular task group won't fail if one of the tasks fails,
-                            /// but if need be you can implement such a task group. Check out:
-                            /// https://www.avanderlee.com/concurrency/task-groups-in-swift/?utm_source=swiftlee&utm_medium=swiftlee_weekly&utm_campaign=issue_150
-                            drinks = try await withThrowingTaskGroup(of: Drink.self, returning: [Drink].self) { taskGroup in
-                                for _ in 0...2 {
-                                    taskGroup.addTask { await viewModel.fetchRandomCocktail() }
-                                }
-                                
-                                return try await taskGroup.reduce(into: [Drink]()) { partialResult, drink in
-                                    partialResult.append(drink)
-                                }
-                            }
-                        }
-                        
-                        Task {
-                            categories = await viewModel.fetchCategories()
-                        }
-                    }
                     .navigationDestination(isPresented: $isShowingRandomCocktail) {
                         CocktailDetailsView(name: drink.strDrink)
                     }
@@ -174,6 +154,26 @@ struct DiscoverView: View {
                 }
                 /// This is so that the confetti animation covers the whole screen
                 .ignoresSafeArea()
+            }
+            .onAppear {
+                Task {
+                    /// This particular task group won't fail if one of the tasks fails,
+                    /// but if need be you can implement such a task group. Check out:
+                    /// https://www.avanderlee.com/concurrency/task-groups-in-swift/?utm_source=swiftlee&utm_medium=swiftlee_weekly&utm_campaign=issue_150
+                    drinks = try await withThrowingTaskGroup(of: Drink.self, returning: [Drink].self) { taskGroup in
+                        for _ in 0...2 {
+                            taskGroup.addTask { await viewModel.fetchRandomCocktail() }
+                        }
+                        
+                        return try await taskGroup.reduce(into: [Drink]()) { partialResult, drink in
+                            partialResult.append(drink)
+                        }
+                    }
+                }
+                
+                Task {
+                    categories = await viewModel.fetchCategories()
+                }
             }
         }
     }

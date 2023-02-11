@@ -12,7 +12,7 @@ class AppColors {
     
     // MARK: Properties
     
-    static var lightColors = [
+    static let lightColors = [
         Color(UIColor(rgb: 0xf6dfeb)),
         Color(UIColor(rgb: 0xe4bad4)),
         Color(UIColor(rgb: 0xcaf7e3)),
@@ -24,7 +24,7 @@ class AppColors {
         Color(UIColor(rgb: 0xededd0))
     ]
     
-    static var darkColors = [
+    static let darkColors = [
         Color(UIColor(rgb: 0x413C69)),
         Color(UIColor(rgb: 0x4A47A3)),
         Color(UIColor(rgb: 0xAD62AA)),
@@ -38,9 +38,9 @@ class AppColors {
         Color(UIColor(rgb: 0xEAB9C9))
     ]
     
-    static var lightModeRedButton = Color(UIColor(rgb: 0xEF7B7B))
-    static var darkModeRedButton = Color(UIColor(rgb: 0xDA0037))
-    static var darkGray = Color(UIColor(rgb: 0x171717))
+    static let lightModeRedButton = Color(UIColor(rgb: 0xEF7B7B))
+    static let darkModeRedButton = Color(UIColor(rgb: 0xDA0037))
+    static let darkGray = Color(UIColor(rgb: 0x171717))
     
     static let letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
     

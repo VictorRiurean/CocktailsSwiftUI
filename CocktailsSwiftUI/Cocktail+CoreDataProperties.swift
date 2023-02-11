@@ -86,6 +86,19 @@ extension Cocktail {
         
         return description
     }
+    
+    public func getShareMessageString() -> String {
+        var message = ""
+        
+        message += unwrappedDrink + "\n\n"
+        message += "Ingredients: \n\n"
+        
+        ingredients.forEach { message += "- " + $0.unwrappedName.lowercased() + "\n" }
+        
+        message += "\n" + unwrappedInstructions
+        
+        return message
+    }
 }
 
 // MARK: Generated accessors for ingredient

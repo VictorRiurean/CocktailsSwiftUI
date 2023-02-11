@@ -28,7 +28,9 @@ struct DiscoverView: View {
     // MARK: Private properties
     
     private let viewModel = DiscoverViewModel()
-    
+    private var cats: [Category] {
+        categories
+    }
     
     // MARK: Body
     
@@ -42,11 +44,11 @@ struct DiscoverView: View {
                         
                         ScrollView(.horizontal) {
                             LazyHStack {
-                                ForEach(categories) { category in
-                                    NavigationLink(destination: CategoryDetailsView(categoryName: category.strCategory)) {
-                                        CategoryView(category: category)
+                                ForEach(0..<categories.count, id: \.self) { index in
+                                    NavigationLink(destination: CategoryDetailsView(categoryName: categories[index].strCategory)) {
+                                        CategoryView(category: categories[index], index: index)
                                     }
-                                    /// Without this modifier text and foreground colours will become blue
+                                    /// Without this modifier text and foreground colours will be the same as the tintColor
                                     .buttonStyle(PlainButtonStyle())
                                 }
                             }
@@ -139,26 +141,6 @@ struct DiscoverView: View {
                         Spacer()
                     }
                     .padding()
-                    .onAppear {
-                        Task {
-                            /// This particular task group won't fail if one of the tasks fails,
-                            /// but if need be you can implement such a task group. Check out:
-                            /// https://www.avanderlee.com/concurrency/task-groups-in-swift/?utm_source=swiftlee&utm_medium=swiftlee_weekly&utm_campaign=issue_150
-                            drinks = try await withThrowingTaskGroup(of: Drink.self, returning: [Drink].self) { taskGroup in
-                                for _ in 0...2 {
-                                    taskGroup.addTask { await viewModel.fetchRandomCocktail() }
-                                }
-                                
-                                return try await taskGroup.reduce(into: [Drink]()) { partialResult, drink in
-                                    partialResult.append(drink)
-                                }
-                            }
-                        }
-                        
-                        Task {
-                            categories = await viewModel.fetchCategories()
-                        }
-                    }
                     .navigationDestination(isPresented: $isShowingRandomCocktail) {
                         CocktailDetailsView(name: drink.strDrink)
                     }
@@ -172,6 +154,26 @@ struct DiscoverView: View {
                 }
                 /// This is so that the confetti animation covers the whole screen
                 .ignoresSafeArea()
+            }
+            .onAppear {
+                Task {
+                    /// This particular task group won't fail if one of the tasks fails,
+                    /// but if need be you can implement such a task group. Check out:
+                    /// https://www.avanderlee.com/concurrency/task-groups-in-swift/?utm_source=swiftlee&utm_medium=swiftlee_weekly&utm_campaign=issue_150
+                    drinks = try await withThrowingTaskGroup(of: Drink.self, returning: [Drink].self) { taskGroup in
+                        for _ in 0...2 {
+                            taskGroup.addTask { await viewModel.fetchRandomCocktail() }
+                        }
+                        
+                        return try await taskGroup.reduce(into: [Drink]()) { partialResult, drink in
+                            partialResult.append(drink)
+                        }
+                    }
+                }
+                
+                Task {
+                    categories = await viewModel.fetchCategories()
+                }
             }
         }
     }

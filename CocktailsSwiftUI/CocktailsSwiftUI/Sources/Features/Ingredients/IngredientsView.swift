@@ -59,7 +59,7 @@ struct IngredientsView: View {
                 ingredients = await viewModel.fetchIngredients()
             }
         }
-        .searchable(text: $searchText)
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
     }
 }
 

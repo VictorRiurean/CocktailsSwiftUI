@@ -58,7 +58,7 @@ struct GlassesView: View {
             }
         }
         /// Used to add search textField
-        .searchable(text: $searchText)
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
         .scrollDismissesKeyboard(.immediately)
     }
 }

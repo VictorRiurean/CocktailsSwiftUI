@@ -12,7 +12,7 @@ class AppColors {
     
     // MARK: Properties
     
-    static var lightColors = [
+    static let lightColors = [
         Color(UIColor(rgb: 0xf6dfeb)),
         Color(UIColor(rgb: 0xe4bad4)),
         Color(UIColor(rgb: 0xcaf7e3)),
@@ -24,7 +24,7 @@ class AppColors {
         Color(UIColor(rgb: 0xededd0))
     ]
     
-    static var darkColors = [
+    static let darkColors = [
         Color(UIColor(rgb: 0x413C69)),
         Color(UIColor(rgb: 0x4A47A3)),
         Color(UIColor(rgb: 0xAD62AA)),
@@ -32,31 +32,39 @@ class AppColors {
         Color(UIColor(rgb: 0x3F4E4F)),
         Color(UIColor(rgb: 0x395B64)),
         Color(UIColor(rgb: 0xA5C9CA)),
-        Color(UIColor(rgb: 0xE7F6F2)),
         Color(UIColor(rgb: 0xA27B5C)),
         Color(UIColor(rgb: 0xDCD7C9)),
         Color(UIColor(rgb: 0x2C3333)),
         Color(UIColor(rgb: 0xEAB9C9))
     ]
     
-    static var lightModeRedButton = Color(UIColor(rgb: 0xEF7B7B))
-    static var darkModeRedButton = Color(UIColor(rgb: 0xDA0037))
-    static var darkGray = Color(UIColor(rgb: 0x171717))
+    static let lightModeRedButton = Color(UIColor(rgb: 0xEF7B7B))
+    static let darkModeRedButton = Color(UIColor(rgb: 0xDA0037))
+    static let darkGray = Color(UIColor(rgb: 0x171717))
     
     static let letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
     
+    
     // MARK: Public methods
 
+    static func getLightColorWithIndex(_ index: Int) -> Color {
+        lightColors[index % 9]
+    }
+    
     static func getRandomLightColor(with letter: String? = nil) -> Color {
         guard letters.contains(letter ?? "") else { return lightColors[0] }
         
         return letter == nil ? lightColors.randomElement()! : lightColors[letters.firstIndex(of: letter!)! % 9]
     }
     
+    static func getDarkColorWithIndex(_ index: Int) -> Color {
+        darkColors[index % 11]
+    }
+    
     static func getRandomDarkColor(with letter: String? = nil) -> Color {
         guard letters.contains(letter ?? "") else { return darkColors[0] }
         
-        return letter == nil ? darkColors.randomElement()! : darkColors[letters.firstIndex(of: letter!)! % 12]
+        return letter == nil ? darkColors.randomElement()! : darkColors[letters.firstIndex(of: letter!)! % 11]
     }
 }
 

@@ -76,7 +76,7 @@ struct AddFavouriteView: View {
                     TextField("Glass", text: $glass)
                     
                     HStack {
-                        TextField("URL (optional)", text: $url)
+                        TextField("Photo URL (optional)", text: $url)
                         
                         Spacer()
                         

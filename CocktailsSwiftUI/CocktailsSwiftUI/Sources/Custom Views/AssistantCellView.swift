@@ -19,11 +19,12 @@ struct AssistantCellView: View {
     // MARK: Body
     
     var body: some View {
-        HStack {
+        HStack(spacing: 15) {
             Image(name)
                 /// Without this modifier images are rendered at original size
                 .resizable()
                 .frame(width: 75, height: 75)
+                .cornerRadius(10)
             
             VStack(alignment: .leading) {
                 Text(title)

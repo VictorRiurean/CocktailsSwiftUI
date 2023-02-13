@@ -30,38 +30,44 @@ struct GlassesDetailsView: View {
     // MARK: Body
     
     var body: some View {
-        ScrollView(.vertical) {
-            LazyVGrid(columns: [GridItem(), GridItem()]) {
+        ZStack {
+            if cocktails.isEmpty && drinks.isEmpty {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+            }
+            
+            ScrollView(.vertical) {
+                LazyVGrid(columns: [GridItem(), GridItem()]) {
+                    if cocktails.isEmpty {
+                        ForEach(drinks) { drink in
+                            NavigationLink(destination: CocktailDetailsView(name: drink.strDrink)) {
+                                DrinkByCategoryView(drink: drink)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                    } else {
+                        ForEach(filteredCocktails) { cocktail in
+                            NavigationLink(destination: CocktailDetailsView(name: cocktail.unwrappedDrink)) {
+                                DrinkByCategoryView(drink: Drink(strDrink: cocktail.unwrappedDrink, strDrinkThumb: cocktail.unwrappedThumbnail))
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                    }
+                }
+                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            }
+            .navigationBarBackButtonTitleHidden()
+            .onAppear {
                 if cocktails.isEmpty {
-                    ForEach(drinks) { drink in
-                        NavigationLink(destination: CocktailDetailsView(name: drink.strDrink)) {
-                            DrinkByCategoryView(drink: drink)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }
-                } else {
-                    ForEach(filteredCocktails) { cocktail in
-                        NavigationLink(destination: CocktailDetailsView(name: cocktail.unwrappedDrink)) {
-                            DrinkByCategoryView(drink: Drink(strDrink: cocktail.unwrappedDrink, strDrinkThumb: cocktail.unwrappedThumbnail))
-                        }
-                        .buttonStyle(PlainButtonStyle())
+                    Task {
+                        await drinks = viewModel.fetchDrinks(glass: glass)
                     }
                 }
             }
-            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            .navigationTitle(glass)
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationBarBackButtonTitleHidden()
-        .onAppear {
-            if cocktails.isEmpty {
-                Task {
-                    await drinks = viewModel.fetchDrinks(glass: glass)
-                }
-            }
-        }
-        .navigationTitle(glass)
-        .navigationBarTitleDisplayMode(.inline)
     }
-    
     
     // MARK: Lifecycle
     

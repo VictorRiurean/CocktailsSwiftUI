@@ -25,6 +25,7 @@
 		57896634299276F700D8CDCF /* like-5x.json in Resources */ = {isa = PBXBuildFile; fileRef = 57896633299276F700D8CDCF /* like-5x.json */; };
 		578966372992930800D8CDCF /* AddFavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578966362992930800D8CDCF /* AddFavouriteView.swift */; };
 		578966392992AF6100D8CDCF /* AddIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578966382992AF6100D8CDCF /* AddIngredientView.swift */; };
+		57898A44299A4763004BDBBB /* PaginationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57898A43299A4763004BDBBB /* PaginationView.swift */; };
 		578DAC572987C58A00B94904 /* MyActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC562987C58A00B94904 /* MyActivityIndicator.swift */; };
 		578DAC592987D3ED00B94904 /* View+NavigationTitleHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */; };
 		578DAC5F2987F1B400B94904 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 578DAC5E2987F1B400B94904 /* Nuke */; };
@@ -101,6 +102,7 @@
 		57896633299276F700D8CDCF /* like-5x.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "like-5x.json"; sourceTree = "<group>"; };
 		578966362992930800D8CDCF /* AddFavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFavouriteView.swift; sourceTree = "<group>"; };
 		578966382992AF6100D8CDCF /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
+		57898A43299A4763004BDBBB /* PaginationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationView.swift; sourceTree = "<group>"; };
 		578DAC562987C58A00B94904 /* MyActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityIndicator.swift; sourceTree = "<group>"; };
 		578DAC582987D3ED00B94904 /* View+NavigationTitleHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "View+NavigationTitleHidden.swift"; path = "CocktailsSwiftUI/Sources/Utilities/View+NavigationTitleHidden.swift"; sourceTree = SOURCE_ROOT; };
 		578DAC652987FEC600B94904 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -373,8 +375,9 @@
 				57CC60E229801BCF00C0D12A /* DrinkByCategoryView.swift */,
 				57CC60B02978566400C0D12A /* IconicCocktail.swift */,
 				57CC60CD297EBBE100C0D12A /* IngredientView.swift */,
-				5789662F2992698B00D8CDCF /* LottieView.swift */,
 				578966312992705300D8CDCF /* LottiePlusView.swift */,
+				5789662F2992698B00D8CDCF /* LottieView.swift */,
+				57898A43299A4763004BDBBB /* PaginationView.swift */,
 				57CC60DA297ED4E700C0D12A /* TipView.swift */,
 			);
 			path = "Custom Views";
@@ -570,6 +573,7 @@
 				57CC60CC297EB8BD00C0D12A /* Glass.swift in Sources */,
 				578966322992705300D8CDCF /* LottiePlusView.swift in Sources */,
 				57EDFB5B2981684C0003F180 /* GlassesDetailsView.swift in Sources */,
+				57898A44299A4763004BDBBB /* PaginationView.swift in Sources */,
 				573B0CBB2993A25800209AE9 /* UIImageTransformer.swift in Sources */,
 				57CC60EC29803CD300C0D12A /* CocktailTypeView.swift in Sources */,
 				57CC60D4297EC70A00C0D12A /* Tip.swift in Sources */,

@@ -105,13 +105,13 @@ struct CocktailTypeView_Previews: PreviewProvider {
 /// also set the cocktail to be shown in that closure. This turned out not to work
 /// because we are dealing with a list, so we can't know the navigation destination
 /// beforehand, but when we try to pass the cocktail to be shown via a @State var
-/// we get a crash (line 202) because the viewBuilder inside the sheet is set when
+/// we get a crash (line 203) because the viewBuilder inside the sheet is set when
 /// the parent view is first created, thus name is nil (this happens because @State
 /// variables are stored outside their containig view). And if instead we remove
 /// the @State modifier then we get a runtime error because we are trying to
 /// mutate an immutable self (trying to change it inside a mutating func yields
 /// the same error), hence the name of the struct. If you want to try all this
-/// out, you can just change the cell type in discoverView line 128 to a Catch22View.
+/// out, you can just change the cell type in discoverView line 131 to a Catch22View.
 struct Catch22View: View {
     
     // MARK: Environment

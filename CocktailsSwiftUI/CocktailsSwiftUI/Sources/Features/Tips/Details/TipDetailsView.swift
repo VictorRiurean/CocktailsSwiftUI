@@ -20,7 +20,6 @@ struct TipDetailsView: View {
     @Binding var tip: Tip
     
     
-    
     // MARK: Body
     
     var body: some View {

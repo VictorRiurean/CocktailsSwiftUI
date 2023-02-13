@@ -28,9 +28,6 @@ struct DiscoverView: View {
     // MARK: Private properties
     
     private let viewModel = DiscoverViewModel()
-    private var cats: [Category] {
-        categories
-    }
     
     // MARK: Body
     

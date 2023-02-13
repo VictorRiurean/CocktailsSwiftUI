@@ -56,6 +56,15 @@ struct ContentView: View {
         }
         /// Sets tintColor for tabView
         .accentColor(colorScheme == .light ? AppColors.darkGray : .orange)
+        /// This prevents tabView background from glitching when something is pushed on the
+        /// navigationStack and the initial view has a scroll with content underneath it
+        .onAppear {
+            let tabBarAppearance = UITabBarAppearance()
+            
+            tabBarAppearance.configureWithDefaultBackground()
+            
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        }
     }
 }
 

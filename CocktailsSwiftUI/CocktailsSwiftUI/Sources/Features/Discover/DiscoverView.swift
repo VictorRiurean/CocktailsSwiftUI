@@ -22,6 +22,7 @@ struct DiscoverView: View {
     @State private var categories: [Category] = []
     @State private var isShowingRandomCocktail = false
     @State private var drink: Drink = Drink.surprizeMe
+    @State private var drinksLoaded = false
     
     
     // MARK: Private properties
@@ -142,22 +143,24 @@ struct DiscoverView: View {
             // MARK: onAppear
             .onAppear {
                 Task {
-                    /// This particular task group won't fail if one of the tasks fails,
-                    /// but if need be you can implement such a task group. Check out:
-                    /// https://www.avanderlee.com/concurrency/task-groups-in-swift/?utm_source=swiftlee&utm_medium=swiftlee_weekly&utm_campaign=issue_150
-                    drinks = try await withThrowingTaskGroup(of: Drink.self, returning: [Drink].self) { taskGroup in
-                        for _ in 0...2 {
-                            taskGroup.addTask { await viewModel.fetchRandomCocktail() }
+                    if !drinksLoaded {
+                        /// This particular task group won't fail if one of the tasks fails,
+                        /// but if need be you can implement such a task group. Check out:
+                        /// https://www.avanderlee.com/concurrency/task-groups-in-swift/?utm_source=swiftlee&utm_medium=swiftlee_weekly&utm_campaign=issue_150
+                        drinks = try await withThrowingTaskGroup(of: Drink.self, returning: [Drink].self) { taskGroup in
+                            for _ in 0...2 {
+                                taskGroup.addTask { await viewModel.fetchRandomCocktail() }
+                            }
+                            
+                            return try await taskGroup.reduce(into: [Drink]()) { partialResult, drink in
+                                partialResult.append(drink)
+                            }
                         }
                         
-                        return try await taskGroup.reduce(into: [Drink]()) { partialResult, drink in
-                            partialResult.append(drink)
-                        }
+                        categories = await viewModel.fetchCategories()
+                        
+                        drinksLoaded = true
                     }
-                }
-                
-                Task {
-                    categories = await viewModel.fetchCategories()
                 }
             }
         }

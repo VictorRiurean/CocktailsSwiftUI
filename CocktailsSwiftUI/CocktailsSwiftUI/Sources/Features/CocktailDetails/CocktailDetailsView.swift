@@ -50,60 +50,11 @@ struct CocktailDetailsView: View {
             ScrollView {
                 ZStack {
                     VStack {
-                        VStack {
-                            if let image = cocktail.image {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .frame(width: 70, height: 70)
-                                    .clipShape(RoundedRectangle(cornerRadius: 35))
-                                    .padding()
-                                    .scaledToFill()
-                            } else {
-                                LazyImage(url: URL(string: cocktail.unwrappedThumbnail))
-                                    .frame(width: 150, height: 150)
-                                    .padding()
-                            }
-                            
-                            Text(cocktail.unwrappedCategory + " | " + cocktail.unwrappedAlcoholic)
-                                .font(.title)
-                            
-                            Text("Served in: " + cocktail.unwrappedGlass)
-                                .font(.title3)
-                            
-                            Divider()
-                        }
-                        .padding()
+                        ImageAndTitleView(cocktail: cocktail)
                         
-                        VStack {
-                            Text("Ingredients")
-                                .font(.headline)
-                                .foregroundColor(.gray)
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                            /// I could have iterated over cocktail.ingredients but I wanted a second fetchRequest
-                            ForEach(components, id: \.self) {
-                                Text("\($0.unwrappedMeasure) \($0.unwrappedName)")
-                                    .padding()
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(colorScheme == .light ? AppColors.getRandomLightColor(with: $0.unwrappedName.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: $0.unwrappedName.getFirstCharacterLowercasedOrNil()))
-                                    .cornerRadius(10)
-                            }
-                        }
-                        .padding()
+                        ComponentsView(components: Array(components))
                         
-                        VStack {
-                            Text("Preparation")
-                                .font(.headline)
-                                .foregroundColor(.gray)
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                            
-                            Text(cocktail.unwrappedInstructions)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(colorScheme == .light ? AppColors.getRandomLightColor(with: cocktail.unwrappedDrink.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: cocktail.unwrappedDrink.getFirstCharacterLowercasedOrNil()))
-                                .lineLimit(nil)
-                                .cornerRadius(10)
-                        }
-                        .padding()
+                        PreparationView(cocktail: cocktail)
                         
                         Spacer()
                     }
@@ -224,5 +175,111 @@ struct CocktailDetailsView: View {
         moc.delete(cocktail)
         
         try? moc.save()
+    }
+}
+
+// MARK: - Extracted Views
+
+struct ImageAndTitleView: View {
+    
+    // MARK: Public properties
+    
+    let cocktail: Cocktail
+    
+    
+    // MARK: Body
+    
+    var body: some View {
+        VStack {
+            if let image = cocktail.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .frame(width: 70, height: 70)
+                    .clipShape(RoundedRectangle(cornerRadius: 35))
+                    .padding()
+                    .scaledToFill()
+            } else {
+                LazyImage(url: URL(string: cocktail.unwrappedThumbnail))
+                    .frame(width: 150, height: 150)
+                    .padding()
+            }
+            
+            Text(cocktail.unwrappedCategory + " | " + cocktail.unwrappedAlcoholic)
+                .font(.title)
+            
+            Text("Served in: " + cocktail.unwrappedGlass)
+                .font(.title3)
+            
+            Divider()
+        }
+        .padding()
+    }
+}
+
+// MARK: ComponentsView
+
+struct ComponentsView: View {
+    
+    // MARK: Environment
+    
+    @Environment(\.colorScheme) var colorScheme
+    
+    // MARK: Public properties
+    
+    var components: [Component]
+    
+    
+    // MARK: Body
+    
+    var body: some View {
+        VStack {
+            Text("Ingredients")
+                .font(.headline)
+                .foregroundColor(.gray)
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+            /// I could have iterated over cocktail.ingredients but I wanted a second fetchRequest
+            ForEach(components, id: \.self) {
+                Text("\($0.unwrappedMeasure) \($0.unwrappedName)")
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(colorScheme == .light ? AppColors.getRandomLightColor(with: $0.unwrappedName.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: $0.unwrappedName.getFirstCharacterLowercasedOrNil()))
+                    .cornerRadius(10)
+            }
+        }
+        .padding()
+    }
+}
+
+// MARK: Preparation View
+
+struct PreparationView: View {
+    
+    // MARK: Environment
+    
+    @Environment(\.colorScheme) var colorScheme
+    
+    
+    // MARK: Public properties
+    
+    let cocktail: Cocktail
+    
+    
+    // MARK: Body
+    
+    var body: some View {
+        VStack {
+            Text("Preparation")
+                .font(.headline)
+                .foregroundColor(.gray)
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+            
+            Text(cocktail.unwrappedInstructions)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(colorScheme == .light ? AppColors.getRandomLightColor(with: cocktail.unwrappedDrink.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: cocktail.unwrappedDrink.getFirstCharacterLowercasedOrNil()))
+                .lineLimit(nil)
+                .cornerRadius(10)
+        }
+        .padding()
     }
 }

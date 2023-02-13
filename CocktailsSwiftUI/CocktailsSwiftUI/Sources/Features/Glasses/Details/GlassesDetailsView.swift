@@ -27,15 +27,18 @@ struct GlassesDetailsView: View {
         return cocktails.filter { $0.strGlass == glass }
     }
     
+    
     // MARK: Body
     
     var body: some View {
         ZStack {
+            // MARK: Empty
             if cocktails.isEmpty && drinks.isEmpty {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
             }
             
+            // MARK: ScrollView
             ScrollView(.vertical) {
                 LazyVGrid(columns: [GridItem(), GridItem()]) {
                     if cocktails.isEmpty {
@@ -56,7 +59,11 @@ struct GlassesDetailsView: View {
                 }
                 .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
             }
+            // MARK: Modifiers
             .navigationBarBackButtonTitleHidden()
+            .navigationTitle(glass)
+            .navigationBarTitleDisplayMode(.inline)
+            // MARK: onAppear
             .onAppear {
                 if cocktails.isEmpty {
                     Task {
@@ -64,8 +71,6 @@ struct GlassesDetailsView: View {
                     }
                 }
             }
-            .navigationTitle(glass)
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
     

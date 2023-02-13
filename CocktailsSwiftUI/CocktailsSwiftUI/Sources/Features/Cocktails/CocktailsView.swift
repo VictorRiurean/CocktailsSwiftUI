@@ -66,6 +66,7 @@ struct CocktailsView: View {
                 /// as for some reason the List ignores the frame given it.
                 GeometryReader { geo in
                     HStack {
+                        // MARK: PaginationView
                         VStack {
                             Spacer()
                             
@@ -89,18 +90,20 @@ struct CocktailsView: View {
                         }
                         .frame(width: geo.size.width * 0.15)
                         
+                        // MARK: List
                         List {
                             ForEach(letters, id: \.self) { letter in
                                 if !sectionIsEmpty(letter) {
                                     Section(header: Text(letter)) {
                                         LazyVStack {
-                                            ExtractedView(drinkName: $drinkName, isShowingRandomCocktail: $isShowingRandomCocktail, cocktails: searchResults, letter: letter)
+                                            CocktailWithLetterView(drinkName: $drinkName, isShowingRandomCocktail: $isShowingRandomCocktail, cocktails: searchResults, letter: letter)
                                         }
                                     }
                                     .id(letters.firstIndex { $0 == letter }!)
                                 }
                             }
                             
+                            // MARK: Spinner
                             if !allLettersLoaded {
                                 ProgressView()
                                     .progressViewStyle(MyActivityIndicator())
@@ -125,6 +128,7 @@ struct CocktailsView: View {
                                     }
                             }
                         }
+                        // MARK: List modifiers
                         /// The frame modifier below seems to be useless in this case and I coudn't figure
                         /// out why so I went for the ugly yet effective fix you see at line 131
 //                        .frame(maxWidth: .infinity)
@@ -138,6 +142,7 @@ struct CocktailsView: View {
                     }
                 }
             }
+            // MARK: onAppear
             .onAppear {
                 if !allLettersLoaded {
                     Task {
@@ -180,7 +185,7 @@ struct ListView_Previews: PreviewProvider {
 
 // MARK: - Extracted Views
 
-struct ExtractedView: View {
+struct CocktailWithLetterView: View {
     
     // MARK: State
     

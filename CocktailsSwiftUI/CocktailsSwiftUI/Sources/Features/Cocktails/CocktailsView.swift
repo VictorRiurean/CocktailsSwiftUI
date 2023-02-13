@@ -28,6 +28,7 @@ struct CocktailsView: View {
     // MARK: State
     
     @State private var searchText = ""
+    @State private var isSearching = false
     @State private var drinkName = ""
     @State private var isShowingRandomCocktail = false
     @State private var scrollToIndex = 0
@@ -60,88 +61,114 @@ struct CocktailsView: View {
     
     var body: some View {
         NavigationStack {
-            /// We use this for the scrollTo(index) functionality it offers (line 139)
+            /// We use this for the scrollTo(index) functionality it offers (line 164)
             ScrollViewReader { proxy in
                 /// We end up only using the Geometry reader to set the PaginationView HStack width,
                 /// as for some reason the List ignores the frame given it.
                 GeometryReader { geo in
-                    HStack {
-                        // MARK: PaginationView
-                        VStack {
-                            Spacer()
-                            
-                            HStack {
-                                PaginationView(
-                                    scrollToIndex: $scrollToIndex,
-                                    letters: letters.compactMap {
-                                        if !sectionIsEmpty($0) {
-                                            return $0.capitalized
-                                        } else {
-                                            return nil
-                                        }
-                                    }
-                                )
-                                .padding()
+                    ZStack {
+                        // MARK: Empty
+                        if searchResults.isEmpty {
+                            VStack {
+                                Spacer()
+                                
+                                HStack {
+                                    Spacer()
+                                    
+                                    Text("No cocktail for that search term 😱 \n Don't panic, you can add it yourself from the Assistant tab.")
+                                        .fixedSize(horizontal: false, vertical: true)
+                                        .multilineTextAlignment(.center)
+                                    
+                                    Spacer()
+                                }
                                 
                                 Spacer()
                             }
-                            
-                            Spacer()
-                        }
-                        .frame(width: geo.size.width * 0.15)
-                        
-                        // MARK: List
-                        List {
-                            ForEach(letters, id: \.self) { letter in
-                                if !sectionIsEmpty(letter) {
-                                    Section(header: Text(letter)) {
-                                        LazyVStack {
-                                            CocktailWithLetterView(drinkName: $drinkName, isShowingRandomCocktail: $isShowingRandomCocktail, cocktails: searchResults, letter: letter)
-                                        }
-                                    }
-                                    .id(letters.firstIndex { $0 == letter }!)
-                                }
-                            }
-                            
-                            // MARK: Spinner
-                            if !allLettersLoaded {
-                                ProgressView()
-                                    .progressViewStyle(MyActivityIndicator())
-                                    /// onAppear is very trigger-happy. It sets off ages before the view is actually shown
-                                    /// so I had to add all the pizzazz below to prevent the app being stuck while spinner
-                                    /// goes BRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-                                    .onAppear {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                            Task {
-                                                await fetchDrinks()
-                                            }
-                                        }
-                                        /// This is meant to handle the scenario in which the spinner is showing
-                                        /// but for some reason onAppear was not called again on redraw.
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                                            if !allLettersLoaded {
-                                                Task {
-                                                    await fetchDrinks()
+                        } else {
+                            HStack {
+                                // MARK: PaginationView
+                                VStack {
+                                    Spacer()
+                                    
+                                    HStack {
+                                        PaginationView(
+                                            scrollToIndex: $scrollToIndex,
+                                            letters: letters.compactMap {
+                                                if !sectionIsEmpty($0) {
+                                                    return $0.capitalized
+                                                } else {
+                                                    return nil
                                                 }
                                             }
+                                        )
+                                        .padding()
+                                        
+                                        Spacer()
+                                    }
+                                    
+                                    Spacer()
+                                }
+                                .frame(width: geo.size.width * 0.15)
+                                
+                                // MARK: List
+                                List {
+                                    ForEach(letters, id: \.self) { letter in
+                                        if !sectionIsEmpty(letter) {
+                                            Section(header: Text(letter)) {
+                                                LazyVStack {
+                                                    CocktailWithLetterView(drinkName: $drinkName, isShowingRandomCocktail: $isShowingRandomCocktail, cocktails: searchResults, letter: letter)
+                                                }
+                                            }
+                                            .id(letters.firstIndex { $0 == letter }!)
                                         }
                                     }
+                                    
+                                    // MARK: Spinner
+                                    if !allLettersLoaded && !isSearching {
+                                        ProgressView()
+                                            .progressViewStyle(MyActivityIndicator())
+                                            /// onAppear is very trigger-happy. It sets off ages before the view is actually shown
+                                            /// so I had to add all the pizzazz below to prevent the app being stuck while spinner
+                                            /// goes BRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+                                            .onAppear {
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                                    Task {
+                                                        await fetchDrinks()
+                                                    }
+                                                }
+                                                /// This is meant to handle the scenario in which the spinner is showing
+                                                /// but for some reason onAppear was not called again on redraw.
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                                                    if !allLettersLoaded {
+                                                        Task {
+                                                            await fetchDrinks()
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                    }
+                                }
+                                // MARK: List modifiers
+                                /// The frame modifier below seems to be useless in this case and I coudn't figure
+                                /// out why so I went for the ugly yet effective fix you see at line 135
+//                                .frame(maxWidth: .infinity)
+                                .padding(EdgeInsets(top: 0, leading: -30, bottom: 0, trailing: 0))
+                                
+                                /// Prevent spiner from going BRRR while searching
+                                .onChange(of: searchText) { newValue in
+                                    isSearching = !newValue.isEmpty
+                                }
+                                .navigationTitle("Cocktails")
+                                .scrollIndicators(.hidden)
+                                .onChange(of: scrollToIndex) { index in
+                                    proxy.scrollTo(index, anchor: .top)
+                                }
                             }
-                        }
-                        // MARK: List modifiers
-                        /// The frame modifier below seems to be useless in this case and I coudn't figure
-                        /// out why so I went for the ugly yet effective fix you see at line 135
-//                        .frame(maxWidth: .infinity)
-                        .padding(EdgeInsets(top: 0, leading: -30, bottom: 0, trailing: 0))
-                        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
-                        .navigationTitle("Cocktails")
-                        .scrollIndicators(.hidden)
-                        .onChange(of: scrollToIndex) { index in
-                            proxy.scrollTo(index, anchor: .top)
                         }
                     }
                 }
             }
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             // MARK: onAppear
             .onAppear {
                 if !allLettersLoaded {

@@ -35,12 +35,14 @@ struct GlassesView: View {
     var body: some View {
         NavigationStack {
             if glasses.isEmpty {
+                // MARK: Empty
                 ProgressView()
                     .progressViewStyle(DefaultProgressViewStyle())
             } else {
                 if searchResults.isEmpty {
                     Text("It seems this glass is not in the list. 😔")
                 } else {
+                    // MARK: List
                     List {
                         ForEach(searchResults) { glass in
                             NavigationLink(destination: GlassesDetailsView(glass: glass.strGlass)) {
@@ -52,14 +54,16 @@ struct GlassesView: View {
                 }
             }
         }
+        // MARK: Modifiers
+        /// Used to add search textField
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .scrollDismissesKeyboard(.immediately)
+        // MARK: onAppear
         .onAppear {
             Task {
                 glasses = await viewModel.fetchGlasses()
             }
         }
-        /// Used to add search textField
-        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
-        .scrollDismissesKeyboard(.immediately)
     }
 }
 

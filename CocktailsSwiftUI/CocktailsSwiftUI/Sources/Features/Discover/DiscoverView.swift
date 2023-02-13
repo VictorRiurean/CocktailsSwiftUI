@@ -37,6 +37,7 @@ struct DiscoverView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
+                    // MARK: Cocktail Categories
                     Text("Cocktail Categories")
                         .font(.title)
                     
@@ -52,6 +53,7 @@ struct DiscoverView: View {
                         }
                     }
                     
+                    // MARK: Iconic cocktails
                     Text("Iconic cocktails")
                         .font(.title)
                     
@@ -95,6 +97,7 @@ struct DiscoverView: View {
                         Spacer()
                     }
                     
+                    // MARK: Show more
                     HStack {
                         Spacer()
                         
@@ -113,6 +116,7 @@ struct DiscoverView: View {
                         Spacer()
                     }
                     
+                    // MARK: Cocktail types
                     Text("Cocktail types")
                         .font(.title)
                     
@@ -135,6 +139,7 @@ struct DiscoverView: View {
                     CocktailDetailsView(name: drink.strDrink, shouldAnimate: true)
                 }
             }
+            // MARK: onAppear
             .onAppear {
                 Task {
                     /// This particular task group won't fail if one of the tasks fails,

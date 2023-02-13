@@ -29,11 +29,13 @@ struct FavouritesView: View {
     var body: some View {
         NavigationStack {
             if cocktails.isEmpty {
+                // MARK: Empty
                 Text("Looks like you added no drinks to your favourites list. Please do so by tapping the ❤️")
                     .padding()
                     .navigationTitle("Favourites")
                     .navigationBarTitleDisplayMode(.inline)
             } else {
+                // MARK: List
                 List {
                     ForEach(cocktails) { cocktail in
                         /// We use the combination of ZStack and empty NavigationLink to hide
@@ -63,6 +65,7 @@ struct FavouritesView: View {
                     }
                     .onMove(perform: move)
                 }
+                // MARK: Modifiers
                 .navigationTitle("Favourites")
                 .navigationBarTitleDisplayMode(.inline)
                 .alert("Are you sure you want to delete this cocktail?", isPresented: $showingAlert) {
@@ -76,6 +79,7 @@ struct FavouritesView: View {
                     
                     Button("Cancel", role: .cancel) { }
                 }
+                // MARK: onAppear
                 .onAppear {
                     for index in 0..<cocktails.count {
                         cocktails[index].order = Int16(index)

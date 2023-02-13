@@ -34,6 +34,7 @@ struct IngredientsView: View {
     
     var body: some View {
         NavigationStack {
+            // MARK: Empty
             if ingredients.isEmpty {
                 ProgressView()
                     .progressViewStyle(DefaultProgressViewStyle())
@@ -42,6 +43,7 @@ struct IngredientsView: View {
                     if searchResults.isEmpty {
                         Text("It seems this ingredient is not in the list. 😔")
                     } else {
+                        // MARK: List
                         ForEach(searchResults) { ingredient in
                             ZStack {
                                 NavigationLink(destination: IngredientsDetailsView(ingredient: ingredient.strIngredient1)) { }
@@ -54,12 +56,14 @@ struct IngredientsView: View {
                 .navigationTitle("Ingredients")
             }
         }
+        // MARK: Modifiers
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
+        // MARK: onAppear
         .onAppear {
             Task {
                 ingredients = await viewModel.fetchIngredients()
             }
         }
-        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
     }
 }
 

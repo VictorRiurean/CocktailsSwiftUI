@@ -24,11 +24,13 @@ struct IngredientsDetailsView: View {
     
     var body: some View {
         ZStack {
+            // MARK: Empty
             if drinks.isEmpty {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
             }
             
+            // MARK: ScrollView
             ScrollView(.vertical) {
                 LazyVGrid(columns: [GridItem(), GridItem()]) {
                     ForEach(drinks) { drink in
@@ -40,14 +42,16 @@ struct IngredientsDetailsView: View {
                 }
                 .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
             }
+            // MARK: Modifiers
             .navigationBarBackButtonTitleHidden()
+            .navigationTitle(ingredient)
+            .navigationBarTitleDisplayMode(.inline)
+            // MARK: onAppear
             .onAppear {
                 Task {
                     await drinks = viewModel.fetchDrinks(ingredient: ingredient)
                 }
             }
-            .navigationTitle(ingredient)
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
     

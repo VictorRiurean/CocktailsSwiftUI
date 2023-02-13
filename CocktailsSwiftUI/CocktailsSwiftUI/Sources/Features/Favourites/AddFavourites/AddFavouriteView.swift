@@ -35,6 +35,9 @@ struct AddFavouriteView: View {
     @State private var instructions: String = ""
     @State private var showNewCocktail: Bool = false
     
+    
+    // MARK: Private properties
+    
     private var saveButtonEnabled: Bool {
         !name.isEmpty && !category.isEmpty && !glass.isEmpty && !ingredients.isEmpty
     }
@@ -48,6 +51,7 @@ struct AddFavouriteView: View {
     var body: some View {
         ZStack(alignment: .top) {
             Form {
+                // MARK: Picker
                 Picker("Choose cocktail type", selection: $type) {
                     ForEach(types, id: \.self) {
                         Text($0)
@@ -55,6 +59,7 @@ struct AddFavouriteView: View {
                 }
                 .pickerStyle(.segmented)
                 
+                // MARK: Image
                 Section {
                     HStack {
                         Spacer()
@@ -70,6 +75,7 @@ struct AddFavouriteView: View {
                 }
                 .listRowBackground(Color.clear)
                 
+                // MARK: Cocktail details
                 Section(header: Text("Cocktail details")) {
                     TextField("Cocktail name", text: $name)
                     TextField("Category", text: $category)
@@ -89,6 +95,7 @@ struct AddFavouriteView: View {
                     }
                 }
                 
+                // MARK: Ingredients
                 Section(header: SectionHeaderWithTextAndBoolBinding(boolBinding: $didTouchAddIngredient, text: "Ingredients")) {
                     ForEach(ingredients, id: \.self) { ingredient in
                         HStack {
@@ -110,10 +117,12 @@ struct AddFavouriteView: View {
                     AddIngredientView(measure: $measureToAdd, name: $ingredientToAdd)
                 }
                 
+                // MARK: Preparation
                 Section(header: Text("Preparation")) {
                     TextField("Instructions", text: $instructions)
                 }
                 
+                // MARK: Save
                 HStack {
                     Spacer()
                     
@@ -142,6 +151,7 @@ struct AddFavouriteView: View {
                     Spacer()
                 }
             }
+            // MARK: Modifiers
             .navigationBarBackButtonTitleHidden()
             .navigationTitle("Add Cocktail")
             .navigationBarTitleDisplayMode(.inline)
@@ -181,6 +191,7 @@ struct AddFavouriteView: View {
                 }
             }
             
+            // MARK: Form validation
             if invalidIngredient {
                 Text("Please make sure measure and ingredient fields aren't empty.")
                     .padding()
@@ -188,7 +199,9 @@ struct AddFavouriteView: View {
                     .clipShape(Capsule())
                     .foregroundColor(.red)
                     .font(.subheadline)
+                    /// Make sure text is not cropped
                     .fixedSize(horizontal: false, vertical: true)
+                    /// This is what generates the onAppear animation
                     .transition(.push(from: .top))
             }
         }
@@ -210,7 +223,12 @@ struct AddFavouriteView_Previews: PreviewProvider {
     }
 }
 
-// MARK: - Custom section header view
+
+// MARK: - Extracted views
+
+
+
+// MARK: Custom section header view
 /// I was going to move this to its own file but just before doing so
 /// I realised that I had never actually used the fileprivate access
 /// modifier. At least not intentionally ...

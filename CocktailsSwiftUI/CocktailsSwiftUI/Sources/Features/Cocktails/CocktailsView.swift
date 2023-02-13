@@ -60,7 +60,7 @@ struct CocktailsView: View {
     
     var body: some View {
         NavigationStack {
-            /// We use this for the scrollTo(index) functionality it offers (line 136)
+            /// We use this for the scrollTo(index) functionality it offers (line 139)
             ScrollViewReader { proxy in
                 /// We end up only using the Geometry reader to set the PaginationView HStack width,
                 /// as for some reason the List ignores the frame given it.
@@ -130,7 +130,7 @@ struct CocktailsView: View {
                         }
                         // MARK: List modifiers
                         /// The frame modifier below seems to be useless in this case and I coudn't figure
-                        /// out why so I went for the ugly yet effective fix you see at line 131
+                        /// out why so I went for the ugly yet effective fix you see at line 135
 //                        .frame(maxWidth: .infinity)
                         .padding(EdgeInsets(top: 0, leading: -30, bottom: 0, trailing: 0))
                         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))

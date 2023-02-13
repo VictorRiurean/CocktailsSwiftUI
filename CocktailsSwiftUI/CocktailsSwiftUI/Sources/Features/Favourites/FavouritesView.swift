@@ -49,7 +49,7 @@ struct FavouritesView: View {
                         }
                         /// Swipe actions really don't play nice with NavigationLink, especially since we
                         /// also have a button inside the cell. Please see an alternative implementation
-                        /// in CocktailTypeView (line 100) that works around these business constraints.
+                        /// in CocktailTypeView (line 101) that works around these business constraints.
                         /// Furthermore, this is not the only way to add delete swipe actions (but all
                         /// have the same issue). Check out:
                         /// https://www.hackingwithswift.com/quick-start/swiftui/how-to-let-users-delete-rows-from-a-list

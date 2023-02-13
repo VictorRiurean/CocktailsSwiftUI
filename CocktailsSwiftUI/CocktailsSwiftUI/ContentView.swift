@@ -16,7 +16,7 @@ struct ContentView: View {
     
     // MARK: State
     /// This is passed as a binding via DiscoverView's init in order
-    /// to be able to programmatically change tabs at line 100
+    /// to be able to programmatically change tabs at line 106
     @State private var selectedTab = 0
     
     

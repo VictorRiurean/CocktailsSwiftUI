@@ -23,27 +23,33 @@ struct IngredientsDetailsView: View {
     // MARK: Body
     
     var body: some View {
-        ScrollView(.vertical) {
-            LazyVGrid(columns: [GridItem(), GridItem()]) {
-                ForEach(drinks) { drink in
-                    NavigationLink(destination: CocktailDetailsView(name: drink.strDrink)) {
-                        DrinkByCategoryView(drink: drink)
+        ZStack {
+            if drinks.isEmpty {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+            }
+            
+            ScrollView(.vertical) {
+                LazyVGrid(columns: [GridItem(), GridItem()]) {
+                    ForEach(drinks) { drink in
+                        NavigationLink(destination: CocktailDetailsView(name: drink.strDrink)) {
+                            DrinkByCategoryView(drink: drink)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
-                    .buttonStyle(PlainButtonStyle())
+                }
+                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            }
+            .navigationBarBackButtonTitleHidden()
+            .onAppear {
+                Task {
+                    await drinks = viewModel.fetchDrinks(ingredient: ingredient)
                 }
             }
-            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            .navigationTitle(ingredient)
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationBarBackButtonTitleHidden()
-        .onAppear {
-            Task {
-                await drinks = viewModel.fetchDrinks(ingredient: ingredient)
-            }
-        }
-        .navigationTitle(ingredient)
-        .navigationBarTitleDisplayMode(.inline)
     }
-    
     
     // MARK: Lifecycle
     

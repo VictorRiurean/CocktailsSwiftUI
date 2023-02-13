@@ -150,10 +150,9 @@ struct CocktailsView: View {
                                 }
                                 // MARK: List modifiers
                                 /// The frame modifier below seems to be useless in this case and I coudn't figure
-                                /// out why so I went for the ugly yet effective fix you see at line 135
+                                /// out why so I went for the ugly yet effective fix you see at line 155
 //                                .frame(maxWidth: .infinity)
                                 .padding(EdgeInsets(top: 0, leading: -30, bottom: 0, trailing: 0))
-                                
                                 /// Prevent spiner from going BRRR while searching
                                 .onChange(of: searchText) { newValue in
                                     isSearching = !newValue.isEmpty

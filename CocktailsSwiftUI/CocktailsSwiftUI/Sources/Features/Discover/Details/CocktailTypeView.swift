@@ -35,7 +35,7 @@ struct CocktailTypeView: View {
         VStack(spacing: 10) {
             Text("Discover the cocktails in this category")
             
-            Picker("What is your favorite color?", selection: $showAlcoholic) {
+            Picker("", selection: $showAlcoholic) {
                 Text("Alcoholic").tag(true)
                 Text("Non Alcoholic").tag(false)
             }

@@ -22,7 +22,6 @@ struct DiscoverView: View {
     @State private var categories: [Category] = []
     @State private var isShowingRandomCocktail = false
     @State private var drink: Drink = Drink.surprizeMe
-    @State private var isAnimating = false
     
     
     // MARK: Private properties
@@ -37,123 +36,104 @@ struct DiscoverView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                ZStack {
-                    VStack(alignment: .leading, spacing: 15) {
-                        Text("Cocktail Categories")
-                            .font(.title)
+                VStack(alignment: .leading, spacing: 15) {
+                    Text("Cocktail Categories")
+                        .font(.title)
+                    
+                    ScrollView(.horizontal) {
+                        LazyHStack {
+                            ForEach(0..<categories.count, id: \.self) { index in
+                                NavigationLink(destination: CategoryDetailsView(categoryName: categories[index].strCategory)) {
+                                    CategoryView(category: categories[index], index: index)
+                                }
+                                /// Without this modifier text and foreground colours will be the same as the tintColor
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                        }
+                    }
+                    
+                    Text("Iconic cocktails")
+                        .font(.title)
+                    
+                    HStack(spacing: 20) {
+                        Spacer()
                         
-                        ScrollView(.horizontal) {
-                            LazyHStack {
-                                ForEach(0..<categories.count, id: \.self) { index in
-                                    NavigationLink(destination: CategoryDetailsView(categoryName: categories[index].strCategory)) {
-                                        CategoryView(category: categories[index], index: index)
+                        if drinks.count > 0 {
+                            IconicCocktail(drink: .surprizeMe)
+                                .onTapGesture {
+                                    Task {
+                                        drink = await viewModel.fetchRandomCocktail()
                                     }
-                                    /// Without this modifier text and foreground colours will be the same as the tintColor
-                                    .buttonStyle(PlainButtonStyle())
+                                    /// This triggers navigation at line 135
+                                    isShowingRandomCocktail = true
                                 }
-                            }
-                        }
-                        
-                        Text("Iconic cocktails")
-                            .font(.title)
-                        
-                        HStack(spacing: 20) {
-                            Spacer()
-                            
-                            if drinks.count > 0 {
-                                IconicCocktail(drink: .surprizeMe)
-                                    .onTapGesture {
-                                        isAnimating.toggle()
-                                        
-                                        Task {
-                                            drink = await viewModel.fetchRandomCocktail()
-                                        }
-                                        
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                            withAnimation {
-                                                isAnimating.toggle()
-                                            }
-                                            /// This triggers navigation at line 162
-                                            isShowingRandomCocktail = true
-                                        }
-                                    }
-                                /// This is an example of direct navigation
-                                NavigationLink(destination: CocktailDetailsView(name: drinks[0].strDrink)) {
-                                    IconicCocktail(drink: drinks[0])
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                            }
-                            
-                            Spacer()
-                        }
-                        
-                        HStack(spacing: 20) {
-                            Spacer()
-                            
-                            if drinks.count > 0 {
-                                NavigationLink(destination: CocktailDetailsView(name: drinks[1].strDrink)) {
-                                    IconicCocktail(drink: drinks[1])
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                                
-                                NavigationLink(destination: CocktailDetailsView(name: drinks[2].strDrink)) {
-                                    IconicCocktail(drink: drinks[2])
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                            }
-                            
-                            Spacer()
-                        }
-                        
-                        HStack {
-                            Spacer()
-                            
-                            Button {
-                                tabSelection = 1
-                            } label: {
-                                Text("Show more")
-                                    .padding()
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                            }
-                            .background(colorScheme == .light ? AppColors.lightModeRedButton : AppColors.darkModeRedButton)
-                            .contentShape(Rectangle())
-                            .cornerRadius(10)
-                            
-                            Spacer()
-                        }
-                        
-                        Text("Cocktail types")
-                            .font(.title)
-                        
-                        HStack(spacing: 10) {
-                            NavigationLink(destination: CocktailTypeView(showAlcoholic: true)) {
-                                CocktailType(type: .alcoholic)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            
-                            NavigationLink(destination: CocktailTypeView(showAlcoholic: false)) {
-                                CocktailType(type: .nonalcoholic)
+                            /// This is an example of direct navigation
+                            NavigationLink(destination: CocktailDetailsView(name: drinks[0].strDrink)) {
+                                IconicCocktail(drink: drinks[0])
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
                         
                         Spacer()
                     }
-                    .padding()
-                    .navigationDestination(isPresented: $isShowingRandomCocktail) {
-                        CocktailDetailsView(name: drink.strDrink)
+                    
+                    HStack(spacing: 20) {
+                        Spacer()
+                        
+                        if drinks.count > 0 {
+                            NavigationLink(destination: CocktailDetailsView(name: drinks[1].strDrink)) {
+                                IconicCocktail(drink: drinks[1])
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            
+                            NavigationLink(destination: CocktailDetailsView(name: drinks[2].strDrink)) {
+                                IconicCocktail(drink: drinks[2])
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                        
+                        Spacer()
                     }
                     
-                    if isAnimating {
-                        LottiePlusView(
-                            name: LottieView.Animations.confetti.rawValue,
-                            contentMode: .scaleToFill
-                        )
+                    HStack {
+                        Spacer()
+                        
+                        Button {
+                            tabSelection = 1
+                        } label: {
+                            Text("Show more")
+                                .padding()
+                                .font(.headline)
+                                .foregroundColor(.white)
+                        }
+                        .background(colorScheme == .light ? AppColors.lightModeRedButton : AppColors.darkModeRedButton)
+                        .contentShape(Rectangle())
+                        .cornerRadius(10)
+                        
+                        Spacer()
                     }
+                    
+                    Text("Cocktail types")
+                        .font(.title)
+                    
+                    HStack(spacing: 10) {
+                        NavigationLink(destination: CocktailTypeView(showAlcoholic: true)) {
+                            CocktailType(type: .alcoholic)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        NavigationLink(destination: CocktailTypeView(showAlcoholic: false)) {
+                            CocktailType(type: .nonalcoholic)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                    
+                    Spacer()
                 }
-                /// This is so that the confetti animation covers the whole screen
-                .ignoresSafeArea()
+                .padding()
+                .navigationDestination(isPresented: $isShowingRandomCocktail) {
+                    CocktailDetailsView(name: drink.strDrink, shouldAnimate: true)
+                }
             }
             .onAppear {
                 Task {

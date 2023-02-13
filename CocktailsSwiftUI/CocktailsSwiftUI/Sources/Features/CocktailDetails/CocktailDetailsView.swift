@@ -29,6 +29,7 @@ struct CocktailDetailsView: View {
     @State private var isShowingMissingCocktailAlert = false
     @State private var isShowingDeleteCocktailAlert = false
     @State private var cocktailWasDeleted = false
+    @State private var isAnimating = false
     
     
     // MARK: Private properties
@@ -37,71 +38,82 @@ struct CocktailDetailsView: View {
     private let name: String
     
     
+    // MARK: Public properties
+    
+    var shouldAnimate: Bool
+    
+    
     // MARK: Body
     
     var body: some View {
         if let cocktail = cocktail.first {
             ScrollView {
-                VStack {
+                ZStack {
                     VStack {
-                        if let image = cocktail.image {
-                            Image(uiImage: image)
-                                .resizable()
-                                .frame(width: 70, height: 70)
-                                .clipShape(RoundedRectangle(cornerRadius: 35))
-                                .padding()
-                                .scaledToFill()
-                        } else {
-                            LazyImage(url: URL(string: cocktail.unwrappedThumbnail))
-                                .frame(width: 150, height: 150)
-                                .padding()
+                        VStack {
+                            if let image = cocktail.image {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .frame(width: 70, height: 70)
+                                    .clipShape(RoundedRectangle(cornerRadius: 35))
+                                    .padding()
+                                    .scaledToFill()
+                            } else {
+                                LazyImage(url: URL(string: cocktail.unwrappedThumbnail))
+                                    .frame(width: 150, height: 150)
+                                    .padding()
+                            }
+                            
+                            Text(cocktail.unwrappedCategory + " | " + cocktail.unwrappedAlcoholic)
+                                .font(.title)
+                            
+                            Text("Served in: " + cocktail.unwrappedGlass)
+                                .font(.title3)
+                            
+                            Divider()
                         }
+                        .padding()
                         
-                        Text(cocktail.unwrappedCategory + " | " + cocktail.unwrappedAlcoholic)
-                            .font(.title)
+                        VStack {
+                            Text("Ingredients")
+                                .font(.headline)
+                                .foregroundColor(.gray)
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                            /// I could have iterated over cocktail.ingredients but I wanted a second fetchRequest
+                            ForEach(components, id: \.self) {
+                                Text("\($0.unwrappedMeasure) \($0.unwrappedName)")
+                                    .padding()
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .background(colorScheme == .light ? AppColors.getRandomLightColor(with: $0.unwrappedName.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: $0.unwrappedName.getFirstCharacterLowercasedOrNil()))
+                                    .cornerRadius(10)
+                            }
+                        }
+                        .padding()
                         
-                        Text("Served in: " + cocktail.unwrappedGlass)
-                            .font(.title3)
-                        
-                        Divider()
-                    }
-                    .padding()
-                    
-                    VStack {
-                        Text("Ingredients")
-                            .font(.headline)
-                            .foregroundColor(.gray)
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                        /// I could have iterated over cocktail.ingredients but I wanted a second fetchRequest
-                        ForEach(components, id: \.self) {
-                            Text("\($0.unwrappedMeasure) \($0.unwrappedName)")
+                        VStack {
+                            Text("Preparation")
+                                .font(.headline)
+                                .foregroundColor(.gray)
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                            
+                            Text(cocktail.unwrappedInstructions)
                                 .padding()
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(colorScheme == .light ? AppColors.getRandomLightColor(with: $0.unwrappedName.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: $0.unwrappedName.getFirstCharacterLowercasedOrNil()))
+                                .frame(maxWidth: .infinity)
+                                .background(colorScheme == .light ? AppColors.getRandomLightColor(with: cocktail.unwrappedDrink.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: cocktail.unwrappedDrink.getFirstCharacterLowercasedOrNil()))
+                                .lineLimit(nil)
                                 .cornerRadius(10)
                         }
-                    }
-                    .padding()
-                    
-                    VStack {
-                        Text("Preparation")
-                            .font(.headline)
-                            .foregroundColor(.gray)
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                        .padding()
                         
-                        Text(cocktail.unwrappedInstructions)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(colorScheme == .light ? AppColors.getRandomLightColor(with: cocktail.unwrappedDrink.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: cocktail.unwrappedDrink.getFirstCharacterLowercasedOrNil()))
-                            .lineLimit(nil)
-                            .cornerRadius(10)
+                        Spacer()
                     }
-                    .padding()
+                    .navigationTitle(cocktail.unwrappedDrink)
+                    .navigationBarTitleDisplayMode(.inline)
                     
-                    Spacer()
+                    if isAnimating {
+                        LottiePlusView(name: LottieView.Animations.confetti.rawValue, contentMode: .scaleToFill)
+                    }
                 }
-                .navigationTitle(cocktail.unwrappedDrink)
-                .navigationBarTitleDisplayMode(.inline)
             }
             .navigationBarBackButtonTitleHidden()
             .toolbar {
@@ -148,6 +160,15 @@ struct CocktailDetailsView: View {
                     .buttonStyle(PlainButtonStyle())
                 }
             }
+            .onAppear {
+                isAnimating = shouldAnimate
+                
+                if isAnimating {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        isAnimating = false
+                    }
+                }
+            }
         } else {
             /// This gets triggered when the user taps on a cocktail within the Discover scene
             /// before having ever visited the Cocktails scene (and thus loading them to storage)
@@ -180,11 +201,12 @@ struct CocktailDetailsView: View {
     
     // MARK: Lifecycle
     
-    init(name: String) {
+    init(name: String, shouldAnimate: Bool = false) {
         _cocktail = FetchRequest<Cocktail>(sortDescriptors: [], predicate: NSPredicate(format: "\(FilterKey.drinkName.rawValue) \(PredicateFormat.equalsTo.rawValue) %@", name))
         _components = FetchRequest<Component>(sortDescriptors: [], predicate: NSPredicate(format: "\(FilterKey.cocktail.rawValue) \(PredicateFormat.equalsTo.rawValue) %@", name))
         
         self.name = name
+        self.shouldAnimate = shouldAnimate
     }
     
     

@@ -16,7 +16,7 @@ struct CocktailDetailsView: View {
     
     @Environment(\.modelContext) var modelContext
     @Environment(\.colorScheme) var colorScheme
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.dismiss) var dismiss
     
     
     // MARK: Query
@@ -81,7 +81,7 @@ struct CocktailDetailsView: View {
                             /// We do it in this order because otherwise the view will redraw
                             /// once the fetchRequest is updated and the screen becomes jerky
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                presentation.wrappedValue.dismiss()
+                                dismiss()
                             }
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {

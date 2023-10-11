@@ -12,6 +12,7 @@ struct DiscoverView: View {
     // MARK: Environment
     
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.modelContext) var modelContext
     
     
     // MARK: State
@@ -153,6 +154,8 @@ struct DiscoverView: View {
                                 partialResult.append(drink)
                             }
                         }
+                        
+                        drinks.forEach { modelContext.insert(Cocktail(response: $0, modelContext: modelContext)) }
                         
                         categories = await viewModel.fetchCategories()
                         

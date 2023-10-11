@@ -12,7 +12,7 @@ struct AddFavouriteView: View {
     // MARK: Environment
     
     @Environment(\.modelContext) var modelContext
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.dismiss) var dismiss
     
     
     // MARK: State
@@ -187,7 +187,7 @@ struct AddFavouriteView: View {
             .alert("Cocktail added!", isPresented: $showNewCocktail) {
                 Button("OK", role: .cancel) {
                     /// This is how you programmatically dimiss a view
-                    presentation.wrappedValue.dismiss()
+                    dismiss()
                 }
             }
             

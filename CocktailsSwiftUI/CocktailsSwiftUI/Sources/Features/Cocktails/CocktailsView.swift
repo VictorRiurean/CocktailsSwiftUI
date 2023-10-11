@@ -5,18 +5,20 @@
 //  Created by Victor on 18/01/2023.
 //
 
+import SwiftData
 import SwiftUI
+
 
 struct CocktailsView: View {
     
     // MARK: Environment
     
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) var modelContext
     
     
     // MARK: FetchRequests
     
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.strDrink, order: .forward)]) var cocktails: FetchedResults<Cocktail>
+    @Query(sort: \Cocktail.strDrink, order: .forward) var cocktails: [Cocktail]
     
     
     // MARK: Storage
@@ -49,7 +51,7 @@ struct CocktailsView: View {
         if searchText.isEmpty {
             return Array(cocktails)
         } else {
-            return cocktails.filter { $0.unwrappedDrink.lowercased().contains(searchText.lowercased()) }
+            return cocktails.filter { $0.strDrink.localizedStandardContains(searchText.lowercased()) }
         }
     }
     private var letters: [String] {
@@ -85,7 +87,29 @@ struct CocktailsView: View {
                                 Spacer()
                             }
                         } else {
-                            HStack {
+                            ZStack(alignment: .leading) {
+                                // MARK: List
+                                List {
+                                    ForEach(letters, id: \.self) { letter in
+                                        if !sectionIsEmpty(letter) {
+                                            Section(header: Text(letter)) {
+                                                CocktailWithLetterView(
+                                                    drinkName: $drinkName,
+                                                    isShowingRandomCocktail: $isShowingRandomCocktail,
+                                                    cocktails: searchResults,
+                                                    letter: letter
+                                                )
+                                            }
+                                            .id(letters.firstIndex { $0 == letter }!)
+                                        }
+                                    }
+                                }
+                                .navigationTitle("Cocktails")
+                                .scrollIndicators(.hidden)
+                                .onChange(of: scrollToIndex) { _, newValue in
+                                    proxy.scrollTo(newValue, anchor: .top)
+                                }
+                            
                                 // MARK: PaginationView
                                 VStack {
                                     Spacer()
@@ -109,59 +133,6 @@ struct CocktailsView: View {
                                     Spacer()
                                 }
                                 .frame(width: geo.size.width * 0.15)
-                                
-                                // MARK: List
-                                List {
-                                    ForEach(letters, id: \.self) { letter in
-                                        if !sectionIsEmpty(letter) {
-                                            Section(header: Text(letter)) {
-                                                LazyVStack {
-                                                    CocktailWithLetterView(drinkName: $drinkName, isShowingRandomCocktail: $isShowingRandomCocktail, cocktails: searchResults, letter: letter)
-                                                }
-                                            }
-                                            .id(letters.firstIndex { $0 == letter }!)
-                                        }
-                                    }
-                                    
-                                    // MARK: Spinner
-                                    if !allLettersLoaded && !isSearching {
-                                        ProgressView()
-                                            .progressViewStyle(MyActivityIndicator())
-                                            /// onAppear is very trigger-happy. It sets off ages before the view is actually shown
-                                            /// so I had to add all the pizzazz below to prevent the app being stuck while spinner
-                                            /// goes BRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-                                            .onAppear {
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                                    Task {
-                                                        await fetchDrinks()
-                                                    }
-                                                }
-                                                /// This is meant to handle the scenario in which the spinner is showing
-                                                /// but for some reason onAppear was not called again on redraw.
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                                                    if !allLettersLoaded {
-                                                        Task {
-                                                            await fetchDrinks()
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                    }
-                                }
-                                // MARK: List modifiers
-                                /// The frame modifier below seems to be useless in this case and I coudn't figure
-                                /// out why so I went for the ugly yet effective fix you see at line 155
-//                                .frame(maxWidth: .infinity)
-                                .padding(EdgeInsets(top: 0, leading: -30, bottom: 0, trailing: 0))
-                                /// Prevent spiner from going BRRR while searching
-                                .onChange(of: searchText) { newValue in
-                                    isSearching = !newValue.isEmpty
-                                }
-                                .navigationTitle("Cocktails")
-                                .scrollIndicators(.hidden)
-                                .onChange(of: scrollToIndex) { index in
-                                    proxy.scrollTo(index, anchor: .top)
-                                }
                             }
                         }
                     }
@@ -172,9 +143,10 @@ struct CocktailsView: View {
             .onAppear {
                 if !allLettersLoaded {
                     Task {
-                        let drinks = await viewModel.fetchDrinks(loadedLetters: Storage.loadStringArray(data: loadedLetters))
+                        let cocktails = await viewModel.fetchDrinks(loadedLetters: Storage.loadStringArray(data: loadedLetters))
+                            .map { Cocktail(response: $0, modelContext: modelContext) }
                         
-                        viewModel.addDrinksToCoreData(drinks: drinks, context: moc)
+                        cocktails.forEach { modelContext.insert($0) }
                         
                         loadedLetters = Storage.archiveStringArray(object: viewModel.loadedLetters)
                         allLettersLoaded = viewModel.allLettersLoaded
@@ -188,18 +160,23 @@ struct CocktailsView: View {
     // MARK: Private methods
     
     private func fetchDrinks() async {
-        let drinks = await viewModel.fetchDrinks(loadedLetters: Storage.loadStringArray(data: loadedLetters))
+        let cocktails = await viewModel.fetchDrinks(loadedLetters: Storage.loadStringArray(data: loadedLetters))
+            .map { Cocktail(response: $0, modelContext: modelContext) }
         
-        if !drinks.isEmpty {
-            viewModel.addDrinksToCoreData(drinks: drinks, context: moc)
+        if !cocktails.isEmpty {
+            cocktails.forEach { modelContext.insert($0) }
             
             loadedLetters = Storage.archiveStringArray(object: viewModel.loadedLetters)
             allLettersLoaded = viewModel.allLettersLoaded
         }
     }
     
+    private func cocktail(with letter: String) -> [Cocktail] {
+        cocktails.filter { $0.strDrink.lowercased().starts(with: letter) }
+    }
+    
     private func sectionIsEmpty(_ letter: String) -> Bool {
-        (searchResults.filter { $0.unwrappedDrink.lowercased().starts(with: letter) }).isEmpty
+        (searchResults.filter { $0.strDrink.lowercased().starts(with: letter) }).isEmpty
     }
 }
 
@@ -231,10 +208,10 @@ struct CocktailWithLetterView: View {
         ForEach(cocktail(with: letter)) { cocktail in
             /// This was the only navigation that was working properly with LazyVStack.
             /// Also, swipeAction and onDelete don't work properly with LazyVStacks.
-            CocktailCellView(drinkName: cocktail.unwrappedDrink, letter: letter)
+            CocktailCellView(drinkName: cocktail.strDrink, letter: letter)
                 .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
                 .onTapGesture {
-                    drinkName = cocktail.unwrappedDrink
+                    drinkName = cocktail.strDrink
                     isShowingRandomCocktail = true
                 }
                 .navigationDestination(isPresented: $isShowingRandomCocktail) {
@@ -246,7 +223,7 @@ struct CocktailWithLetterView: View {
     
     // MARK: Private methods
     
-    private func cocktail(with letter: String) -> [Cocktail] {
-        cocktails.filter { $0.unwrappedDrink.lowercased().starts(with: letter) }
+    fileprivate func cocktail(with letter: String) -> [Cocktail] {
+        cocktails.filter { $0.strDrink.lowercased().starts(with: letter) }
     }
 }

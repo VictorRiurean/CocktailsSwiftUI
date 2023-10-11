@@ -7,15 +7,17 @@
 
 import Foundation
 
+
 struct Drinks: Codable {
-    var drinks: [Drink]
+    var drinks: [CocktailResponse]
 }
 
-struct Drink: Codable, Identifiable, Equatable, Hashable {
+
+public struct CocktailResponse: Codable, Identifiable, Equatable, Hashable {
     
     // MARK: Properties
     
-    let id = UUID()
+    public let id = UUID()
     var strDrink: String
     var strCategory: String?
     var strAlcoholic: String?
@@ -80,9 +82,9 @@ struct Drink: Codable, Identifiable, Equatable, Hashable {
         return array
     }()
     
-    static let surprizeMe: Drink = Drink(strDrink: "Surprise me!", strIngredient1: "Tap this to get a random cocktail!")
-    static let noDrinkForU: Drink = Drink(strDrink: "Unforunately there's no drink for U 🙃", strIngredient1: "Somebody should do something about this ...")
-    static let noDrinkForX: Drink = Drink(strDrink: "X is also a letter with no drinks 😭", strIngredient1: "Somebody should do something about this ...")
+    static let surprizeMe: CocktailResponse = CocktailResponse(strDrink: "Surprise me!", strIngredient1: "Tap this to get a random cocktail!")
+    static let noDrinkForU: CocktailResponse = CocktailResponse(strDrink: "Unforunately there's no drink for U 🙃", strIngredient1: "Somebody should do something about this ...")
+    static let noDrinkForX: CocktailResponse = CocktailResponse(strDrink: "X is also a letter with no drinks 😭", strIngredient1: "Somebody should do something about this ...")
     
     
     // MARK: CodingKeys

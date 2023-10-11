@@ -16,7 +16,7 @@ struct GlassesDetailsViewModel {
     
     // MARK: Public functions
     
-    func fetchDrinks(glass: String) async -> [Drink] {
+    func fetchDrinks(glass: String) async -> [CocktailResponse] {
         await service.fetchByGlass(name: glass)
     }
 }

@@ -17,7 +17,7 @@ struct DrinkByCategoryView: View {
     
     // MARK: Private properties
     
-    private let drink: Drink
+    private let drink: CocktailResponse
     
     
     // MARK: Body
@@ -44,13 +44,7 @@ struct DrinkByCategoryView: View {
     
     // MARK: Lifecycle
     
-    init(drink: Drink) {
+    init(drink: CocktailResponse) {
         self.drink = drink
-    }
-}
-
-struct DrinkByCategoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        DrinkByCategoryView(drink: Drink(strDrink: "Cuba"))
     }
 }

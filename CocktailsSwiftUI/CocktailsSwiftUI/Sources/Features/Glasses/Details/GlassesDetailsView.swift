@@ -5,18 +5,20 @@
 //  Created by Victor on 25/01/2023.
 //
 
+import SwiftData
 import SwiftUI
+
 
 struct GlassesDetailsView: View {
     
     // MARK: FetchRequests
     
-    @FetchRequest(sortDescriptors: []) var cocktails: FetchedResults<Cocktail>
+    @Query var cocktails: [Cocktail]
     
     
     // MARK: State
     
-    @State private var drinks: [Drink] = []
+    @State private var drinks: [CocktailResponse] = []
     
     
     // MARK: Private properties
@@ -42,7 +44,7 @@ struct GlassesDetailsView: View {
             ScrollView(.vertical) {
                 LazyVGrid(columns: [GridItem(), GridItem()]) {
                     if cocktails.isEmpty {
-                        ForEach(drinks) { drink in
+                        ForEach(drinks, id: \.self) { drink in
                             NavigationLink(destination: CocktailDetailsView(name: drink.strDrink)) {
                                 DrinkByCategoryView(drink: drink)
                             }
@@ -50,8 +52,13 @@ struct GlassesDetailsView: View {
                         }
                     } else {
                         ForEach(filteredCocktails) { cocktail in
-                            NavigationLink(destination: CocktailDetailsView(name: cocktail.unwrappedDrink)) {
-                                DrinkByCategoryView(drink: Drink(strDrink: cocktail.unwrappedDrink, strDrinkThumb: cocktail.unwrappedThumbnail))
+                            NavigationLink(destination: CocktailDetailsView(name: cocktail.strDrink)) {
+                                DrinkByCategoryView(
+                                    drink: CocktailResponse(
+                                        strDrink: cocktail.strDrink,
+                                        strDrinkThumb: cocktail.strDrinkThumb
+                                    )
+                                )
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
@@ -78,11 +85,5 @@ struct GlassesDetailsView: View {
     
     init(glass: String) {
         self.glass = glass
-    }
-}
-
-struct GlassesDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        GlassesDetailsView(glass: "Mug")
     }
 }

@@ -6,21 +6,23 @@
 //
 
 import NukeUI
+import SwiftData
 import SwiftUI
+
 
 struct CocktailDetailsView: View {
     
     // MARK: Environment
     
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) var modelContext
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentation
     
     
-    // MARK: FetchRequests
+    // MARK: Query
     
-    @FetchRequest var cocktail: FetchedResults<Cocktail>
-    @FetchRequest var components: FetchedResults<Component>
+    @Query var cocktail: [Cocktail]
+    @Query var components: [Component]
     
     
     // MARK: State
@@ -58,7 +60,7 @@ struct CocktailDetailsView: View {
                         
                         Spacer()
                     }
-                    .navigationTitle(cocktail.unwrappedDrink)
+                    .navigationTitle(cocktail.strDrink)
                     .navigationBarTitleDisplayMode(.inline)
                     
                     if isAnimating {
@@ -94,8 +96,6 @@ struct CocktailDetailsView: View {
                     
                     Button {
                         cocktail.isFavourite.toggle()
-                        
-                        try? moc.save()
                     } label: {
                         cocktail.isFavourite ? Image(systemName: "heart.fill") : Image(systemName: "heart")
                     }
@@ -128,9 +128,9 @@ struct CocktailDetailsView: View {
                     .progressViewStyle(CircularProgressViewStyle())
                     .onAppear {
                         Task {
-                            let drink = await viewModel.fetchDrink(name: name)
+                            let response = await viewModel.fetchDrink(name: name)
                             
-                            viewModel.addDrinksToCoreData(drinks: [drink], context: moc)
+                            modelContext.insert(Cocktail(response: response, modelContext: modelContext))
                             
                             isFetching = false
                         }
@@ -153,8 +153,8 @@ struct CocktailDetailsView: View {
     // MARK: Lifecycle
     
     init(name: String, shouldAnimate: Bool = false) {
-        _cocktail = FetchRequest<Cocktail>(sortDescriptors: [], predicate: NSPredicate(format: "\(FilterKey.drinkName.rawValue) \(PredicateFormat.equalsTo.rawValue) %@", name))
-        _components = FetchRequest<Component>(sortDescriptors: [], predicate: NSPredicate(format: "\(FilterKey.cocktail.rawValue) \(PredicateFormat.equalsTo.rawValue) %@", name))
+        _cocktail = Query(filter: #Predicate<Cocktail> { $0.strDrink == name })
+        _components = Query(filter: #Predicate<Component> { $0.cocktail?.strDrink == name })
         
         self.name = name
         self.shouldAnimate = shouldAnimate
@@ -166,15 +166,16 @@ struct CocktailDetailsView: View {
     private func actionSheet() {
         guard let cocktail = cocktail.first else { return }
         
-        let activityVC = UIActivityViewController(activityItems: [MyActivityItemSource(title: cocktail.unwrappedDrink, text: cocktail.getShareMessageString())], applicationActivities: nil)
+        let activityVC = UIActivityViewController(
+            activityItems: [MyActivityItemSource(title: cocktail.strDrink, text: cocktail.getShareMessageString())],
+            applicationActivities: nil
+        )
         
         UIApplication.shared.currentUIWindow()?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }
     
     private func delete(cocktail: Cocktail) {
-        moc.delete(cocktail)
-        
-        try? moc.save()
+        modelContext.delete(cocktail)
     }
 }
 
@@ -199,15 +200,15 @@ struct ImageAndTitleView: View {
                     .padding()
                     .scaledToFill()
             } else {
-                LazyImage(url: URL(string: cocktail.unwrappedThumbnail))
+                LazyImage(url: URL(string: cocktail.strDrinkThumb))
                     .frame(width: 150, height: 150)
                     .padding()
             }
             
-            Text(cocktail.unwrappedCategory + " | " + cocktail.unwrappedAlcoholic)
+            Text(cocktail.strCategory + " | " + cocktail.strAlcoholic)
                 .font(.title)
             
-            Text("Served in: " + cocktail.unwrappedGlass)
+            Text("Served in: " + cocktail.strGlass)
                 .font(.title3)
             
             Divider()
@@ -239,10 +240,10 @@ struct ComponentsView: View {
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             /// I could have iterated over cocktail.ingredients but I wanted a second fetchRequest
             ForEach(components, id: \.self) {
-                Text("\($0.unwrappedMeasure) \($0.unwrappedName)")
+                Text("\($0.measure) \($0.name)")
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(colorScheme == .light ? AppColors.getRandomLightColor(with: $0.unwrappedName.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: $0.unwrappedName.getFirstCharacterLowercasedOrNil()))
+                    .background(colorScheme == .light ? AppColors.getRandomLightColor(with: $0.name.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: $0.name.getFirstCharacterLowercasedOrNil()))
                     .cornerRadius(10)
             }
         }
@@ -273,10 +274,12 @@ struct PreparationView: View {
                 .foregroundColor(.gray)
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             
-            Text(cocktail.unwrappedInstructions)
+            Text(cocktail.strInstructions)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(colorScheme == .light ? AppColors.getRandomLightColor(with: cocktail.unwrappedDrink.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: cocktail.unwrappedDrink.getFirstCharacterLowercasedOrNil()))
+                .background(
+                    colorScheme == .light ? AppColors.getRandomLightColor(with: cocktail.strDrink.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: cocktail.strDrink.getFirstCharacterLowercasedOrNil())
+                )
                 .lineLimit(nil)
                 .cornerRadius(10)
         }

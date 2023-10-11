@@ -25,7 +25,7 @@ struct FilteredCocktailsView<T: NSManagedObject & Identifiable, Content: View>: 
     
     // MARK: State
     
-    @State var drinks: [Drink] = []
+    @State var drinks: [CocktailResponse] = []
     
     
     // MARK: Private properties

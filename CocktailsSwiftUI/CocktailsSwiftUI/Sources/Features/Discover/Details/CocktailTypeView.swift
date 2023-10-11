@@ -5,19 +5,21 @@
 //  Created by Victor on 24/01/2023.
 //
 
+import SwiftData
 import SwiftUI
+
 
 struct CocktailTypeView: View {
     
     // MARK: FetchRequests
     
-    @FetchRequest(sortDescriptors: []) var cocktails: FetchedResults<Cocktail>
+    @Query var cocktails: [Cocktail]
     
     
     // MARK: State
     /// Passed as binding to picker at line 38
     @State private var showAlcoholic: Bool = true
-    @State private var drinks: [Drink] = []
+    @State private var drinks: [CocktailResponse] = []
     
     
     // MARK: Private properties
@@ -41,10 +43,10 @@ struct CocktailTypeView: View {
             }
             .pickerStyle(.segmented)
             .frame(maxWidth: UIScreen.main.bounds.width * 0.75)
-            .onChange(of: showAlcoholic) { type in
+            .onChange(of: showAlcoholic) {
                 if cocktails.isEmpty {
                     Task {
-                        drinks = await viewModel.fetchDrinks(with: type ? .alcoholic : .nonAlcoholic)
+                        drinks = await viewModel.fetchDrinks(with: showAlcoholic ? .alcoholic : .nonAlcoholic)
                     }
                 }
             }
@@ -61,9 +63,9 @@ struct CocktailTypeView: View {
                     } else {
                         ForEach(filteredCocktails) { cocktail in
                             NavigationLink {
-                                CocktailDetailsView(name: cocktail.unwrappedDrink)
+                                CocktailDetailsView(name: cocktail.strDrink)
                             } label: {
-                                DrinkByCategoryView(drink: Drink(strDrink: cocktail.unwrappedDrink, strDrinkThumb: cocktail.unwrappedThumbnail))
+                                DrinkByCategoryView(drink: CocktailResponse(strDrink: cocktail.strDrink, strDrinkThumb: cocktail.strDrinkThumb))
                             }
                         }
                     }
@@ -116,17 +118,18 @@ struct Catch22View: View {
     
     // MARK: Environment
     
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) var modelContext
+    
     
     // MARK: FetchRequests
     
-    @FetchRequest(sortDescriptors: []) var cocktails: FetchedResults<Cocktail>
+    @Query var cocktails: [Cocktail]
     
     
     // MARK: State
     
     @State private var showAlcoholic: Bool = true
-    @State private var drinks: [Drink] = []
+    @State private var drinks: [CocktailResponse] = []
     @State private var showCocktailDetails: Bool = false
     @State private var name: String?
     
@@ -152,11 +155,11 @@ struct Catch22View: View {
             }
             .pickerStyle(.segmented)
             .frame(maxWidth: UIScreen.main.bounds.width * 0.75)
-            .onChange(of: showAlcoholic) { type in
+            .onChange(of: showAlcoholic) {
                 if cocktails.isEmpty {
-                    Task {
-                        drinks = await viewModel.fetchDrinks(with: type ? .alcoholic : .nonAlcoholic)
-                    }
+//                    Task {
+//                        drinks = await viewModel.fetchDrinks(with: type ? .alcoholic : .nonAlcoholic)
+//                    }
                 }
             }
             
@@ -176,10 +179,10 @@ struct Catch22View: View {
                     .onDelete(perform: deleteDrink)
                 } else {
                     ForEach(filteredCocktails) { cocktail in
-                        CocktailCellView(drinkName: cocktail.unwrappedDrink)
+                        CocktailCellView(drinkName: cocktail.strDrink)
                             .buttonStyle(PlainButtonStyle())
                             .onTapGesture {
-                                name = cocktail.unwrappedDrink
+                                name = cocktail.strDrink
                                 
                                 showCocktailDetails = true
                             }
@@ -219,9 +222,7 @@ struct Catch22View: View {
     }
     
     private func deleteCocktail(at offsets: IndexSet) {
-        moc.delete(cocktails[offsets.first!])
-        
-        try? moc.save()
+        modelContext.delete(cocktails[offsets.first!])
     }
 }
 

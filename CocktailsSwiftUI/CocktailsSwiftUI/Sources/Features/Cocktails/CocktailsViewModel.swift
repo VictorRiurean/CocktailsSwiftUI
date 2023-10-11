@@ -35,12 +35,12 @@ class CocktailsViewModel: ObservableObject {
     // MARK: Public methods
     
     @MainActor
-    func fetchDrinks(loadedLetters: [String]) async -> [Drink] {
+    func fetchDrinks(loadedLetters: [String]) async -> [CocktailResponse] {
         guard !isLoading else { return [] }
         
         isLoading = true
         
-        var drinks: [Drink] = []
+        var drinks: [CocktailResponse] = []
         
         self.loadedLetters = loadedLetters
         
@@ -62,9 +62,9 @@ class CocktailsViewModel: ObservableObject {
         
         if drinks.isEmpty {
             if currentLetter == "u" {
-                drinks.append(Drink.noDrinkForU)
+                drinks.append(CocktailResponse.noDrinkForU)
             } else if currentLetter == "x" {
-                drinks.append(Drink.noDrinkForX)
+                drinks.append(CocktailResponse.noDrinkForX)
             }
         }
         
@@ -74,7 +74,7 @@ class CocktailsViewModel: ObservableObject {
     }
     /// We have to get the context passed from the parent view. If we were to declare
     /// an environment variable here it wouldn't work (we get purple warnings).
-    func addDrinksToCoreData(drinks: [Drink], context: NSManagedObjectContext) {
+    func addDrinksToCoreData(drinks: [CocktailResponse], context: NSManagedObjectContext) {
         databaseManager.addDrinksToCoreData(drinks: drinks, context: context)
     }
 }

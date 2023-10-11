@@ -18,11 +18,11 @@ struct CocktailDetailsViewModel {
     
     // MARK: Public methods
     
-    func fetchDrink(name: String) async -> Drink {
+    func fetchDrink(name: String) async -> CocktailResponse {
         await service.fetchDrink(with: name)
     }
     
-    func addDrinksToCoreData(drinks: [Drink], context: NSManagedObjectContext) {
+    func addDrinksToCoreData(drinks: [CocktailResponse], context: NSManagedObjectContext) {
         databaseManager.addDrinksToCoreData(drinks: drinks, context: context)
     }
 }

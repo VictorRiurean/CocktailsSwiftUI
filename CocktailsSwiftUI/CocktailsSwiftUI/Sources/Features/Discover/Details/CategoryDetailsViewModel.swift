@@ -16,7 +16,7 @@ struct CategoryDetailsViewModel {
     
     // MARK: Public functions
     
-    func fetchDrinks(category: String) async -> [Drink] {
+    func fetchDrinks(category: String) async -> [CocktailResponse] {
         await service.fetchByCategory(name: category)
     }
 }

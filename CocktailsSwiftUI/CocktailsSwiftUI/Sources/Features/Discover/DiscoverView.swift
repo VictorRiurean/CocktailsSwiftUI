@@ -18,10 +18,10 @@ struct DiscoverView: View {
     /// Injected from ContentView via init
     @Binding var tabSelection: Int
     
-    @State private var drinks: [Drink] = []
+    @State private var drinks: [CocktailResponse] = []
     @State private var categories: [Category] = []
     @State private var isShowingRandomCocktail = false
-    @State private var drink: Drink = Drink.surprizeMe
+    @State private var drink: CocktailResponse = CocktailResponse.surprizeMe
     @State private var drinksLoaded = false
     
     
@@ -144,12 +144,12 @@ struct DiscoverView: View {
                         /// This particular task group won't fail if one of the tasks fails,
                         /// but if need be you can implement such a task group. Check out:
                         /// https://www.avanderlee.com/concurrency/task-groups-in-swift/?utm_source=swiftlee&utm_medium=swiftlee_weekly&utm_campaign=issue_150
-                        drinks = try await withThrowingTaskGroup(of: Drink.self, returning: [Drink].self) { taskGroup in
+                        drinks = try await withThrowingTaskGroup(of: CocktailResponse.self, returning: [CocktailResponse].self) { taskGroup in
                             for _ in 0...2 {
                                 taskGroup.addTask { await viewModel.fetchRandomCocktail() }
                             }
                             
-                            return try await taskGroup.reduce(into: [Drink]()) { partialResult, drink in
+                            return try await taskGroup.reduce(into: [CocktailResponse]()) { partialResult, drink in
                                 partialResult.append(drink)
                             }
                         }

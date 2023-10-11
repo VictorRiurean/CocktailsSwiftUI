@@ -11,7 +11,7 @@ struct IngredientsDetailsView: View {
     
     // MARK: State
     
-    @State private var drinks: [Drink] = []
+    @State private var drinks: [CocktailResponse] = []
     
     
     // MARK: Private properties

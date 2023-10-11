@@ -6,6 +6,7 @@
 //
 
 import NukeUI
+import SwiftData
 import SwiftUI
 
 struct CocktailCellView: View {
@@ -13,12 +14,12 @@ struct CocktailCellView: View {
     // MARK: Environment
     
     @Environment(\.colorScheme) var colorScheme
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) var modelContext
     
     
-    // MARK: FetchRequests
+    // MARK: Query
     
-    @FetchRequest var fetchRequest: FetchedResults<Cocktail>
+    @Query var cocktails: [Cocktail]
     
     
     // MARK: State
@@ -36,7 +37,7 @@ struct CocktailCellView: View {
     
     var body: some View {
         HStack {
-            if let drink = fetchRequest.first {
+            if let drink = cocktails.first {
                 if let image = drink.image {
                     Image(uiImage: image)
                         .resizable()
@@ -45,7 +46,7 @@ struct CocktailCellView: View {
                         .padding()
                 } else {
                     /// We use Nuke's LazyImage because it adds caching functionality
-                    LazyImage(url: URL(string: drink.unwrappedThumbnail))
+                    LazyImage(url: URL(string: drink.strDrinkThumb))
                         .frame(width: 70, height: 70)
                         .clipShape(RoundedRectangle(cornerRadius: 35))
                         .padding()
@@ -61,8 +62,8 @@ struct CocktailCellView: View {
             }
             
             VStack(alignment: .leading) {
-                if let drink = fetchRequest.first {
-                    Text(drink.unwrappedDrink)
+                if let drink = cocktails.first {
+                    Text(drink.strDrink)
                         .font(.headline)
                     
                     Spacer()
@@ -79,19 +80,17 @@ struct CocktailCellView: View {
             
             Spacer()
                 
-            if let drink = fetchRequest.first {
+            if let drink = cocktails.first {
                 Button {
                     if !drink.isFavourite {
                         play = true
-                        selectedCocktailID = drink.unwrappedID
+                        selectedCocktailID = drink.id
                         animationID += 1
                         
                         UINotificationFeedbackGenerator().notificationOccurred(.success)
                     }
                     
                     drink.isFavourite.toggle()
-                    
-                    try? moc.save()
                 } label: {
                     Image(systemName: drink.isFavourite ? "heart.fill" : "heart")
                 }
@@ -101,7 +100,7 @@ struct CocktailCellView: View {
                 .buttonStyle(BorderlessButtonStyle())
                 .overlay(alignment: .center) {
                     /// We only want to animate the button that was tapped
-                    if selectedCocktailID == drink.unwrappedID {
+                    if selectedCocktailID == drink.id {
                         LottiePlusView(
                             name: LottieView.Animations.like.rawValue,
                             animationSpeed: 4,
@@ -130,14 +129,8 @@ struct CocktailCellView: View {
     // MARK: Lifecycle
     
     init(drinkName: String, letter: String? = nil) {
-        _fetchRequest = FetchRequest<Cocktail>(sortDescriptors: [], predicate: NSPredicate(format: "\(FilterKey.drinkName.rawValue) \(PredicateFormat.equalsTo.rawValue) %@", drinkName))
+        _cocktails = Query(filter: #Predicate<Cocktail> { $0.strDrink == drinkName })
         
         self.letter = letter
-    }
-}
-
-struct CocktailCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        CocktailCellView(drinkName: "A1")
     }
 }

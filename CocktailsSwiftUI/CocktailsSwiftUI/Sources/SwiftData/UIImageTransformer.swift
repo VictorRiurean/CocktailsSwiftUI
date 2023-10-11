@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class UIImageTransformer: ValueTransformer {
     
     static let name = NSValueTransformerName(rawValue: "UIImageTransformer")
@@ -35,6 +36,14 @@ class UIImageTransformer: ValueTransformer {
 
             return nil
         }
+    }
+    
+    override public class func transformedValueClass() -> AnyClass {
+        return UIImage.self
+    }
+    
+    override public class func allowsReverseTransformation() -> Bool {
+        return true
     }
     
     static func register() {

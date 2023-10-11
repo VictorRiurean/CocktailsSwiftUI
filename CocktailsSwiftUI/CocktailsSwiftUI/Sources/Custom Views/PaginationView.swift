@@ -25,13 +25,19 @@ struct PaginationView: View {
         VStack(alignment: .leading, spacing: 1) {
             ForEach(letters, id: \.self) { letter in
                 Button {
-                    scrollToIndex = letters.firstIndex { $0 == letter }!
+                    withAnimation {
+                        scrollToIndex = letters.firstIndex { $0 == letter }!
+                    }
                 } label: {
-                    Text(letter)
-                        .foregroundColor(.blue)
-                        .font(.caption2)
+                    HStack {
+                        Text(letter)
+                            .foregroundColor(.blue)
+                            .font(.caption2)
+                        
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity)
                 }
-                .contentShape(Rectangle())
             }
         }
     }

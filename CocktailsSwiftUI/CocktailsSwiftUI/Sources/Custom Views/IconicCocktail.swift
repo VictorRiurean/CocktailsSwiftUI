@@ -17,7 +17,7 @@ struct IconicCocktail: View {
     
     // MARK: Private properties
     
-    private var drink: Drink
+    private var drink: CocktailResponse
     
     
     // MARK: Body
@@ -55,13 +55,7 @@ struct IconicCocktail: View {
     
     // MARK: Lifecycle
     
-    init(drink: Drink) {
+    init(drink: CocktailResponse) {
         self.drink = drink
-    }
-}
-
-struct IconicCocktail_Previews: PreviewProvider {
-    static var previews: some View {
-        IconicCocktail(drink: Drink(strDrink: "Test", strCategory: "Category", strAlcoholic: "Yes", strGlass: "Mug"))
     }
 }

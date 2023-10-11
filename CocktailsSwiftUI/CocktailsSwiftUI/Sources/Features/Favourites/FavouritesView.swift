@@ -5,18 +5,20 @@
 //  Created by Victor Rîurean on 26/01/2023.
 //
 
+import SwiftData
 import SwiftUI
+
 
 struct FavouritesView: View {
     
     // MARK: Environment
     
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) var modelContext
     
     
-    // MARK: FetchRequests
+    // MARK: Query
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Cocktail.order, ascending: true)], predicate: NSPredicate(format: "\(FilterKey.isFavourite.rawValue) \(PredicateFormat.equalsTo.rawValue) \(FilterValue.yes.rawValue)")) var cocktails: FetchedResults<Cocktail>
+    @Query(filter: #Predicate<Cocktail> { $0.isFavourite }, sort: \Cocktail.order, order: .forward) var cocktails: [Cocktail]
     
     
     // MARK: State
@@ -41,10 +43,10 @@ struct FavouritesView: View {
                         /// We use the combination of ZStack and empty NavigationLink to hide
                         /// the disclosure chevron that NavigationLinks get by default.
                         ZStack {
-                            NavigationLink(destination: CocktailDetailsView(name: cocktail.unwrappedDrink)) { }
+                            NavigationLink(destination: CocktailDetailsView(name: cocktail.strDrink)) { }
                                 .opacity(0)
                             
-                            CocktailCellView(drinkName: cocktail.unwrappedDrink)
+                            CocktailCellView(drinkName: cocktail.strDrink)
                                 .buttonStyle(PlainButtonStyle())
                         }
                         /// Swipe actions really don't play nice with NavigationLink, especially since we
@@ -84,8 +86,6 @@ struct FavouritesView: View {
                     for index in 0..<cocktails.count {
                         cocktails[index].order = Int16(index)
                     }
-                    
-                    try? moc.save()
                 }
             }
         }
@@ -96,9 +96,7 @@ struct FavouritesView: View {
     // MARK: Private methods
     
     private func delete(cocktail: Cocktail) {
-        moc.delete(cocktail)
-        
-        try? moc.save()
+        modelContext.delete(cocktail)
     }
     
     private func move(from source: IndexSet, to destination: Int) {
@@ -134,7 +132,5 @@ struct FavouritesView: View {
             
             cocktails[itemToMove].order = newOrder
         }
-        
-        try? moc.save()
     }
 }

@@ -11,7 +11,7 @@ struct AddFavouriteView: View {
     
     // MARK: Environment
     
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) var modelContext
     @Environment(\.presentationMode) var presentation
     
     
@@ -99,7 +99,7 @@ struct AddFavouriteView: View {
                 Section(header: SectionHeaderWithTextAndBoolBinding(boolBinding: $didTouchAddIngredient, text: "Ingredients")) {
                     ForEach(ingredients, id: \.self) { ingredient in
                         HStack {
-                            Text("\(ingredient.unwrappedMeasure) \(ingredient.unwrappedName)")
+                            Text("\(ingredient.measure) \(ingredient.name)")
                             
                             Spacer()
                             
@@ -127,18 +127,18 @@ struct AddFavouriteView: View {
                     Spacer()
                     
                     Button("Save") {
-                        let cocktail = Cocktail(context: moc)
+                        let cocktail = Cocktail()
                         
                         cocktail.id = UUID()
                         cocktail.strDrink = name
                         cocktail.strCategory = category
                         cocktail.strAlcoholic = type
                         cocktail.strInstructions = instructions
-                        cocktail.ingredient = NSSet(array: ingredients)
+                        cocktail.ingredient = ingredients
                         cocktail.isFavourite = true
                         cocktail.image = inputImage
                         
-                        try? moc.save()
+                        modelContext.insert(cocktail)
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             UINotificationFeedbackGenerator().notificationOccurred(.success)
@@ -158,7 +158,7 @@ struct AddFavouriteView: View {
             .onChange(of: inputImage) { _ in loadImage() }
             .onChange(of: didTouchAddIngredient) { _ in
                 if addIngredientEnabled {
-                    let ingredient = Component(context: moc)
+                    let ingredient = Component()
                     
                     ingredient.measure = measureToAdd
                     ingredient.name = ingredientToAdd

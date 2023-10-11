@@ -20,7 +20,7 @@ struct DiscoverViewModel {
         await service.fetchCategories()
     }
     
-    func fetchRandomCocktail() async -> Drink {
+    func fetchRandomCocktail() async -> CocktailResponse {
         await service.fetchRandomCocktail()
     }
 }

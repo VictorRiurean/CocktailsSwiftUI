@@ -107,7 +107,9 @@ struct CocktailsView: View {
                                 .navigationTitle("Cocktails")
                                 .scrollIndicators(.hidden)
                                 .onChange(of: scrollToIndex) { _, newValue in
-                                    proxy.scrollTo(newValue, anchor: .top)
+                                    withAnimation {
+                                        proxy.scrollTo(newValue, anchor: .top)
+                                    }
                                 }
                             
                                 // MARK: PaginationView

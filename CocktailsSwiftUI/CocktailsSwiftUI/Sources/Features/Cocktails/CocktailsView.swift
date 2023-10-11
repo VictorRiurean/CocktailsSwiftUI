@@ -21,12 +21,6 @@ struct CocktailsView: View {
     @Query(sort: \Cocktail.strDrink, order: .forward) var cocktails: [Cocktail]
     
     
-    // MARK: Storage
-    
-    @AppStorage(StorageKeys.allLettersLoaded.rawValue) var allLettersLoaded: Bool = false
-    @AppStorage(StorageKeys.loadedLetters.rawValue) var loadedLetters: Data = Data()
-    
-    
     // MARK: State
     
     @State private var searchText = ""
@@ -47,8 +41,9 @@ struct CocktailsView: View {
             return cocktails.filter { $0.strDrink.localizedStandardContains(searchText.lowercased()) }
         }
     }
-    private var letters: [String] {
-        Storage.loadStringArray(data: loadedLetters)
+    
+    private var lettersWithCocktails: [String] {
+        viewModel.letters.filter { !sectionIsEmpty($0) }
     }
     
     
@@ -61,7 +56,7 @@ struct CocktailsView: View {
                 /// We end up only using the Geometry reader to set the PaginationView HStack width,
                 /// as for some reason the List ignores the frame given it.
                 GeometryReader { geo in
-                    ZStack {
+                    ZStack(alignment: .center) {
                         // MARK: Empty
                         if searchResults.isEmpty {
                             VStack {
@@ -70,9 +65,15 @@ struct CocktailsView: View {
                                 HStack {
                                     Spacer()
                                     
-                                    Text("No cocktail for that search term 😱 \n Don't panic, you can add it yourself from the Assistant tab.")
-                                        .fixedSize(horizontal: false, vertical: true)
-                                        .multilineTextAlignment(.center)
+                                    if viewModel.isLoading {
+                                        ProgressView()
+                                            .progressViewStyle(.circular)
+                                            .frame(width: 100, height: 100)
+                                    } else {
+                                        Text("No cocktail for that search term 😱 \n Don't panic, you can add it yourself from the Assistant tab.")
+                                            .fixedSize(horizontal: false, vertical: true)
+                                            .multilineTextAlignment(.center)
+                                    }
                                     
                                     Spacer()
                                 }
@@ -83,18 +84,16 @@ struct CocktailsView: View {
                             ZStack(alignment: .leading) {
                                 // MARK: List
                                 List {
-                                    ForEach(letters, id: \.self) { letter in
-                                        if !sectionIsEmpty(letter) {
-                                            Section(header: Text(letter)) {
-                                                CocktailWithLetterView(
-                                                    drinkName: $drinkName,
-                                                    isShowingRandomCocktail: $isShowingRandomCocktail,
-                                                    cocktails: searchResults,
-                                                    letter: letter
-                                                )
-                                            }
-                                            .id(letters.firstIndex { $0 == letter }!)
+                                    ForEach(lettersWithCocktails, id: \.self) { letter in
+                                        Section(header: Text(letter)) {
+                                            CocktailWithLetterView(
+                                                drinkName: $drinkName,
+                                                isShowingRandomCocktail: $isShowingRandomCocktail,
+                                                cocktails: searchResults,
+                                                letter: letter
+                                            )
                                         }
+                                        .id(lettersWithCocktails.firstIndex { $0 == letter }!)
                                     }
                                 }
                                 .navigationTitle("Cocktails")
@@ -112,13 +111,7 @@ struct CocktailsView: View {
                                     HStack {
                                         PaginationView(
                                             scrollToIndex: $scrollToIndex,
-                                            letters: letters.compactMap {
-                                                if !sectionIsEmpty($0) {
-                                                    return $0.capitalized
-                                                } else {
-                                                    return nil
-                                                }
-                                            }
+                                            letters: lettersWithCocktails.map { $0.capitalized }
                                         )
                                         .padding()
                                         
@@ -136,15 +129,12 @@ struct CocktailsView: View {
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             // MARK: onAppear
             .onAppear {
-                if !allLettersLoaded {
+                if cocktails.isEmpty {
                     Task {
-                        let cocktails = await viewModel.fetchDrinks(loadedLetters: Storage.loadStringArray(data: loadedLetters))
+                        let cocktails = await viewModel.fetchDrinks()
                             .map { Cocktail(response: $0, modelContext: modelContext) }
                         
                         cocktails.forEach { modelContext.insert($0) }
-                        
-                        loadedLetters = Storage.archiveStringArray(object: viewModel.loadedLetters)
-                        allLettersLoaded = viewModel.allLettersLoaded
                     }
                 }
             }
@@ -153,18 +143,6 @@ struct CocktailsView: View {
     
     
     // MARK: Private methods
-    
-    private func fetchDrinks() async {
-        let cocktails = await viewModel.fetchDrinks(loadedLetters: Storage.loadStringArray(data: loadedLetters))
-            .map { Cocktail(response: $0, modelContext: modelContext) }
-        
-        if !cocktails.isEmpty {
-            cocktails.forEach { modelContext.insert($0) }
-            
-            loadedLetters = Storage.archiveStringArray(object: viewModel.loadedLetters)
-            allLettersLoaded = viewModel.allLettersLoaded
-        }
-    }
     
     private func cocktail(with letter: String) -> [Cocktail] {
         cocktails.filter { $0.strDrink.lowercased().starts(with: letter) }

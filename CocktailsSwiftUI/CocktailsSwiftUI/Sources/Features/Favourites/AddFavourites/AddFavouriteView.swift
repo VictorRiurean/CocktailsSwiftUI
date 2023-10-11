@@ -155,8 +155,8 @@ struct AddFavouriteView: View {
             .navigationBarBackButtonTitleHidden()
             .navigationTitle("Add Cocktail")
             .navigationBarTitleDisplayMode(.inline)
-            .onChange(of: inputImage) { _ in loadImage() }
-            .onChange(of: didTouchAddIngredient) { _ in
+            .onChange(of: inputImage) { loadImage() }
+            .onChange(of: didTouchAddIngredient) {
                 if addIngredientEnabled {
                     let ingredient = Component()
                     

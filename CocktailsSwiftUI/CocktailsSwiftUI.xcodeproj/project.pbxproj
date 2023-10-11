@@ -10,7 +10,6 @@
 		573B0CB92993971F00209AE9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0CB82993971F00209AE9 /* ImagePicker.swift */; };
 		573B0CBB2993A25800209AE9 /* UIImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0CBA2993A25800209AE9 /* UIImageTransformer.swift */; };
 		574FFF9029903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574FFF8F29903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift */; };
-		5783D965298AE8F100EE36AF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5783D964298AE8F100EE36AF /* Storage.swift */; };
 		578966252992653A00D8CDCF /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 578966242992653A00D8CDCF /* Lottie */; };
 		578966282992657400D8CDCF /* confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 578966272992657400D8CDCF /* confetti.json */; };
 		5789662A299265C800D8CDCF /* surprise-gift-box.json in Resources */ = {isa = PBXBuildFile; fileRef = 57896629299265C800D8CDCF /* surprise-gift-box.json */; };
@@ -31,7 +30,6 @@
 		57917BC9298288B600C507C2 /* TipDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57917BC8298288B600C507C2 /* TipDetailsView.swift */; };
 		5791F7E0298BC3CE002531C6 /* MyActivityItemSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5791F7DF298BC3CE002531C6 /* MyActivityItemSource.swift */; };
 		5791F7E2298BC3F5002531C6 /* UIApplication+Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5791F7E1298BC3F5002531C6 /* UIApplication+Window.swift */; };
-		5796F838298947B50069057D /* StorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5796F837298947B50069057D /* StorageKeys.swift */; };
 		5796F83A298949E50069057D /* FilteredCocktailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5796F839298949E50069057D /* FilteredCocktailsView.swift */; };
 		5796F83E29899E280069057D /* PredicateEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5796F83D29899E280069057D /* PredicateEnums.swift */; };
 		57C05B912ACD926E00479AEA /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C05B8F2ACD926E00479AEA /* Component.swift */; };
@@ -83,7 +81,6 @@
 		573B0CB82993971F00209AE9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		573B0CBA2993A25800209AE9 /* UIImageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageTransformer.swift; sourceTree = "<group>"; };
 		574FFF8F29903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+FirstCharacterLowercasedOrNil.swift"; path = "CocktailsSwiftUI/Sources/Utilities/String+FirstCharacterLowercasedOrNil.swift"; sourceTree = SOURCE_ROOT; };
-		5783D964298AE8F100EE36AF /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		578966272992657400D8CDCF /* confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti.json; sourceTree = "<group>"; };
 		57896629299265C800D8CDCF /* surprise-gift-box.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "surprise-gift-box.json"; sourceTree = "<group>"; };
 		5789662B2992666300D8CDCF /* cool-chick.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "cool-chick.json"; sourceTree = "<group>"; };
@@ -100,7 +97,6 @@
 		57917BC8298288B600C507C2 /* TipDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailsView.swift; sourceTree = "<group>"; };
 		5791F7DF298BC3CE002531C6 /* MyActivityItemSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityItemSource.swift; sourceTree = "<group>"; };
 		5791F7E1298BC3F5002531C6 /* UIApplication+Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIApplication+Window.swift"; path = "CocktailsSwiftUI/Sources/Utilities/UIApplication+Window.swift"; sourceTree = SOURCE_ROOT; };
-		5796F837298947B50069057D /* StorageKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageKeys.swift; sourceTree = "<group>"; };
 		5796F839298949E50069057D /* FilteredCocktailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredCocktailsView.swift; sourceTree = "<group>"; };
 		5796F83D29899E280069057D /* PredicateEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredicateEnums.swift; sourceTree = "<group>"; };
 		57C05B8F2ACD926E00479AEA /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
@@ -390,8 +386,6 @@
 				573B0CB82993971F00209AE9 /* ImagePicker.swift */,
 				578DAC562987C58A00B94904 /* MyActivityIndicator.swift */,
 				5796F83D29899E280069057D /* PredicateEnums.swift */,
-				5783D964298AE8F100EE36AF /* Storage.swift */,
-				5796F837298947B50069057D /* StorageKeys.swift */,
 				5791F7DF298BC3CE002531C6 /* MyActivityItemSource.swift */,
 			);
 			path = Utilities;
@@ -487,7 +481,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					57CC60872978005600C0D12A = {
 						CreatedOnToolsVersion = 14.2;
@@ -562,14 +556,12 @@
 				57CC60D4297EC70A00C0D12A /* Tip.swift in Sources */,
 				57CC60B729794EC900C0D12A /* AppColors.swift in Sources */,
 				573B0CB92993971F00209AE9 /* ImagePicker.swift in Sources */,
-				5796F838298947B50069057D /* StorageKeys.swift in Sources */,
 				5791F7E2298BC3F5002531C6 /* UIApplication+Window.swift in Sources */,
 				57CC60D0297EBC7000C0D12A /* Ingredient.swift in Sources */,
 				57CC60D2297EBDBA00C0D12A /* IngredientsViewModel.swift in Sources */,
 				57917BC52982797200C507C2 /* FavouritesView.swift in Sources */,
 				57CC60CE297EBBE100C0D12A /* IngredientView.swift in Sources */,
 				578966302992698B00D8CDCF /* LottieView.swift in Sources */,
-				5783D965298AE8F100EE36AF /* Storage.swift in Sources */,
 				57CC60C32979A02C00C0D12A /* Category.swift in Sources */,
 				57CC608C2978005600C0D12A /* CocktailsSwiftUIApp.swift in Sources */,
 				57CC60DB297ED4E700C0D12A /* TipView.swift in Sources */,
@@ -639,6 +631,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -699,6 +692,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

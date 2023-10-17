@@ -20,147 +20,101 @@ struct DiscoverView: View {
     @Binding var tabSelection: Int
     
     @State private var drinks: [CocktailResponse] = []
-    @State private var categories: [Category] = []
-    @State private var isShowingRandomCocktail = false
-    @State private var drink: CocktailResponse = CocktailResponse.surprizeMe
-    @State private var drinksLoaded = false
     
     
     // MARK: Private properties
     
     private let viewModel = DiscoverViewModel()
     
+    
     // MARK: Body
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 15) {
-                    // MARK: Cocktail Categories
-                    Text("Cocktail Categories")
-                        .font(.title)
+            VStack(alignment: .leading, spacing: 15) {
+                cocktailCategories
+                
+                iconicCocktails
+            }
+            .padding()
+            .task {
+                if !viewModel.drinksLoaded {
+                    await viewModel.fetchCategories()
                     
-                    ScrollView(.horizontal) {
-                        LazyHStack {
-                            ForEach(0..<categories.count, id: \.self) { index in
-                                NavigationLink(destination: CategoryDetailsView(categoryName: categories[index].strCategory)) {
-                                    CategoryView(category: categories[index], index: index)
-                                }
-                                /// Without this modifier text and foreground colours will be the same as the tintColor
-                                .buttonStyle(PlainButtonStyle())
-                            }
+                    drinks = await viewModel.loadDrinks()
+                    
+                    drinks.forEach { modelContext.insert(Cocktail(response: $0, modelContext: modelContext)) }
+                }
+            }
+        }
+    }
+    
+    
+    // MARK: ViewBuilders
+    
+    private var cocktailCategories: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text("Cocktail Categories")
+                .font(.title)
+            
+            ScrollView(.horizontal) {
+                LazyHStack {
+                    ForEach(0 ..< viewModel.categories.count, id: \.self) { index in
+                        NavigationLink(destination: CategoryDetailsView(categoryName: viewModel.categories[index].strCategory)) {
+                            CategoryView(category: viewModel.categories[index], index: index)
                         }
+                        .buttonStyle(PlainButtonStyle())
                     }
+                }
+                .scrollTargetLayout()
+            }
+            .frame(height: 150)
+            .scrollTargetBehavior(.viewAligned)
+            .frame(maxWidth: .infinity)
+        }
+    }
+    
+    private var iconicCocktails: some View {
+        VStack(alignment: .leading) {
+            Text("Iconic cocktails")
+                .font(.title)
+            
+            VStack(spacing: 20) {
+                HStack(spacing: 20) {
+                    Spacer()
                     
-                    // MARK: Iconic cocktails
-                    Text("Iconic cocktails")
-                        .font(.title)
-                    
-                    HStack(spacing: 20) {
-                        Spacer()
-                        
-                        if drinks.count > 0 {
-                            IconicCocktail(drink: .surprizeMe)
-                                .onTapGesture {
-                                    Task {
-                                        drink = await viewModel.fetchRandomCocktail()
-                                    }
-                                    /// This triggers navigation at line 135
-                                    isShowingRandomCocktail = true
-                                }
-                            /// This is an example of direct navigation
-                            NavigationLink(destination: CocktailDetailsView(name: drinks[0].strDrink)) {
-                                IconicCocktail(drink: drinks[0])
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                        }
-                        
-                        Spacer()
-                    }
-                    
-                    HStack(spacing: 20) {
-                        Spacer()
-                        
-                        if drinks.count > 0 {
-                            NavigationLink(destination: CocktailDetailsView(name: drinks[1].strDrink)) {
-                                IconicCocktail(drink: drinks[1])
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            
-                            NavigationLink(destination: CocktailDetailsView(name: drinks[2].strDrink)) {
-                                IconicCocktail(drink: drinks[2])
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                        }
-                        
-                        Spacer()
-                    }
-                    
-                    // MARK: Show more
-                    HStack {
-                        Spacer()
-                        
-                        Button {
-                            tabSelection = 1
-                        } label: {
-                            Text("Show more")
-                                .padding()
-                                .font(.headline)
-                                .foregroundColor(.white)
-                        }
-                        .background(colorScheme == .light ? AppColors.lightModeRedButton : AppColors.darkModeRedButton)
-                        .contentShape(Rectangle())
-                        .cornerRadius(10)
-                        
-                        Spacer()
-                    }
-                    
-                    // MARK: Cocktail types
-                    Text("Cocktail types")
-                        .font(.title)
-                    
-                    HStack(spacing: 10) {
-                        NavigationLink(destination: CocktailTypeView(showAlcoholic: true)) {
-                            CocktailType(type: .alcoholic)
+                    if drinks.count > 0 {
+                        NavigationLink(destination: CocktailDetailsView(name: drinks[0].strDrink)) {
+                            IconicCocktail(drink: drinks[0])
                         }
                         .buttonStyle(PlainButtonStyle())
                         
-                        NavigationLink(destination: CocktailTypeView(showAlcoholic: false)) {
-                            CocktailType(type: .nonalcoholic)
+                        NavigationLink(destination: CocktailDetailsView(name: drinks[1].strDrink)) {
+                            IconicCocktail(drink: drinks[1])
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
                     
                     Spacer()
                 }
-                .padding()
-                .navigationDestination(isPresented: $isShowingRandomCocktail) {
-                    CocktailDetailsView(name: drink.strDrink, shouldAnimate: true)
-                }
-            }
-            // MARK: onAppear
-            .onAppear {
-                Task {
-                    if !drinksLoaded {
-                        /// This particular task group won't fail if one of the tasks fails,
-                        /// but if need be you can implement such a task group. Check out:
-                        /// https://www.avanderlee.com/concurrency/task-groups-in-swift/?utm_source=swiftlee&utm_medium=swiftlee_weekly&utm_campaign=issue_150
-                        drinks = try await withThrowingTaskGroup(of: CocktailResponse.self, returning: [CocktailResponse].self) { taskGroup in
-                            for _ in 0...2 {
-                                taskGroup.addTask { await viewModel.fetchRandomCocktail() }
-                            }
+                
+                HStack(spacing: 20) {
+                    Spacer()
+                    
+                    if drinks.count > 0 {
+                        NavigationLink(destination: CocktailDetailsView(name: drinks[2].strDrink)) {
+                            IconicCocktail(drink: drinks[2])
                             
-                            return try await taskGroup.reduce(into: [CocktailResponse]()) { partialResult, drink in
-                                partialResult.append(drink)
-                            }
                         }
+                        .buttonStyle(PlainButtonStyle())
                         
-                        drinks.forEach { modelContext.insert(Cocktail(response: $0, modelContext: modelContext)) }
-                        
-                        categories = await viewModel.fetchCategories()
-                        
-                        drinksLoaded = true
+                        NavigationLink(destination: CocktailDetailsView(name: drinks[3].strDrink)) {
+                            IconicCocktail(drink: drinks[3])
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
+                    
+                    Spacer()
                 }
             }
         }

@@ -15,7 +15,7 @@ struct FilteredCocktailsView<T: NSManagedObject & Identifiable, Content: View>: 
     
     // MARK: Environment
     
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) var modelContext
     
     
     // MARK: FetchRequests

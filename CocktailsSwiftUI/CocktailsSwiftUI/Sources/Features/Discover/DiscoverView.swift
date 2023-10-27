@@ -7,17 +7,26 @@
 
 import SwiftUI
 
+
 struct DiscoverView: View {
+    
+    // MARK: Constants
+    
+    private enum Constants {
+        static let containerStackSpacing: CGFloat = 15.0
+        static let categoriesStackSpacing: CGFloat = 15.0
+        static let categoriesStackHeight: CGFloat = 75.0
+        static let iconicStackSpacing: CGFloat = 15.0
+        static let iconicStackChildrenSpacing: CGFloat = 15.0
+    }
+    
     
     // MARK: Environment
     
-    @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var modelContext
     
     
     // MARK: State
-    /// Injected from ContentView via init
-    @Binding var tabSelection: Int
     
     @State private var drinks: [CocktailResponse] = []
     
@@ -31,11 +40,13 @@ struct DiscoverView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 15) {
+            VStack(alignment: .leading, spacing: Constants.containerStackSpacing) {
                 cocktailCategories
                 
                 iconicCocktails
             }
+            .navigationTitle("Discover")
+            .navigationBarTitleDisplayMode(.large)
             .padding()
             .task {
                 if !viewModel.drinksLoaded {
@@ -53,9 +64,9 @@ struct DiscoverView: View {
     // MARK: ViewBuilders
     
     private var cocktailCategories: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: Constants.containerStackSpacing) {
             Text("Cocktail Categories")
-                .font(.title)
+                .font(.headline)
             
             ScrollView(.horizontal) {
                 LazyHStack {
@@ -68,19 +79,19 @@ struct DiscoverView: View {
                 }
                 .scrollTargetLayout()
             }
-            .frame(height: 150)
+            .frame(height: Constants.categoriesStackHeight)
             .scrollTargetBehavior(.viewAligned)
             .frame(maxWidth: .infinity)
         }
     }
     
     private var iconicCocktails: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: Constants.iconicStackSpacing) {
             Text("Iconic cocktails")
-                .font(.title)
+                .font(.headline)
             
-            VStack(spacing: 20) {
-                HStack(spacing: 20) {
+            VStack(spacing: Constants.iconicStackChildrenSpacing) {
+                HStack(spacing: Constants.iconicStackChildrenSpacing) {
                     Spacer()
                     
                     if drinks.count > 0 {
@@ -98,7 +109,7 @@ struct DiscoverView: View {
                     Spacer()
                 }
                 
-                HStack(spacing: 20) {
+                HStack(spacing: Constants.iconicStackChildrenSpacing) {
                     Spacer()
                     
                     if drinks.count > 0 {
@@ -117,12 +128,13 @@ struct DiscoverView: View {
                     Spacer()
                 }
             }
+            .frame(maxHeight: .infinity)
         }
     }
 }
 
 struct DiscoverView_Previews: PreviewProvider {
     static var previews: some View {
-        DiscoverView(tabSelection: .constant(0))
+        DiscoverView()
     }
 }

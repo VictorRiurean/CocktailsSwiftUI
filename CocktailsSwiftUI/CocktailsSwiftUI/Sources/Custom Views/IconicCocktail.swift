@@ -8,7 +8,19 @@
 import NukeUI
 import SwiftUI
 
+
 struct IconicCocktail: View {
+    
+    // MARK: Constants
+    
+    private enum Constants {
+        static let textMinimumScaleFactor: CGFloat = 0.5
+        static let textShadowRadius: CGFloat = 5.0
+        static let imageMinWidth: CGFloat = 100.0
+        static let imageMinHeight: CGFloat = 100.0
+        static let cornerRadius: CGFloat = 10.0
+    }
+    
     
     // MARK: Environment
     
@@ -26,30 +38,20 @@ struct IconicCocktail: View {
         VStack {
             Text(drink.strDrink)
                 .font(.headline)
-                .minimumScaleFactor(0.5)
+                .minimumScaleFactor(Constants.textMinimumScaleFactor)
                 .padding()
-                .shadow(radius: 5)
+                .shadow(radius: Constants.textShadowRadius)
             
             Spacer()
             
-            if drink.strDrink == "Surprise me!" {
-                Image(systemName: "questionmark.circle")
-                    .font(.largeTitle)
-                    .frame(minWidth: 100, minHeight: 100)
-                    .background(Color.teal)
-                    .clipShape(Circle())
-                    .padding()
-            } else {
-                LazyImage(url: URL(string: drink.strDrinkThumb!))
-                    .frame(width: 100, height: 100)
-                    .clipShape(RoundedRectangle(cornerRadius: 50))
-                    .padding()
-            }
+            LazyImage(url: URL(string: drink.strDrinkThumb!))
+                .frame(width: Constants.imageMinWidth, height: Constants.imageMinHeight)
+                .clipShape(Circle())
+                .padding()
         }
-        .frame(maxWidth: 150)
-        .frame(height: 200)
-        .background(colorScheme == .light ? AppColors.getRandomLightColor(with: drink.strDrink.getFirstCharacterLowercasedOrNil()) : AppColors.getRandomDarkColor(with: drink.strDrink.getFirstCharacterLowercasedOrNil()))
-        .cornerRadius(10)
+        .frame(maxWidth: .infinity)
+        .background(backgroundColor())
+        .cornerRadius(Constants.cornerRadius)
     }
     
     
@@ -57,5 +59,13 @@ struct IconicCocktail: View {
     
     init(drink: CocktailResponse) {
         self.drink = drink
+    }
+    
+    
+    // MARK: Private methods
+    
+    func backgroundColor() -> Color {
+        colorScheme == .light ? AppColors.getRandomLightColor(with: drink.strDrink.getFirstCharacterLowercasedOrNil())
+                              : AppColors.getRandomDarkColor(with: drink.strDrink.getFirstCharacterLowercasedOrNil())
     }
 }

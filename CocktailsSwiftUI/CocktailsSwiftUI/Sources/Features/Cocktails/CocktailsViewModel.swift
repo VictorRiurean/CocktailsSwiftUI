@@ -38,15 +38,16 @@ class CocktailsViewModel {
         
         var drinks: [CocktailResponse] = []
         
-        drinks = await withTaskGroup(of: CocktailResponse.self, returning: [CocktailResponse].self) { taskGroup in
+        drinks = await withTaskGroup(of: [CocktailResponse].self, returning: [CocktailResponse].self) { taskGroup in
             var drinks = [CocktailResponse]()
             
             for letter in letters {
-                taskGroup.addTask { await self.service.fetchDrink(with: letter) }
+                taskGroup.addTask { await self.service.fetchDrinks(with: letter) }
             }
             
             for await result in taskGroup {
-                drinks.append(result)
+                print(result)
+                drinks += result
             }
             
             return drinks

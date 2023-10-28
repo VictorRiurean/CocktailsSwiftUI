@@ -10,6 +10,7 @@
 		573B0CB92993971F00209AE9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0CB82993971F00209AE9 /* ImagePicker.swift */; };
 		573B0CBB2993A25800209AE9 /* UIImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573B0CBA2993A25800209AE9 /* UIImageTransformer.swift */; };
 		574FFF9029903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574FFF8F29903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift */; };
+		577877E32AED6217009695C4 /* CocktailWithLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577877E22AED6217009695C4 /* CocktailWithLetterView.swift */; };
 		578966252992653A00D8CDCF /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 578966242992653A00D8CDCF /* Lottie */; };
 		578966282992657400D8CDCF /* confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 578966272992657400D8CDCF /* confetti.json */; };
 		5789662A299265C800D8CDCF /* surprise-gift-box.json in Resources */ = {isa = PBXBuildFile; fileRef = 57896629299265C800D8CDCF /* surprise-gift-box.json */; };
@@ -30,7 +31,6 @@
 		57917BC9298288B600C507C2 /* TipDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57917BC8298288B600C507C2 /* TipDetailsView.swift */; };
 		5791F7E0298BC3CE002531C6 /* MyActivityItemSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5791F7DF298BC3CE002531C6 /* MyActivityItemSource.swift */; };
 		5791F7E2298BC3F5002531C6 /* UIApplication+Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5791F7E1298BC3F5002531C6 /* UIApplication+Window.swift */; };
-		5796F83A298949E50069057D /* FilteredCocktailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5796F839298949E50069057D /* FilteredCocktailsView.swift */; };
 		5796F83E29899E280069057D /* PredicateEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5796F83D29899E280069057D /* PredicateEnums.swift */; };
 		57C05B912ACD926E00479AEA /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C05B8F2ACD926E00479AEA /* Component.swift */; };
 		57C05B922ACD926E00479AEA /* Cocktail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C05B902ACD926E00479AEA /* Cocktail.swift */; };
@@ -81,6 +81,7 @@
 		573B0CB82993971F00209AE9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		573B0CBA2993A25800209AE9 /* UIImageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageTransformer.swift; sourceTree = "<group>"; };
 		574FFF8F29903BA500EE0BB1 /* String+FirstCharacterLowercasedOrNil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+FirstCharacterLowercasedOrNil.swift"; path = "CocktailsSwiftUI/Sources/Utilities/String+FirstCharacterLowercasedOrNil.swift"; sourceTree = SOURCE_ROOT; };
+		577877E22AED6217009695C4 /* CocktailWithLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailWithLetterView.swift; sourceTree = "<group>"; };
 		578966272992657400D8CDCF /* confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti.json; sourceTree = "<group>"; };
 		57896629299265C800D8CDCF /* surprise-gift-box.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "surprise-gift-box.json"; sourceTree = "<group>"; };
 		5789662B2992666300D8CDCF /* cool-chick.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "cool-chick.json"; sourceTree = "<group>"; };
@@ -97,7 +98,6 @@
 		57917BC8298288B600C507C2 /* TipDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDetailsView.swift; sourceTree = "<group>"; };
 		5791F7DF298BC3CE002531C6 /* MyActivityItemSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityItemSource.swift; sourceTree = "<group>"; };
 		5791F7E1298BC3F5002531C6 /* UIApplication+Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIApplication+Window.swift"; path = "CocktailsSwiftUI/Sources/Utilities/UIApplication+Window.swift"; sourceTree = SOURCE_ROOT; };
-		5796F839298949E50069057D /* FilteredCocktailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredCocktailsView.swift; sourceTree = "<group>"; };
 		5796F83D29899E280069057D /* PredicateEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredicateEnums.swift; sourceTree = "<group>"; };
 		57C05B8F2ACD926E00479AEA /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		57C05B902ACD926E00479AEA /* Cocktail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cocktail.swift; sourceTree = "<group>"; };
@@ -313,7 +313,7 @@
 			children = (
 				57CC60AD2978377C00C0D12A /* CocktailsView.swift */,
 				57CC60BC29796F4E00C0D12A /* CocktailsViewModel.swift */,
-				5796F839298949E50069057D /* FilteredCocktailsView.swift */,
+				577877E22AED6217009695C4 /* CocktailWithLetterView.swift */,
 			);
 			path = Cocktails;
 			sourceTree = "<group>";
@@ -536,6 +536,7 @@
 				57CC60CA297EB87E00C0D12A /* GlassesViewModel.swift in Sources */,
 				57CC60B329785B1F00C0D12A /* CocktailType.swift in Sources */,
 				578DAC592987D3ED00B94904 /* View+NavigationTitleHidden.swift in Sources */,
+				577877E32AED6217009695C4 /* CocktailWithLetterView.swift in Sources */,
 				57CC60BD29796F4E00C0D12A /* CocktailsViewModel.swift in Sources */,
 				57CC60E829802BEA00C0D12A /* IngredientAndMeasure.swift in Sources */,
 				57CC60DE2980193E00C0D12A /* CategoryDetailsView.swift in Sources */,
@@ -566,7 +567,6 @@
 				57CC608C2978005600C0D12A /* CocktailsSwiftUIApp.swift in Sources */,
 				57CC60DB297ED4E700C0D12A /* TipView.swift in Sources */,
 				57CC60AE2978377C00C0D12A /* CocktailsView.swift in Sources */,
-				5796F83A298949E50069057D /* FilteredCocktailsView.swift in Sources */,
 				578966392992AF6100D8CDCF /* AddIngredientView.swift in Sources */,
 				57CC60D9297ED48800C0D12A /* TipsView.swift in Sources */,
 				57CC60AA2978376200C0D12A /* GlassesView.swift in Sources */,

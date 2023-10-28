@@ -11,6 +11,18 @@ import SwiftUI
 
 struct CocktailsView: View {
     
+    // MARK: Constants
+    
+    private enum Constants {
+        static let progressViewSize: CGFloat = 100.0
+        static let cellWidth: CGFloat = UIScreen.main.bounds.width * 0.9
+    }
+    
+    // MARK: Appstorage
+    
+    @AppStorage("didFetchAllCocktails") var didFetchAllCocktails = false
+    
+    
     // MARK: Environment
     
     @Environment(\.modelContext) var modelContext
@@ -27,7 +39,6 @@ struct CocktailsView: View {
     @State private var isSearching = false
     @State private var drinkName = ""
     @State private var isShowingRandomCocktail = false
-    @State private var scrollToIndex = 0
     
     private var viewModel = CocktailsViewModel()
     
@@ -36,9 +47,9 @@ struct CocktailsView: View {
     
     private var searchResults: [Cocktail] {
         if searchText.isEmpty {
-            return Array(cocktails)
+            Array(cocktails)
         } else {
-            return cocktails.filter { $0.strDrink.localizedStandardContains(searchText.lowercased()) }
+            cocktails.filter { $0.strDrink.localizedStandardContains(searchText.lowercased()) }
         }
     }
     
@@ -51,93 +62,72 @@ struct CocktailsView: View {
     
     var body: some View {
         NavigationStack {
-            /// We use this for the scrollTo(index) functionality it offers (line 164)
-            ScrollViewReader { proxy in
-                /// We end up only using the Geometry reader to set the PaginationView HStack width,
-                /// as for some reason the List ignores the frame given it.
-                GeometryReader { geo in
-                    ZStack(alignment: .center) {
-                        // MARK: Empty
-                        if searchResults.isEmpty {
-                            VStack {
-                                Spacer()
-                                
-                                HStack {
-                                    Spacer()
-                                    
-                                    if viewModel.isLoading {
-                                        ProgressView()
-                                            .progressViewStyle(.circular)
-                                            .frame(width: 100, height: 100)
-                                    } else {
-                                        Text("No cocktail for that search term 😱 \n Don't panic, you can add it yourself from the Assistant tab.")
-                                            .fixedSize(horizontal: false, vertical: true)
-                                            .multilineTextAlignment(.center)
-                                    }
-                                    
-                                    Spacer()
-                                }
-                                
-                                Spacer()
+            if searchResults.isEmpty || viewModel.isLoading {
+                emptyStateView
+            } else {
+                ScrollView(.vertical) {
+                    LazyVStack {
+                        ForEach(lettersWithCocktails, id: \.self) { letter in
+                            Section(header: Text("")) {
+                                CocktailWithLetterView(
+                                    drinkName: $drinkName,
+                                    isShowingRandomCocktail: $isShowingRandomCocktail,
+                                    cocktails: searchResults,
+                                    letter: letter
+                                )
                             }
-                        } else {
-                            ZStack(alignment: .leading) {
-                                // MARK: List
-                                List {
-                                    ForEach(lettersWithCocktails, id: \.self) { letter in
-                                        Section(header: Text(letter)) {
-                                            CocktailWithLetterView(
-                                                drinkName: $drinkName,
-                                                isShowingRandomCocktail: $isShowingRandomCocktail,
-                                                cocktails: searchResults,
-                                                letter: letter
-                                            )
-                                        }
-                                        .id(lettersWithCocktails.firstIndex { $0 == letter }!)
-                                    }
-                                }
-                                .navigationTitle("Cocktails")
-                                .scrollIndicators(.hidden)
-                                .onChange(of: scrollToIndex) { _, newValue in
-                                    withAnimation {
-                                        proxy.scrollTo(newValue, anchor: .top)
-                                    }
-                                }
-                            
-                                // MARK: PaginationView
-                                VStack {
-                                    Spacer()
-                                    
-                                    HStack {
-                                        PaginationView(
-                                            scrollToIndex: $scrollToIndex,
-                                            letters: lettersWithCocktails.map { $0.capitalized }
-                                        )
-                                        .padding()
-                                        
-                                        Spacer()
-                                    }
-                                    
-                                    Spacer()
-                                }
-                                .frame(width: geo.size.width * 0.15)
-                            }
+                            .frame(width: Constants.cellWidth)
+                            .id(lettersWithCocktails.firstIndex { $0 == letter }!)
                         }
                     }
                 }
+                .navigationTitle("Cocktails")
+                .scrollIndicators(.hidden)
+                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             }
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
-            // MARK: onAppear
-            .onAppear {
-                if cocktails.isEmpty {
-                    Task {
-                        let cocktails = await viewModel.fetchDrinks()
-                            .map { Cocktail(response: $0, modelContext: modelContext) }
-                        
-                        cocktails.forEach { modelContext.insert($0) }
+        }
+        .onAppear {
+            if !didFetchAllCocktails {
+                Task {
+                    let cocktails = await viewModel.fetchDrinks()
+                        .map { Cocktail(response: $0, modelContext: modelContext) }
+                    
+                    cocktails.forEach { modelContext.insert($0) }
+                    
+                    if !cocktails.isEmpty {
+                        didFetchAllCocktails = true
                     }
                 }
             }
+        }
+    }
+    
+    
+    // MARK: ViewBuilder
+    
+    private var emptyStateView: some View {
+        VStack {
+            Spacer()
+            
+            HStack {
+                Spacer()
+                
+                if viewModel.isLoading {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .frame(width: Constants.progressViewSize, height: Constants.progressViewSize)
+                } else {
+                    ContentUnavailableView(
+                        "No cocktail for that search term 😱",
+                        systemImage: "xmark.circle",
+                        description: Text("Don't panic, you can add it yourself from the Assistant tab.")
+                    )
+                }
+                
+                Spacer()
+            }
+            
+            Spacer()
         }
     }
     
@@ -150,53 +140,5 @@ struct CocktailsView: View {
     
     private func sectionIsEmpty(_ letter: String) -> Bool {
         (searchResults.filter { $0.strDrink.lowercased().starts(with: letter) }).isEmpty
-    }
-}
-
-struct ListView_Previews: PreviewProvider {
-    static var previews: some View {
-        CocktailsView()
-    }
-}
-
-// MARK: - Extracted Views
-
-struct CocktailWithLetterView: View {
-    
-    // MARK: State
-    
-    @Binding var drinkName: String
-    @Binding var isShowingRandomCocktail: Bool
-    
-    
-    // MARK: Private properties
-    
-    fileprivate let cocktails: [Cocktail]
-    fileprivate let letter: String
-    
-    
-    // MARK: Body
-    
-    var body: some View {
-        ForEach(cocktail(with: letter)) { cocktail in
-            /// This was the only navigation that was working properly with LazyVStack.
-            /// Also, swipeAction and onDelete don't work properly with LazyVStacks.
-            CocktailCellView(drinkName: cocktail.strDrink, letter: letter)
-                .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
-                .onTapGesture {
-                    drinkName = cocktail.strDrink
-                    isShowingRandomCocktail = true
-                }
-                .navigationDestination(isPresented: $isShowingRandomCocktail) {
-                    CocktailDetailsView(name: drinkName)
-                }
-        }
-    }
-    
-    
-    // MARK: Private methods
-    
-    fileprivate func cocktail(with letter: String) -> [Cocktail] {
-        cocktails.filter { $0.strDrink.lowercased().starts(with: letter) }
     }
 }

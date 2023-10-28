@@ -11,13 +11,22 @@ import SwiftUI
 
 struct CocktailTypeView: View {
     
+    // MARK: Constants
+    
+    private enum Constants {
+        static let containerStackSpacing: CGFloat = 10.0
+        static let pickerWidth: CGFloat = UIScreen.main.bounds.width * 0.75
+        static let lazyVGridInsets: EdgeInsets = EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+    }
+    
+    
     // MARK: FetchRequests
     
     @Query var cocktails: [Cocktail]
     
     
     // MARK: State
-    /// Passed as binding to picker at line 38
+    
     @State private var showAlcoholic: Bool = true
     @State private var drinks: [CocktailResponse] = []
     
@@ -34,7 +43,7 @@ struct CocktailTypeView: View {
     // MARK: Body
     
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: Constants.containerStackSpacing) {
             Text("Discover the cocktails in this category")
             
             Picker("", selection: $showAlcoholic) {
@@ -42,7 +51,7 @@ struct CocktailTypeView: View {
                 Text("Non Alcoholic").tag(false)
             }
             .pickerStyle(.segmented)
-            .frame(maxWidth: UIScreen.main.bounds.width * 0.75)
+            .frame(maxWidth: Constants.pickerWidth)
             .onChange(of: showAlcoholic) {
                 if cocktails.isEmpty {
                     Task {
@@ -65,12 +74,17 @@ struct CocktailTypeView: View {
                             NavigationLink {
                                 CocktailDetailsView(name: cocktail.strDrink)
                             } label: {
-                                DrinkByCategoryView(drink: CocktailResponse(strDrink: cocktail.strDrink, strDrinkThumb: cocktail.strDrinkThumb))
+                                DrinkByCategoryView(
+                                    drink: CocktailResponse(
+                                        strDrink: cocktail.strDrink,
+                                        strDrinkThumb: cocktail.strDrinkThumb
+                                    )
+                                )
                             }
                         }
                     }
                 }
-                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                .padding(Constants.lazyVGridInsets)
             }
     
             Spacer()
@@ -99,130 +113,3 @@ struct CocktailTypeView_Previews: PreviewProvider {
         CocktailTypeView(showAlcoholic: true)
     }
 }
-
-// MARK: CATCH-22
-/// The plan was to have a ListView that was not embedded inside a NavigationStack
-/// and just show the CocktailDetailsView in a sheet. I wanted to toggle the
-/// showSheet boolean inside an onTapGesture modifier added to the cells and
-/// also set the cocktail to be shown in that closure. This turned out not to work
-/// because we are dealing with a list, so we can't know the navigation destination
-/// beforehand, but when we try to pass the cocktail to be shown via a @State var
-/// we get a crash (line 203) because the viewBuilder inside the sheet is set when
-/// the parent view is first created, thus name is nil (this happens because @State
-/// variables are stored outside their containig view). And if instead we remove
-/// the @State modifier then we get a runtime error because we are trying to
-/// mutate an immutable self (trying to change it inside a mutating func yields
-/// the same error), hence the name of the struct. If you want to try all this
-/// out, you can just change the cell type in discoverView line 131 to a Catch22View.
-struct Catch22View: View {
-    
-    // MARK: Environment
-    
-    @Environment(\.modelContext) var modelContext
-    
-    
-    // MARK: FetchRequests
-    
-    @Query var cocktails: [Cocktail]
-    
-    
-    // MARK: State
-    
-    @State private var showAlcoholic: Bool = true
-    @State private var drinks: [CocktailResponse] = []
-    @State private var showCocktailDetails: Bool = false
-    @State private var name: String?
-    
-    
-    // MARK: Private properties
-    
-    private let viewModel = CocktailTypeViewModel()
-    private var filteredCocktails: [Cocktail] {
-        return showAlcoholic ? cocktails.filter { $0.strAlcoholic == "Alcoholic" }
-                             : cocktails.filter { $0.strAlcoholic != "Alcoholic" }
-    }
-    
-    
-    // MARK: Body
-    
-    var body: some View {
-        VStack(spacing: 10) {
-            Text("Discover the cocktails in this category")
-            
-            Picker("What is your favorite color?", selection: $showAlcoholic) {
-                Text("Alcoholic").tag(true)
-                Text("Non Alcoholic").tag(false)
-            }
-            .pickerStyle(.segmented)
-            .frame(maxWidth: UIScreen.main.bounds.width * 0.75)
-            .onChange(of: showAlcoholic) {
-                if cocktails.isEmpty {
-//                    Task {
-//                        drinks = await viewModel.fetchDrinks(with: type ? .alcoholic : .nonAlcoholic)
-//                    }
-                }
-            }
-            
-            List {
-                if cocktails.isEmpty {
-                    ForEach(drinks) { drink in
-                        CocktailCellView(drinkName: drink.strDrink)
-                            .buttonStyle(PlainButtonStyle())
-                            .onTapGesture {
-                                name = drink.strDrink
-                                
-                                showCocktailDetails = true
-                            }
-                    }
-                    /// By default this apparently performs method with animation (I'm assuming this
-                    /// based on the fact that there is a constructor named performWithoutAnimation)
-                    .onDelete(perform: deleteDrink)
-                } else {
-                    ForEach(filteredCocktails) { cocktail in
-                        CocktailCellView(drinkName: cocktail.strDrink)
-                            .buttonStyle(PlainButtonStyle())
-                            .onTapGesture {
-                                name = cocktail.strDrink
-                                
-                                showCocktailDetails = true
-                            }
-                    }
-                    .onDelete(perform: deleteCocktail)
-                }
-            }
-            
-            Spacer()
-        }
-        .navigationBarBackButtonTitleHidden()
-        .navigationTitle(showAlcoholic ? "Alcoholic" : "Non Alcoholic")
-        .onAppear {
-            if cocktails.isEmpty {
-                Task {
-                    drinks = await viewModel.fetchDrinks(with: showAlcoholic ? .alcoholic : .nonAlcoholic)
-                }
-            }
-        }
-        .sheet(isPresented: $showCocktailDetails) {
-            CocktailDetailsView(name: name!)
-        }
-    }
-    
-    
-    // MARK: Lifecycle
-    
-    init(showAlcoholic: Bool) {
-        self.showAlcoholic = showAlcoholic
-    }
-    
-    
-    // MARK: Private methods
-    
-    private func deleteDrink(at offsets: IndexSet) {
-        drinks.remove(atOffsets: offsets)
-    }
-    
-    private func deleteCocktail(at offsets: IndexSet) {
-        modelContext.delete(cocktails[offsets.first!])
-    }
-}
-

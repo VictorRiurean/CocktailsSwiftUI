@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct CategoryDetailsViewModel {
     
     // MARK: Private properties

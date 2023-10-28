@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     
     // MARK: Environment
@@ -15,8 +16,7 @@ struct ContentView: View {
     
     
     // MARK: State
-    /// This is passed as a binding via DiscoverView's init in order
-    /// to be able to programmatically change tabs at line 106
+   
     @State private var selectedTab = 0
     
     
@@ -24,7 +24,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            DiscoverView(tabSelection: $selectedTab)
+            DiscoverView()
                 .tabItem {
                     Label("Discover", systemImage: "binoculars")
                 }
@@ -54,10 +54,7 @@ struct ContentView: View {
                 }
                 .tag(4)
         }
-        /// Sets tintColor for tabView
         .accentColor(colorScheme == .light ? AppColors.darkGray : .orange)
-        /// This prevents tabView background from glitching when something is pushed on the
-        /// navigationStack and the initial view has a scroll with content underneath it
         .onAppear {
             let tabBarAppearance = UITabBarAppearance()
             

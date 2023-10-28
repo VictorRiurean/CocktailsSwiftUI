@@ -33,6 +33,7 @@ struct CocktailCellView: View {
     
     private var letter: String?
     
+    
     // MARK: Body
     
     var body: some View {
@@ -65,6 +66,7 @@ struct CocktailCellView: View {
                 if let drink = cocktails.first {
                     Text(drink.strDrink)
                         .font(.headline)
+                        .minimumScaleFactor(0.5)
                     
                     Spacer()
                     

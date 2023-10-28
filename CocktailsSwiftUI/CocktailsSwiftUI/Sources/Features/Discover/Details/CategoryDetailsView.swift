@@ -7,7 +7,15 @@
 
 import SwiftUI
 
+
 struct CategoryDetailsView: View {
+    
+    // MARK: Constants
+    
+    private enum Constants {
+        static let lazyVGridInsets: EdgeInsets = EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+    }
+    
     
     // MARK: State
     
@@ -24,7 +32,6 @@ struct CategoryDetailsView: View {
     
     var body: some View {
         ScrollView(.vertical) {
-            /// This is how you make a two column grid
             LazyVGrid(columns: [GridItem(), GridItem()]) {
                 ForEach(drinks) { drink in
                     NavigationLink(destination: CocktailDetailsView(name: drink.strDrink)) {
@@ -33,7 +40,7 @@ struct CategoryDetailsView: View {
                     .buttonStyle(PlainButtonStyle())
                 }
             }
-            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            .padding(Constants.lazyVGridInsets)
         }
         .navigationBarBackButtonTitleHidden()
         .onAppear {
